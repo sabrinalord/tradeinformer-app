@@ -1,0 +1,1 @@
+# tradeinformer-app
