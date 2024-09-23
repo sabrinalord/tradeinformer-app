@@ -32,8 +32,8 @@ interface PostsData {
   }
 
 const GET_POSTS = gql`
-   query GETPOSTS {
-  posts(where: {categoryName: "interviews"}) {
+   query GETPOSTS($categoryName: String!) {
+  posts(where: {categoryName: $categoryName}) {
     edges {
       node {
             id
@@ -60,16 +60,21 @@ const GET_POSTS = gql`
 }
 `;
 
-export default function Posts() {
-    const { loading, error, data } = useQuery<{ posts: PostsData }>(GET_POSTS);
+
+interface PostsProps {
+  category: string;
+}
+
+export default function Posts({category}: PostsProps) {
+    const { loading, error, data } = useQuery<PostsData>(GET_POSTS, {
+      variables: { categoryName: category}
+    });
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
     return (
-        <div>
-            <h1>Posts</h1>
-
+        
             <ul>
         {data?.posts.edges.map(({ node }) => (
           <li key={node.id}>
@@ -79,16 +84,17 @@ export default function Posts() {
               <div dangerouslySetInnerHTML={{ __html: node.excerpt }} />
               {node.featuredImage && (
                 <img
+                  loading="lazy"
                   src={node.featuredImage.node.sourceUrl}
                   alt={node.featuredImage.node.altText || 'Featured Image'}
                   width="300"
-                  height="auto" // Adjust height according to your layout
+                  height="auto" 
                 />
               )}
             </div>
           </li>
         ))}
       </ul>
-        </div>
+       
     )
 }

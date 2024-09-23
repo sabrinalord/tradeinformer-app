@@ -1,60 +1,26 @@
+'use client';
+
 import Image from "next/image";
 import Posts from "./components/Posts";
+import Navbar from "./components/Navbar"
+
 
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Posts />
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  return ( 
+    <div>
+    <Navbar></Navbar>
+
+    <div className="container mx-auto sm:mx-8 md:mx-16 lg:mx-32">
+      <section className =" grid grid-cols-1 sm:grid-cols-12 gap-4">
+         <div className="flex justify-center p-4 col-span-1 sm:col-span-3"><Posts category="tech-news"></Posts></div>
+         <div className="flex justify-center p-4 col-span-1 sm:col-span-5"><Posts category="newsletter"></Posts></div>
+         <div className="flex justify-center  p-4 col-span-1 sm:col-span-3"><Posts category="broker-news"></Posts></div>
+      </section>
+
     </div>
+    </div>
+
+
   );
 }
