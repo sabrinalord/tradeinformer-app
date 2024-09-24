@@ -1,42 +1,58 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
+import client from "../../lib/apolloClient";
+import { GET_MENUS } from '../queries/getMenus';
+import { GetStaticProps } from 'next'
 
 
 
-const GET_NAVBAR = gql`
-query GET_NAVBAR {
-  menuItems(where: {location: HEADER_MENU, parentId: "0"}) {
-    edges {
-      node {
-        id
-        label
-        url
-        path
-      }
-    }
-  }
-}
-`
-interface MenuItemsData {
-    menuItems: {
-      edges: {
-        node: {
-          id: string;
-          label: string;
-          url: string;
-        };
-      }[];
-    };
-  }
+
+
+// const GET_NAVBAR = gql`
+// query GET_NAVBAR {
+//     menuItems(where: {location: HEADER_MENU, parentId: "0"}) {
+//     edges {
+//       node {
+//         ...M
+//         childItems {
+//           edges {
+//             node {
+//               id
+//               label
+//               url
+//               path
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+// `
+// interface MenuItemsData {
+//     menuItems: {
+//       edges: {
+//         node: {
+//           id: string;
+//           label: string;
+//           url: string;
+//         };
+//       }[];
+//     };
+//   }
+
+
 
 
 const Navbar = () => {
     const [isMobileMenuOpen, setIsMobileMenuOption] = useState(false);
-    const {error , data } = useQuery<MenuItemsData> (GET_NAVBAR);
+   // const {error , data } = useQuery<MenuItemsData> (GET_NAVBAR);
 
-    if (error) return <div>Error: {error.message}</div>;
+   // if (error) return <div>Error: {error.message}</div>;
 
 
     const toggleMobileNavOpen = () => {
@@ -50,11 +66,11 @@ const Navbar = () => {
             </div>
            
            <div className="col-span-1 sm:col-span-6 flex">
-                {data?.menuItems.edges.map(({node}) => (
+                {/* {data?.menuItems.edges.map(({node}) => (
                             <div className="px-4 flex items-center">
                                 <Link key={node.id} href={node.url}>{node.label}</Link>
                             </div>
-                ))}
+                ))} */}
            </div>
 
         </nav>
