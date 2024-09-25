@@ -1,4 +1,13 @@
-export interface Post {
+ 
+  export interface PostsResponse {
+    data: {
+      posts: {
+        nodes: Post[];
+      };
+    };
+  }
+
+  export interface Post {
     id: string;
     slug: string;
     title: string;
@@ -18,11 +27,25 @@ export interface Post {
       }; 
     } ; 
   }
-  
-  export interface PostsResponse {
-    data: {
-      posts: {
-        nodes: Post[];
-      };
+
+  export interface MenuResponse {
+   data:{
+    menuItems:{
+        edges:  MenuItemEdge[];
     };
+   }
   }
+
+  export interface MenuItemEdge{
+    node:MenuItem;
+  }
+  
+export interface MenuItem {
+                id: string;
+              label: string;
+              url: string;
+              path: string;
+              childItems?: {  
+                edges: MenuItemEdge[];
+              };  
+        };

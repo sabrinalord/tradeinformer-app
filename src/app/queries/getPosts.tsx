@@ -1,7 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const GET_POSTS = `
-query GetPosts {
+export const GET_POSTS = `query GetPosts {
   posts(first: 100) {
       nodes {
         id

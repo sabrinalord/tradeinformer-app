@@ -14,12 +14,13 @@ interface CategorySectionProps {
 const CategorySection: React.FC<CategorySectionProps> =  ({filteredPosts, numberOfPosts}) => {
 
   const categoryName = filteredPosts[0].categories.nodes[0].name;
-  filteredPosts.slice(0, numberOfPosts);
+
+ const displayedPosts =  filteredPosts.slice(0, numberOfPosts);
   
     return (
       <ul>
         <h1>{categoryName}</h1>
-        {filteredPosts.map((post) => (
+        {displayedPosts.map((post) => (
 
             <li key={post.id}>
             <div>

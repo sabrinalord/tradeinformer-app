@@ -3,47 +3,19 @@
 import Image from "next/image";
 import CategorySection from "./components/CategorySection";
 import Navbar from "./components/Navbar";
-import { GET_POSTS } from "./queries/getPosts";
-import { PostsResponse, Post } from "./types";
-
-
-const apiUrl : string = process.env.GRAPHQL_API_URL as string;
-
-if (!apiUrl) {
-  throw new Error('The GRAPHQL_API_URL environment variable is not defined');
-}
-
+import { PostsResponse, Post, MenuResponse, MenuItem } from "./types";
+import { fetchPosts, fetchHeaderMenu } from "@/lib/fetchData";
 
 
   export default async function Home() {
 
+      const postsData: PostsResponse  = await fetchPosts();
+      let posts: Post[] = postsData?.data?.posts?.nodes || [];
 
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-        query: GET_POSTS,
-        }),
-        next: {revalidate: 10},
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch posts');
-      }
-    
-      const data: PostsResponse  = await response.json();
-    
-      let posts: Post[] = data?.data?.posts?.nodes || [];
+      const headerMenuData: MenuResponse = await fetchHeaderMenu();
+      let menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
+      console.log('menu items are:',menuItems)
 
-
-
-    
-      const interviewPosts = posts.filter((post) =>  {
-        return post.categories.nodes.some((cat) => cat.slug === "interviews")
-      }) 
-      
       const filterByCategoryName = (category: string, posts: Post[]): Post[] => {
        return posts.filter((post) => post.categories.nodes.some((cat) => cat.slug === category))
       }
@@ -51,8 +23,7 @@ if (!apiUrl) {
 
   return ( 
     <div>
-    <Navbar></Navbar>
-
+   <Navbar headerItems={menuItems}></Navbar>
     <div className="container mx-auto sm:mx-8 md:mx-16 lg:mx-32">
       <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4">
          <div className="flex justify-center p-4 col-span-1 sm:col-span-3">
@@ -73,3 +44,4 @@ if (!apiUrl) {
 
   );
 }
+
