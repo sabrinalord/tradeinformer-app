@@ -22,26 +22,28 @@ import { fetchPosts, fetchHeaderMenu } from "@/lib/fetchData";
 
 
   return ( 
-    <div>
-   <Navbar headerItems={menuItems}></Navbar>
-    <div className="container mx-auto sm:mx-8 md:mx-16 lg:mx-32">
-      <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4">
-         <div className="flex justify-center p-4 col-span-1 sm:col-span-3">
-          <CategorySection filteredPosts={filterByCategoryName("tech-news", posts)} numberOfPosts={5}></CategorySection>
-         </div>
-         <div className="flex justify-center p-4 col-span-1 sm:col-span-5">
-         <CategorySection filteredPosts={filterByCategoryName("newsletter", posts)} numberOfPosts={5}></CategorySection>
+    <div className="overflow-hidden">
+      <Navbar headerItems={menuItems}></Navbar>
+      <div className="container mx-auto sm:mx-8 md:mx-16 lg:mx-32">
+          <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4">
+            <div className="p-4 col-span-1 sm:col-span-3">
+              <CategorySection filteredPosts={filterByCategoryName("tech-news", posts)} numberOfPosts={5}></CategorySection>
+            </div>
 
-         </div>
-         <div className="flex justify-center  p-4 col-span-1 sm:col-span-3">
-         <CategorySection filteredPosts={filterByCategoryName("broker-news", posts)} numberOfPosts={5}></CategorySection>
-         </div>
-      </main>
+            <div className=" p-4 col-span-1 sm:col-span-5">
+            <CategorySection filteredPosts={filterByCategoryName("featured", posts)} numberOfPosts={1}></CategorySection>
+              <div>
+              <CategorySection filteredPosts={filterByCategoryName("newsletter", posts)} numberOfPosts={2} flexDirection="flex-row"></CategorySection>
+              </div>
+            </div>
 
+            <div className=" p-4 col-span-1 sm:col-span-3">
+            <CategorySection filteredPosts={filterByCategoryName("broker-news", posts)} numberOfPosts={5}></CategorySection>
+            </div>
+
+          </main>
+      </div>
     </div>
-    </div>
-
-
   );
 }
 

@@ -11,7 +11,6 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
     const [isMobileMenuOpen, setIsMobileMenuOption] = useState(false);
-    console.log("headerItems are:", headerItems);
 
     const toggleMobileNavOpen = () => {
         setIsMobileMenuOption(!isMobileMenuOpen);
@@ -25,8 +24,22 @@ const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
            
            <div className="col-span-1 sm:col-span-6 flex">
                 {headerItems.map((item) => (
-                            <div className="px-4 flex items-center" key={item.id}>
+                            <div className="px-4 flex items-center group relative" key={item.id}>
+                                {/* Parent Menu Item */}
                                 <Link  href={item.url}>{item.label}</Link>
+                                    
+                                {/* Child Menu Items */}
+                               {item.childItems  && (
+
+                                <ul className="absolute py-2 left-0 mt-2  hidden group-hover:block top-[60px] text-black bg-white">  
+                                  {item.childItems.edges.map(({node}) => (
+                                    <li className="min-w-[200px]  p-2">
+                                        <Link key={node.id} href={node.url}>{node.label}</Link>
+                                        </li>
+                                  ))}
+                                  </ul>
+                               
+                               )}
                             </div>
                 ))}
            </div>
