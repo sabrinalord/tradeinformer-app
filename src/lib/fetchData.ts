@@ -1,4 +1,5 @@
 import { GET_HEADER_MENU, GET_FOOTER_MENU } from "@/app/queries/getMenus";
+import { GET_POST_BY_SLUG } from "@/app/queries/getPostBySlug";
 import { GET_POSTS } from "@/app/queries/getPosts";
 
 const apiUrl: string = process.env.GRAPHQL_API_URL as string;
@@ -8,9 +9,8 @@ if (!apiUrl) {
   }
 
   
-async function fetchGraphQL(query: string) {
+async function fetchGraphQL(query: string, variables?: {slug: string}) {
     try {
-        console.log(` here is the query ${query}`)
         const response = await fetch(apiUrl, {
             method: "POST",
             headers: {
@@ -18,6 +18,7 @@ async function fetchGraphQL(query: string) {
             },
             body: JSON.stringify({
             query: query,
+            variables: variables,
             }),
             next: {revalidate: 10},
           });
@@ -47,4 +48,31 @@ export async function fetchHeaderMenu() {
 
 export async function fetchPosts() {
     return fetchGraphQL(GET_POSTS);
+}
+
+export async function fetchPostBySlug(slug: string) { 
+    const query = `query GetPostBySlug($slug: String!) {
+        postBy(slug: $slug) {
+          title
+          content
+          date
+          categories {
+            edges {
+              node {
+                name
+                slug
+              }
+            }
+          }
+          featuredImage {
+            node {
+              sourceUrl
+              altText
+            }
+          }
+        }
+      }`
+      
+    const variables = { slug };
+    return fetchGraphQL(query, variables);
 }

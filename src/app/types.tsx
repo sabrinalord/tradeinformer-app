@@ -7,6 +7,13 @@
     };
   }
 
+  export interface SinglePostResponse {
+    data: {
+      postBy: Post
+    };
+  }
+
+
   export interface Post {
     id: string;
     slug: string;

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Post } from '../types'
+import { Post } from '../types';
+import Link from 'next/link'; 
 
 
 interface CategorySectionProps {
@@ -15,6 +16,8 @@ const CategorySection: React.FC<CategorySectionProps> =  ({
  flexDirection = 'flex-col'}) => {
 
   const categoryName = filteredPosts[0].categories.nodes[0].name;
+  const categorySlug = filteredPosts[0].categories.nodes[0].slug;
+
 
  const displayedPosts =  filteredPosts.slice(0, numberOfPosts);
   
@@ -23,22 +26,23 @@ const CategorySection: React.FC<CategorySectionProps> =  ({
           {categoryName != "Featured" && (<h1>{categoryName}</h1>) }
           <div className={`flex ${flexDirection}`}>
           {displayedPosts.map((post) => (  
-              <article key={post.id}>
+              <article className="p-2" key={post.id}>
+                <Link href={`/${categorySlug}/${post.slug}`}>
                  {post.featuredImage && (
                       <img
                         loading="lazy"
                         src={post.featuredImage.node.sourceUrl}
                         alt={post.featuredImage.node.altText || 'Featured Image'}
-                        width="300"
+                        width= {flexDirection === 'flex-col' ? "100%" : "300"}
                         height="auto" 
                       />
                     )}
-                <h2>{post.title}</h2>
-                <p>{post.date}</p>
+                <h2 className="font-bold">{post.title}</h2>
+                <h2 className="font-bold">{post.slug}</h2>
                 <div dangerouslySetInnerHTML={{ __html: post.excerpt }}></div>
-                   
+                </Link>
               </article>
-         ))};
+         ))}
          </div> 
         </div>
 

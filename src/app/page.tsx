@@ -14,7 +14,6 @@ import { fetchPosts, fetchHeaderMenu } from "@/lib/fetchData";
 
       const headerMenuData: MenuResponse = await fetchHeaderMenu();
       let menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
-      console.log('menu items are:',menuItems)
 
       const filterByCategoryName = (category: string, posts: Post[]): Post[] => {
        return posts.filter((post) => post.categories.nodes.some((cat) => cat.slug === category))
@@ -42,6 +41,8 @@ import { fetchPosts, fetchHeaderMenu } from "@/lib/fetchData";
             </div>
 
           </main>
+
+
       </div>
     </div>
   );
