@@ -3,6 +3,12 @@ import {fetchPosts, fetchPostBySlug, fetchHeaderMenu } from "../../../lib/fetchD
 import Image from "next/image";
 import Navbar from "@/app/components/Navbar";
 
+
+export const revalidate = 10;
+export const dynamicParams = true;
+
+
+
 export async function generateStaticParams() {
 
     const postsData: PostsResponse  = await fetchPosts();
@@ -39,7 +45,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <Navbar headerItems={menuItems}></Navbar>
         <div className="container mx-auto sm:mx-8 md:mx-16 lg:mx-32">
             <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4">
-            <article className="col-span-8">
+            <article className="col-span-8 p-4">
                 <h1>{post.title}</h1>
                 <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
             </article>

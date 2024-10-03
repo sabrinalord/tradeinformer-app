@@ -17,10 +17,9 @@ async function fetchGraphQL(query: string, variables?: {slug: string}) {
               "Content-Type": "application/json"
             },
             body: JSON.stringify({
-            query: query,
-            variables: variables,
+                  query: query,
+                  variables: variables,
             }),
-            next: {revalidate: 10},
           });
           
          await handleResponseErrors(response)
