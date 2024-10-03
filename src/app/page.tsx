@@ -12,10 +12,10 @@ export const dynamicParams = true;
   export default async function Home() {
 
       const postsData: PostsResponse  = await fetchPosts();
-      let posts: Post[] = postsData?.data?.posts?.nodes || [];
+      const posts: Post[] = postsData?.data?.posts?.nodes || [];
 
       const headerMenuData: MenuResponse = await fetchHeaderMenu();
-      let menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
+      const menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
 
       const filterByCategoryName = (category: string, posts: Post[]): Post[] => {
        return posts.filter((post) => post.categories.nodes.some((cat) => cat.slug === category))
