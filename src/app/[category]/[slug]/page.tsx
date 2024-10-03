@@ -1,6 +1,5 @@
 import { Post, SinglePostResponse, PostsResponse, MenuResponse, MenuItem} from "@/app/types";
 import {fetchPosts, fetchPostBySlug, fetchHeaderMenu } from "../../../lib/fetchData"
-import Image from "next/image";
 import Navbar from "@/app/components/Navbar";
 
 
@@ -12,7 +11,7 @@ export const dynamicParams = true;
 export async function generateStaticParams() {
 
     const postsData: PostsResponse  = await fetchPosts();
-    let posts: Post[] = postsData?.data?.posts?.nodes || [];
+    const posts: Post[] = postsData?.data?.posts?.nodes || [];
 
     if (!Array.isArray(posts)){
         console.error('fetchPosts did not return an array');
@@ -28,7 +27,7 @@ export async function generateStaticParams() {
 export default async function Page({ params }: { params: { slug: string } }) {
 
     const headerMenuData: MenuResponse = await fetchHeaderMenu();
-    let menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
+    const menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
     console.log('menu items are:',menuItems)
     const { slug } = params;
 

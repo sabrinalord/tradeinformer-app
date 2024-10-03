@@ -1,6 +1,7 @@
 import React from 'react';
 import { Post } from '../types';
 import Link from 'next/link'; 
+import Image from 'next/image';
 
 
 interface CategorySectionProps {
@@ -19,6 +20,7 @@ const CategorySection: React.FC<CategorySectionProps> =  ({
   const categorySlug = filteredPosts[0].categories.nodes[0].slug;
 
  const displayedPosts =  filteredPosts.slice(0, numberOfPosts);
+
   
     return (
         <div>
@@ -33,13 +35,7 @@ const CategorySection: React.FC<CategorySectionProps> =  ({
               <article className="p-2 mb-8" key={post.id}>
                 <Link href={`/${categorySlug}/${post.slug}`}>
                  {post.featuredImage && (
-                      <img
-                        loading="lazy"
-                        src={post.featuredImage.node.sourceUrl}
-                        alt={post.featuredImage.node.altText || 'Featured Image'}
-                        width= {flexDirection === 'flex-col' ? "100%" : "300"}
-                        height="auto" 
-                      />
+                    <Image  className="p-4" src={post.featuredImage.node.sourceUrl} width={flexDirection === 'flex-col' ? "800" : "300"} height={280} alt={post.featuredImage.node.altText || 'Featured Image'} ></Image> 
                     )}
 
                 

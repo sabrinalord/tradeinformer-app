@@ -46,8 +46,9 @@ export async function fetchHeaderMenu() {
 
 
 export async function fetchPosts() {
-    return fetchGraphQL(GET_POSTS);
+  return fetchGraphQL(GET_POSTS);
 }
+
 
 export async function fetchPostBySlug(slug: string) { 
     const query = `query GetPostBySlug($slug: String!) {
@@ -75,3 +76,9 @@ export async function fetchPostBySlug(slug: string) {
     const variables = { slug };
     return fetchGraphQL(query, variables);
 }
+
+
+export async function fetchFooterMenu() {
+  return fetchGraphQL(GET_FOOTER_MENU);
+}
+

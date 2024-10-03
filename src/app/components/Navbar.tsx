@@ -9,11 +9,11 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
-    const [isMobileMenuOpen, setIsMobileMenuOption] = useState(false);
+    // const [isMobileMenuOpen, setIsMobileMenuOption] = useState(false);
 
-    const toggleMobileNavOpen = () => {
-        setIsMobileMenuOption(!isMobileMenuOpen);
-    }
+    // const toggleMobileNavOpen = () => {
+    //     setIsMobileMenuOption(!isMobileMenuOpen);
+    // }
 
     return (
         <nav className="bg-navy text-white grid grid-cols-2 sm:grid-cols-12 gap-4">
