@@ -1,6 +1,5 @@
 
 
-import Image from "next/image";
 import CategorySection from "./components/CategorySection";
 import Navbar from "./components/Navbar";
 import { PostsResponse, Post, MenuResponse, MenuItem } from "./types";

@@ -1,5 +1,4 @@
 import { GET_HEADER_MENU, GET_FOOTER_MENU } from "@/app/queries/getMenus";
-import { GET_POST_BY_SLUG } from "@/app/queries/getPostBySlug";
 import { GET_POSTS } from "@/app/queries/getPosts";
 
 const apiUrl: string = process.env.GRAPHQL_API_URL as string;

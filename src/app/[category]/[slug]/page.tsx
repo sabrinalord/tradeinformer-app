@@ -32,7 +32,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     const { slug } = params;
 
     const postsData: SinglePostResponse  = await fetchPostBySlug(slug);
-    let post: Post = postsData?.data?.postBy || [];
+    const post: Post = postsData?.data?.postBy || [];
 
 
     if (!post) {
