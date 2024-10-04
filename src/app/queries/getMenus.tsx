@@ -10,8 +10,8 @@ export const GET_HEADER_MENU = `query GetHeaderMenu {
           childItems {
             edges {
               node {
-                 id
-                 label
+                id
+                label
                 url
                 path
               }

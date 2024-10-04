@@ -5,6 +5,8 @@
 :root {
   --background: #ffffff;
   --navy: #01175e;
+  --babyblue: #06aeec;
+  --warmYellow: rgb(255, 221, 0);
 }
 
 @media (prefers-color-scheme: dark) {
