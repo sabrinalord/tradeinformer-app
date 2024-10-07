@@ -32,15 +32,22 @@ const CategorySection: React.FC<CategorySectionProps> =  ({
             ) }
           <div className={`flex ${flexDirection}`}>
           {displayedPosts.map((post) => (  
-              <article className="p-2 mb-8" key={post.id}>
-                <Link href={`/${categorySlug}/${post.slug}`}>
-                 {post.featuredImage && (
-                    <Image  className="p-4" src={post.featuredImage.node.sourceUrl} width={flexDirection === 'flex-col' ? "800" : "300"} height={280} alt={post.featuredImage.node.altText || 'Featured Image'} ></Image> 
-                    )}
+              <article className={`pb-4 m-2 border-b  sm:p-2 ${categoryName === "Featured" ? "mb-12" : ""}`} key={post.id}>
+                <Link  href={`/${categorySlug}/${post.slug}`}>
+               
+                  <div className={` ${categoryName === "Featured" ? "grid-cols-1" : "grid-cols-3"} grid sm:grid-cols-1 gap-2 sm:gap-4`}>
+                      <div className="col-span-1">
+                        {post.featuredImage && (
+                          <Image className="border min-w-50 max-w-50" src={post.featuredImage.node.sourceUrl} width={`${categoryName === "Featured" ? "800" : "400"}`} height="400" alt={post.featuredImage.node.altText || 'Featured Image'} ></Image> 
+                          )}
+                      </div>
+                      <div className="col-span-2">
+                        <h2 className={`font-bold ${ categoryName === "Featured" ? "text-xl" : "text-lg/6"}`}>{post.title}</h2>
+                      </div>
+                  </div>
 
-                
-                <h2 className={`font-bold mt-2 mb-2 ${ categoryName === "Featured" ? "text-xl" : "text-lg"}`}>{post.title}</h2>
-                <div dangerouslySetInnerHTML={{ __html: post.excerpt }}></div>
+                  <div className={`mt-2 ${ categoryName === "Featured" ? "text-base" : "text-sm/5"}`} dangerouslySetInnerHTML={{ __html: post.excerpt }}>
+                  </div>
                 </Link>
               </article>
          ))}

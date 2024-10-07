@@ -11,7 +11,8 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         navy: "var(--navy)",
-        babyblue: "var(--babyblue)",
+        darkNavy: "var(--darkNavy)",
+        babyBlue: "var(--babyBlue)",
         warmYellow:"var(--warmYellow)"
       },
     },

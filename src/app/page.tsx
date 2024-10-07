@@ -4,6 +4,7 @@ import CategorySection from "./components/CategorySection";
 import Navbar from "./components/Navbar";
 import { PostsResponse, Post, MenuResponse, MenuItem } from "./types";
 import { fetchPosts, fetchHeaderMenu } from "@/lib/fetchData";
+import Head from 'next/head';
 
 export const revalidate = 10;
 export const dynamicParams = true;
@@ -23,31 +24,44 @@ export const dynamicParams = true;
 
 
   return ( 
+    <>
+    <Head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TradeInformer</title>
+
+    </Head> 
     <div className="overflow-hidden">
       <Navbar headerItems={menuItems}></Navbar>
       <div className="container mx-auto">
           <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
-            
-            <div className="p-4 col-span-1 sm:col-span-3">
-              <CategorySection filteredPosts={filterByCategoryName("tech-news", posts)} numberOfPosts={5}></CategorySection>
+
+          {/* Mobile Layout */}
+
+          <div className="col-span-1 sm:col-span-12 lg:hidden p-2 sm:p-4 ">
+            <CategorySection filteredPosts={filterByCategoryName("featured", posts)} numberOfPosts={1}></CategorySection>
+          </div>
+
+           {/* Desktop Layout */}
+
+            <div className="col-span-1 sm:col-span-6 lg:col-span-3 p-2 sm:p-4 ">
+              <CategorySection filteredPosts={filterByCategoryName("tech-news", posts)} numberOfPosts={3}></CategorySection>
             </div>
 
-            <div className=" p-4 col-span-1 sm:col-span-6 border-l-2 border-r-2 border-gray-100">
+            <div className="col-span-1  lg:col-span-6 border-l-2 border-r-2 border-gray-100 hidden lg:block p-2 sm:p-4 ">
               <CategorySection filteredPosts={filterByCategoryName("featured", posts)} numberOfPosts={1}></CategorySection>
               <div>
                <CategorySection filteredPosts={filterByCategoryName("newsletter", posts)} numberOfPosts={2} flexDirection="flex-row"></CategorySection>
               </div>
             </div>
 
-            <div className=" p-4 col-span-1 sm:col-span-3">
-              <CategorySection filteredPosts={filterByCategoryName("broker-news", posts)} numberOfPosts={5}></CategorySection>
+            <div className="col-span-1 sm:col-span-6 lg:col-span-3 p-2 sm:p-4 ">
+              <CategorySection filteredPosts={filterByCategoryName("broker-news", posts)} numberOfPosts={3}></CategorySection>
             </div>
 
           </main>
-
-
+          </div>
       </div>
-    </div>
+  </>
   );
 }
 
