@@ -26,12 +26,12 @@ const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
 
                 <div className="flex flex-col sm:flex-row ml-auto justify-items-center">
                     <div className="text-right mr-2">
-                        <p className="font-bold text-[12px] sm:text-[18px]">Subscribe to TradeInformer</p>
-                        <p className=" hidden lg:block sm:text-sm">The industry's favourite newsletter in your inbox every Monday morning. </p>
+                        <p className="font-bold hidden sm:block text-[12px] sm:text-[18px]">Subscribe to TradeInformer</p>
+                        <p className="ml-8 text-[12px] sm:text-sm">The industry's favourite newsletter in your inbox every Monday morning. </p>
                      
                     </div>
                     <button className=" ml-auto max-w-28 text-black max-h-10 text-xs font-semibold px-2 rounded bg-warmYellow mt-2 mb-2 mr-2 flex items-center gap-1">
-                        Subscribe <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6">
+                        Subscribe<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                         </svg>
                     </button>
