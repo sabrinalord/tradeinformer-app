@@ -21,7 +21,7 @@ const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
                 <div className="flex flex-col sm:flex-row ml-auto justify-items-center">
                     <div className="text-right mr-2">
                         <p className="font-bold hidden sm:block text-[12px] sm:text-[18px]">Subscribe to TradeInformer</p>
-                        <p className="ml-8 text-[12px] sm:text-sm">The industry's favourite newsletter in your inbox every Monday morning. </p>
+                        <p className="ml-8 text-[12px] sm:text-sm">The industry&apos;s favourite newsletter in your inbox every Monday morning. </p>
                      
                     </div>
                     <button className=" ml-auto max-w-28 text-black max-h-10 text-xs font-semibold px-2 rounded bg-warmYellow mt-2 mb-2 mr-2 flex items-center gap-1">
