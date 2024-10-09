@@ -13,15 +13,15 @@ const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
 
     return (
        <div className="bg-navy p-4 mb-20 text-white relative">
-         <div className="flex sm:justify-between mb-8">
-                <Link className="max-w-60 sm:max-w-96" href="/">
+         <div className="flex justify-between mb-4 lg:mb-8">
+                <Link className="max-w-60 sm:max-w-96 mr-4" href="/">
                     <Image  src="/images/TradeInformer_Logo_White.avif" width={350} height={350} alt="TradeInformer logo" ></Image> 
                 </Link> 
 
                 <div className="flex flex-col sm:flex-row ml-auto justify-items-center">
                     <div className="text-right mr-2">
-                        <p className="font-bold hidden sm:block text-[12px] sm:text-[18px]">Subscribe to TradeInformer</p>
-                        <p className="ml-8 text-[12px] sm:text-sm">The industry&apos;s favourite newsletter in your inbox every Monday morning. </p>
+                        <p className="font-bold hidden lg:block text-[12px] sm:text-[18px]">Subscribe to TradeInformer</p>
+                        <p className=" hidden sm:block ml-8 text-[12px] sm:text-sm">The industry&apos;s favourite newsletter in your inbox every Monday morning.</p>
                      
                     </div>
                     <button className=" ml-auto max-w-28 text-black max-h-10 text-xs font-semibold px-2 rounded bg-warmYellow mt-2 mb-2 mr-2 flex items-center gap-1">
@@ -36,9 +36,9 @@ const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
                 <ul className="flex  w-full ">
                     { headerItems.map((item) => (
                         item.label != "WhatsApp Updates" ? ( 
-                        <li className="p-4 border-l border-gray-500" key={item.id}>
+                        <li className={`p-2 mr-4 sm:p-4  border-gray-500 ${item.label != "News" ? "border-l" : "" }`} key={item.id}>
                             <button className="sm:pr-16"  onClick={() => setSelectedParent(item.label)}>
-                                <Link className={` w-fit text-[1.3em] font-bold pb-1 pr-4 ${ selectedParent == item.label ? "border-b-4 border-b-babyblue" : "" }`} href={item.url} >
+                                <Link className={`w-fit sm:text-[1.3em] font-bold pb-1 pr-4 ${ selectedParent == item.label ? "border-b-4 border-b-babyBlue" : "" }`} href={item.url} >
                                 {item.label}
                                 </Link>
                             </button>
