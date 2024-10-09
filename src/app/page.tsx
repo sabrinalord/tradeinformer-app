@@ -2,6 +2,7 @@
 
 import CategorySection from "./components/CategorySection";
 import Navbar from "./components/Navbar";
+import SocialNavbar from "./components/SocialNavbar";
 import { PostsResponse, Post, MenuResponse, MenuItem } from "./types";
 import { fetchPosts, fetchHeaderMenu } from "@/lib/fetchData";
 import Head from 'next/head';
@@ -27,11 +28,10 @@ export const dynamicParams = true;
     <>
     <Head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TradeInformer</title>
-
     </Head> 
     <div className="overflow-hidden">
       <Navbar headerItems={menuItems}></Navbar>
+      <SocialNavbar></SocialNavbar>
       <div className="container mx-auto">
           <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
 
