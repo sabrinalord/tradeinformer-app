@@ -19,18 +19,18 @@ const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
 
     return (
        <div className="bg-navy p-4 mb-20 text-white relative">
-         <div className="flex justify-between items-center mb-8">
-                <Link href="/">
+         <div className="flex sm:justify-between mb-8">
+                <Link className="max-w-60 sm:max-w-96" href="/">
                     <Image  src="/images/TradeInformer_Logo_White.avif" width={350} height={350} alt="TradeInformer logo" ></Image> 
                 </Link> 
 
-                <div className="flex justify-items-center">
+                <div className="flex flex-col sm:flex-row ml-auto justify-items-center">
                     <div className="text-right mr-2">
-                        <p className="font-bold text-[18px]">Subscribe to TradeInformer</p>
-                        <p className="text-sm">Get the industry's favourite newsletter in your inbox every Monday morning. </p>
+                        <p className="font-bold text-[12px] sm:text-[18px]">Subscribe to TradeInformer</p>
+                        <p className=" hidden lg:block sm:text-sm">The industry's favourite newsletter in your inbox every Monday morning. </p>
                      
                     </div>
-                    <button className=" text-black max-h-10 text-xs font-semibold px-2 rounded bg-warmYellow mb-2 mr-2 flex items-center gap-1">
+                    <button className=" ml-auto max-w-28 text-black max-h-10 text-xs font-semibold px-2 rounded bg-warmYellow mt-2 mb-2 mr-2 flex items-center gap-1">
                         Subscribe <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                         </svg>
