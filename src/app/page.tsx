@@ -3,9 +3,9 @@
 import CategorySection from "./components/CategorySection";
 import Navbar from "./components/Navbar";
 import SocialNavbar from "./components/SocialNavbar";
+import DynamicHeroAd from "./components/DynamicHeroAd";
 import { PostsResponse, Post, MenuResponse, MenuItem } from "./types";
 import { fetchPosts, fetchHeaderMenu } from "@/lib/fetchData";
-import Head from 'next/head';
 
 export const revalidate = 10;
 export const dynamicParams = true;
@@ -26,13 +26,11 @@ export const dynamicParams = true;
 
   return ( 
     <>
-    <Head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    </Head> 
     <div className="overflow-hidden">
       <Navbar headerItems={menuItems}></Navbar>
       <SocialNavbar></SocialNavbar>
       <div className="container mx-auto">
+        <DynamicHeroAd></DynamicHeroAd>
           <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
 
           {/* Mobile Layout */}

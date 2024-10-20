@@ -3,12 +3,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { MenuItem } from '../types';
+import { NewsletterSignUp } from './NewsletterSignUp';
+import { schema } from "../registrationSchema";
+import { z } from "zod";
+
+
 
 interface NavbarProps {
     headerItems: MenuItem[];
 }
 
 const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
+
     const [selectedParent, setSelectedParent] = useState<string | null>("News");   
 
     return (
@@ -19,27 +25,10 @@ const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
                 </Link> 
 
                 <div className="flex flex-col sm:flex-row ml-auto justify-items-center">
-                    <div className="text-right mr-2">
-                        <p className="font-bold hidden lg:block text-[12px] sm:text-[18px]">Subscribe to TradeInformer</p>
-                        <p className=" hidden sm:block ml-8 text-[12px] sm:text-sm">The industry&apos;s favourite newsletter in your inbox every Monday morning.</p>
-                     
+                
+                    <div>                      
+                         <NewsletterSignUp></NewsletterSignUp>
                     </div>
-               
-                    <Link className="mr-2" href="">
-                        <button 
-                        type="button"
-                        data-twe-ripple-init
-                        data-twe-ripple-color="light"
-                        className="flex bg-warmYellow  hover:bg-[#ceb513]  mb-2 h-9 rounded px-4 py-2.5 text-sm items-center font-medium text-black shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg" >
-                               Subscribe
-                            <span className="[&>svg]:h-4 [&>svg]:w-4 ml-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                                </svg>
-                            </span>
-                        
-                        </button>
-            </Link>
 
                 </div>           
          </div>
