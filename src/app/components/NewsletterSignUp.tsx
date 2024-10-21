@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import {Input} from  "@/components/ui/input";
 import { Form, FormControl,   FormField, FormItem, FormMessage} from "@/components/ui/form";
-
+import { useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { schema } from "../registrationSchema";
@@ -10,6 +10,8 @@ import { z } from "zod";
 
 
 export const NewsletterSignUp = () => {
+  const [message, setMessage] = useState<string | null>(null); // Combined message state
+
     const form = useForm<z.infer<typeof schema>>({
         resolver:zodResolver(schema),
         defaultValues:{
@@ -19,18 +21,39 @@ export const NewsletterSignUp = () => {
 
     const onSubmit = async (data: z.infer<typeof schema>) => {
       console.log("Submitted data:", data); 
+      setMessage(null);
+
   
-      const response = await fetch("/api/newsletterSubscribe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      
+      try {
+        const response = await fetch("/api/newsletterSubscribe", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
   
-      const result = await response.json();
-      console.log(result); 
-  }
+        const result = await response.json();
+        console.log(result);
+  
+        if (response.ok && result.success) {
+          // Set success message if the subscription was successful
+          setMessage("Thank you for subscribing to TradeInformer!");
+          form.reset(); // Reset form after successful submission
+        } else {
+          // Handle error message for email already subscribed
+          if (result.message === "This email is already subscribed.") {
+            setMessage("This email is already subscribed.");
+          } else {
+            setMessage(result.message || 'Something went wrong. Please try again.');
+          }
+        }
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        setMessage('An unexpected error occurred. Please try again.');
+      }
+    };
 
 
     return (
@@ -52,7 +75,15 @@ export const NewsletterSignUp = () => {
                   <FormControl>
                     <Input  placeholder="Your email address" {...field} />
                   </FormControl>
-                  <FormMessage className="font-white" /> 
+                  {form.formState.errors.email && (
+                    <FormMessage className="font-white">
+                      {form.formState.errors.email.message}
+                    </FormMessage>
+                  )}
+                  {message && (
+          <FormMessage className={message.includes("Thank you") ? "text-white" : "text-destructive"}>
+            {message}
+          </FormMessage>)}
                 </FormItem>
               )}
             />
