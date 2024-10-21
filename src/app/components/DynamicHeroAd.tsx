@@ -8,17 +8,19 @@ const DynamicHeroAd: React.FC = () => {
 
   const [adIndex, setAdIndex] = useState<number>(0);
 
-  useEffect(() => {
-   const randomIndex = Math.floor(Math.random() * images.length);
-   setAdIndex(randomIndex);
-  }, [])
-
   const images = [
     "https://tradeinformer.com/wp-content/uploads/2024/08/850x165.png", 
     "https://tradeinformer.com/wp-content/uploads/2024/06/centroid900X175.png",
     "https://tradeinformer.com/wp-content/uploads/2024/04/TeamMember_850x165-jpg.webp"
   ]
 
+
+  useEffect(() => {
+   const randomIndex = Math.floor(Math.random() * images.length);
+   setAdIndex(randomIndex);
+  }, [images.length])
+
+ 
   const links = [
     "https://www.spotware.com/contact-us?utm_source=tradeinformer&utm_medium=email&utm_campaign=for_ibs_week_1&of_tpem=[subscriber:email]",
     "https://centroidsol.com/",

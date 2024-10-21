@@ -4,8 +4,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { MenuItem } from '../types';
 import { NewsletterSignUp } from './NewsletterSignUp';
-import { schema } from "../registrationSchema";
-import { z } from "zod";
 
 
 
