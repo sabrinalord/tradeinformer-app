@@ -12,7 +12,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 
 export const NewsletterSignUp = () => {
   const [message, setMessage] = useState<string | null>(null); 
-  let [showSignUp, setShowSignUp] = useState<boolean>(false);
+  const [showSignUp, setShowSignUp] = useState<boolean>(false);
   const scrollThreshold = 300;
 
   useEffect(() => {

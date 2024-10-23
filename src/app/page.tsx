@@ -1,6 +1,7 @@
 
 
 import CategorySection from "./components/CategorySection";
+import { CategorySection1Larege4Small } from "./components/CategorySection1Large4Small";
 import Navbar from "./components/Navbar";
 import SocialNavbar from "./components/SocialNavbar";
 import DynamicHeroAd from "./components/DynamicHeroAd";
@@ -37,28 +38,42 @@ export const dynamicParams = true;
           <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
 
           {/* Mobile Layout */}
-
-          <div className="col-span-1 sm:col-span-12 lg:hidden p-2 sm:p-4 ">
-            <CategorySection filteredPosts={filterByCategoryName("featured", posts)} numberOfPosts={1}></CategorySection>
-          </div>
-
-           {/* Desktop Layout */}
-
-            <div className="col-span-1 sm:col-span-6 lg:col-span-3 p-2 sm:p-4 ">
-              <CategorySection filteredPosts={filterByCategoryName("tech-news", posts)} numberOfPosts={3}></CategorySection>
-            </div>
-
-            <div className="col-span-1  lg:col-span-6 border-l-2 border-r-2 border-gray-100 hidden lg:block p-2 sm:p-4 ">
+          
+            <div className="col-span-1 sm:col-span-12 lg:hidden p-2 sm:p-4 ">
               <CategorySection filteredPosts={filterByCategoryName("featured", posts)} numberOfPosts={1}></CategorySection>
-              <div>
-               <CategorySection filteredPosts={filterByCategoryName("newsletter", posts)} numberOfPosts={2} flexDirection="flex-row"></CategorySection>
+            </div>
+
+            {/* Desktop Layout */}
+
+              <div className="col-span-1 sm:col-span-6 lg:col-span-3 p-2 sm:p-4 ">
+                <CategorySection filteredPosts={filterByCategoryName("tech-news", posts)} numberOfPosts={3}></CategorySection>
               </div>
-            </div>
 
-            <div className="col-span-1 sm:col-span-6 lg:col-span-3 p-2 sm:p-4 ">
-              <CategorySection filteredPosts={filterByCategoryName("broker-news", posts)} numberOfPosts={3}></CategorySection>
-            </div>
+              <div className="col-span-1  lg:col-span-6 border-l-2 border-r-2 border-gray-100 hidden lg:block p-2 sm:p-4 ">
+                <CategorySection filteredPosts={filterByCategoryName("featured", posts)} numberOfPosts={1}></CategorySection>
+                <div>
+                <CategorySection filteredPosts={filterByCategoryName("newsletter", posts)} numberOfPosts={2} flexDirection="flex-row"></CategorySection>
+                </div>
+              </div>
 
+              <div className="col-span-1 sm:col-span-6 lg:col-span-3 p-2 sm:p-4 ">
+                <CategorySection filteredPosts={filterByCategoryName("broker-news", posts)} numberOfPosts={3}></CategorySection>
+              </div>
+
+              <div className="col-span-1 sm:col-span-12">
+                <DynamicHeroAd></DynamicHeroAd>
+              </div>
+
+              <div className="col-span-1 sm:col-span-6 lg:col-span-9 p-2 sm:p-4 ">
+                <CategorySection filteredPosts={filterByCategoryName("institutional-trading", posts)} numberOfPosts={3} flexDirection = 'flex-row'></CategorySection>
+              </div>
+              <div className="col-span-1 sm:col-span-6 lg:col-span-3 p-2 sm:p-4 ">
+                <h3>Ad</h3>
+              </div>
+
+              <div className="col-span-1 sm:col-span-6 lg:col-span-9 p-2 sm:p-4 ">
+                <CategorySection1Larege4Small filteredPosts={filterByCategoryName("interviews", posts)} numberOfPosts={4} flexDirection = 'flex-row'></CategorySection1Larege4Small>
+              </div>
           </main>
           </div>
       </div>
