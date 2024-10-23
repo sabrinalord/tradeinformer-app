@@ -6,6 +6,7 @@ import SocialNavbar from "./components/SocialNavbar";
 import DynamicHeroAd from "./components/DynamicHeroAd";
 import { PostsResponse, Post, MenuResponse, MenuItem } from "./types";
 import { fetchPosts, fetchHeaderMenu } from "@/lib/fetchData";
+import { NewsletterSignUp } from "./components/NewsletterSignUp";
 
 export const revalidate = 10;
 export const dynamicParams = true;
@@ -26,6 +27,8 @@ export const dynamicParams = true;
 
   return ( 
     <>
+      <NewsletterSignUp></NewsletterSignUp>
+
     <div className="overflow-hidden">
       <Navbar headerItems={menuItems}></Navbar>
       <SocialNavbar></SocialNavbar>

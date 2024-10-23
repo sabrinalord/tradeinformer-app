@@ -9,6 +9,15 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		keyframes: {
+			slideDown: {
+			  '0%': { transform: 'translateY(-100%)' },
+			  '100%': { transform: 'translateY(0)' },
+			},
+		  },
+		  animation: {
+			slideDown: 'slideDown 0.5s ease-out forwards', 
+		  },
   		colors: {
   			background: 'hsl(var(--background))',
   			navy: 'var(--navy)',
@@ -59,7 +68,10 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		screens: {
+			'custom': '492px', // Custom breakpoint at 492px
+		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

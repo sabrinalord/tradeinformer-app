@@ -3,7 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { MenuItem } from '../types';
-import { NewsletterSignUp } from './NewsletterSignUp';
+import { NewsletterSignUpInNav } from './NewsletterSignUpInNav';
+
 
 
 
@@ -22,12 +23,8 @@ const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
                     <Image  src="/images/TradeInformer_Logo_White.avif" width={350} height={350} alt="TradeInformer logo" ></Image> 
                 </Link> 
 
-                <div className="flex flex-col sm:flex-row ml-auto justify-items-center">
-                
-                    <div>                      
-                         <NewsletterSignUp></NewsletterSignUp>
-                    </div>
-
+                <div className="hidden sm:flex flex-col sm:flex-row ml-auto justify-items-center">
+                     <NewsletterSignUpInNav></NewsletterSignUpInNav>
                 </div>           
          </div>
  
