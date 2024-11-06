@@ -1,8 +1,14 @@
- 
+
+
   export interface PostsResponse {
     data: {
       posts: {
         nodes: Post[];
+        pageInfo: {
+          endCursor: string | null
+          hasNextPage: boolean
+        }
+        
       };
     };
   }
@@ -56,3 +62,18 @@ export interface MenuItem {
                 edges: MenuItemEdge[];
               };  
         };
+
+        export type AdvertType = 
+        | "desktop_billboard_top"
+        | "mobile_billboard_top"
+        | "desktop_billboard_middle"
+        | "mobile_billboard_middle"
+        | "sidebar";
+    
+    export interface AdvertData {
+        type: AdvertType;
+        image_url: string;
+        target_url: string;
+        country?: string; 
+    }
+    

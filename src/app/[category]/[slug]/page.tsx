@@ -28,7 +28,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
     const headerMenuData: MenuResponse = await fetchHeaderMenu();
     const menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
-    console.log('menu items are:',menuItems)
     const { slug } = params;
 
     const postsData: SinglePostResponse  = await fetchPostBySlug(slug);
