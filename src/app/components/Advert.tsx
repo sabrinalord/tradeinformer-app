@@ -35,9 +35,10 @@ export default function Advert(props: AdvertProps) {
             try {
 
                 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+                console.log(`apiBaseUrl is: ${apiBaseUrl}`)
 
 
-                const response = await fetch(`${apiBaseUrl}/api/advert?type=${type}&country=${formattedCountryQuery}`, {
+                const response = await fetch(`/api/advert?type=${type}&country=${formattedCountryQuery}`, {
                     method: 'GET',
                     headers: {
                       'Content-Type': 'application/json', 

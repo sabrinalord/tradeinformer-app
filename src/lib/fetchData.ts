@@ -1,5 +1,7 @@
 import { GET_HEADER_MENU, GET_FOOTER_MENU } from "@/app/queries/getMenus";
+import { GET_POST_BY_SLUG } from "@/app/queries/getPostBySlug";
 import { GET_POSTS } from "@/app/queries/getPosts";
+import { GET_POSTS_BY_CATEGORY } from "@/app/queries/getPostsByCategory";
 import {Post, PostsResponse} from "@/app/types";
 const apiUrl: string = process.env.GRAPHQL_API_URL as string;
 
@@ -12,6 +14,7 @@ if (!apiUrl) {
     slug?: string;
     first?: number;
     after?: string | null;
+    [key: string]: any;
   }
 
   
@@ -49,20 +52,6 @@ async function handleResponseErrors(response: Response){
 export async function fetchHeaderMenu() {
     return fetchGraphQL(GET_HEADER_MENU);
 }
-
-
-// export async function fetchPosts(
-//                       first: number = 100,
-//                       after: string | null = null, 
-//                       slug: string | null) {
-//   const variables = {
-//     first,
-//     after,
-//     slug
-//   };
-
-//   return fetchGraphQL(GET_POSTS, variables);
-// }
 
 
 
@@ -109,39 +98,57 @@ export async function fetchPosts(): Promise<PostsResponse> {
   };
 }
 
+export async function fetchPostsByCategory(category:string): Promise<PostsResponse> {
+  let allPosts: Post[] = [];
+  let hasNextPage = true;
+  let afterCursor: string | null = null;
+  let finalEndCursor: string | null = null;
 
 
+  while (hasNextPage) {
+    const variables = {
+      slug: "",
+      first:100,        
+      after: afterCursor,
+      category: category 
+    };
 
+    const data = await fetchGraphQL(GET_POSTS_BY_CATEGORY, variables) as PostsResponse;
 
+    if (!data || !data.data || !data.data.posts) {
+      throw new Error("Error fetching posts");
+    }
 
+    const newPosts = data.data.posts.nodes;
+    allPosts = [...allPosts, ...newPosts];
 
+    afterCursor = data.data.posts.pageInfo.endCursor;
+    hasNextPage = data.data.posts.pageInfo.hasNextPage;
+
+    finalEndCursor = afterCursor;
+
+  }
+
+  return {
+    data: {
+      posts: {
+        nodes: allPosts,
+        pageInfo: {
+          endCursor: finalEndCursor,
+          hasNextPage: false, // We've fetched all pages, so set hasNextPage to false
+        },
+      },
+    },
+  };
+}
 
 export async function fetchPostBySlug(slug: string) { 
-    const query = `query GetPostBySlug($slug: String!) {
-        postBy(slug: $slug) {
-          title
-          content
-          date
-          categories {
-            edges {
-              node {
-                name
-                slug
-              }
-            }
-          }
-          featuredImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-      }`
-      
     const variables = { slug };
-    return fetchGraphQL(query, variables);
+    return fetchGraphQL(GET_POST_BY_SLUG, variables);
 }
+
+
+
 
 
 export async function fetchFooterMenu() {

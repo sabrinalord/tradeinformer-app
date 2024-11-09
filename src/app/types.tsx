@@ -1,17 +1,18 @@
 
 
-  export interface PostsResponse {
+
+  export type PostsResponse = {
     data: {
       posts: {
         nodes: Post[];
         pageInfo: {
-          endCursor: string | null
-          hasNextPage: boolean
-        }
-        
+          endCursor: string | null;
+          hasNextPage: boolean;
+        };
       };
     };
-  }
+  } | null;
+  
 
   export interface SinglePostResponse {
     data: {
