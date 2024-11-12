@@ -44,7 +44,7 @@ export const dynamicParams = true;
               <div className="block lg:hidden col-span-1 sm:col-span-12 lg:col-span-3 p-2 sm:p-4 ">
                 <CategorySection filteredPosts={filterByCategoryName("featured", posts)} numberOfPosts={1}></CategorySection>
                 <div>
-                <CategorySection filteredPosts={filterByCategoryName("newsletter", posts)} numberOfPosts={4} flexDirection="flex-row" firstPostHasLargeImage={false}></CategorySection>
+                <CategorySection filteredPosts={filterByCategoryName("newsletter", posts)} inlineTitle={true} numberOfPosts={4} firstPostHasLargeImage={false}></CategorySection>
                 </div>
               </div>
 
@@ -76,23 +76,29 @@ export const dynamicParams = true;
               </div>
 
 
-              <div className="col-span-1  sm:col-span-12 lg:col-span-9  p-2 sm:p-4 ">
-                <CategorySection filteredPosts={filterByCategoryName("interviews", posts)} numberOfPosts={4} showExtract={false} gridLayout={true}></CategorySection>
+              <div className="col-span-1  sm:col-span-12 lg:col-span-9  p-2 sm:p-4 lg:flex ">
+                  <div className="col-span-1  sm:col-span-12 lg:col-span-6  p-2 sm:p-4 ">
+                  < CategorySection filteredPosts={filterByCategoryName("interviews", posts)} numberOfPosts={1} showExtract={false} ></CategorySection>
+                  </div>
+
+                  <div className="col-span-1  sm:col-span-12 lg:col-span-3  p-2 sm:p-4 ">
+                  <CategorySection filteredPosts={filterByCategoryName("interviews", posts)} numberOfPosts={3} showCategoryTitle={false} offset={1} firstPostHasLargeImage={false} inlineTitle={true} showExtract={false} ></CategorySection>
+                  </div>
               </div>
 
-              <div className="sm:col-span-3  p-2 sm:p-4 ">
+              <div className="col-span-1 sm:col-span-12 lg:col-span-3   p-2 sm:p-4 ">
                 <CategorySection filteredPosts={filterByCategoryName("guest-posts", posts)} numberOfPosts={2} showExtract={false}></CategorySection>
               </div>
 
-              <div className=" col-span-1 sm:col-span-6 p-2 sm:p-4 ">
+              <div className=" col-span-1 sm:col-span-12 lg:col-span-6  p-2 sm:p-4 ">
                 <YouTubePlayer></YouTubePlayer>
               </div>
 
-              <div className=" col-span-1 sm:col-span-6 p-2 sm:p-4 ">
+              <div className=" col-span-1 sm:col-span-12 lg:col-span-6 p-2 sm:p-4 ">
                 <PodcastPlayer></PodcastPlayer>
               </div>
              
-             <div className="col-span-1 sm:col-span-6 lg:col-span-9 p-2 sm:p-4 ">
+             <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4 ">
                 <CategorySection filteredPosts={filterByCategoryName("start-a-broker", posts)} numberOfPosts={3} flexDirection = 'flex-row'></CategorySection>
                 <div className="mt-4">
                 <CategorySection filteredPosts={filterByCategoryName("fx-cfd-licensing", posts)} numberOfPosts={4} flexDirection = 'flex-row'></CategorySection>

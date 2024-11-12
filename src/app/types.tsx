@@ -64,6 +64,7 @@ export interface MenuItem {
               label: string;
               url: string;
               path: string;
+              slug: string;
               childItems?: {  
                 edges: MenuItemEdge[];
               };  

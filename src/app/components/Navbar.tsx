@@ -41,11 +41,13 @@ const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
              
                                 {item.label === selectedParent && item.childItems?.edges?.length ? (
                                     <ul className="absolute bg-darkNavy  w-full overflow-x-auto z-0 whitespace-nowrap flex pb-4 mt-4 left-0 pt-3 border-t border-gray-500">
-                                        {item.childItems.edges.map((child)=> (
+                                        {item.childItems.edges.map((child)=> {
+                                            return (
                                             <li className="ml-8 " key={child.node.id}> 
-                                                <Link href={child.node.url}>{child.node.label}</Link>
+                                                <Link href={`${child.node.path}`}>{child.node.label}</Link>
                                             </li>
-                                        ))}
+                                            );
+})}
                                     </ul> 
                                     ): null 
                                 } 

@@ -1,6 +1,7 @@
 import { Post, SinglePostResponse, PostsResponse, MenuResponse, MenuItem} from "@/app/types";
 import {fetchPosts, fetchPostBySlug, fetchHeaderMenu, fetchPostsByCategory } from "../../../lib/fetchData"
 import Navbar from "@/app/components/Navbar";
+
 import CategorySection from "@/app/components/CategorySection";
 import Advert from "@/app/components/Advert";
 import Image from 'next/image';
@@ -11,7 +12,6 @@ import styles from './Page.module.css';
 
 export const revalidate = 10;
 export const dynamicParams = true;
-
 
 
 export async function generateStaticParams() {

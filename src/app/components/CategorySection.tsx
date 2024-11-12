@@ -12,7 +12,8 @@ interface CategorySectionProps {
   showImage?: boolean;
   showExtract?: boolean;
   flexDirection?: 'flex-col' | 'flex-row'; 
-  gridLayout?: boolean;
+  inlineTitle? : boolean;
+  showCategoryTitle? : boolean;
 
 }
 
@@ -25,7 +26,9 @@ const CategorySection: React.FC<CategorySectionProps> =  ({
   showImage = true,
   showExtract = true,
  flexDirection = 'flex-col',
- gridLayout = false }) => {
+ inlineTitle = false,
+ showCategoryTitle = true
+ }) => {
 
   if (!filteredPosts.length) return null;
 
@@ -37,7 +40,7 @@ const CategorySection: React.FC<CategorySectionProps> =  ({
  const firstPost = displayedPosts[0];
 
  const renderCategoryHeader = () => (
-  categoryName !== "Featured" && (
+  categoryName !== "Featured" &&  showCategoryTitle && (
     <span className="flex items-center mb-4">
       <h1 className="ml-2 font-bold uppercase text-lg">{categoryName}</h1>
       <div className="flex-1 border-t border-gray-300 ml-2"></div>
@@ -47,20 +50,20 @@ const CategorySection: React.FC<CategorySectionProps> =  ({
 
 
     return (
-        <div>
+        <div >
           {renderCategoryHeader()}
 
           {/* ----- First Post ----- */}
          
-          <div className={`flex flex-col ${gridLayout ? "lg:flex-row" : `lg:${flexDirection}`}`}>
+          <div className={`flex flex-col lg:${flexDirection} `}>
             {firstPost && (
-              <article className={`pb-4 m-2 ${gridLayout ? "lg:w-[30vw]" : ""} ${flexDirection == "flex-col" ? "border-b" : "" }  sm:p-2 }`} key={firstPost.id}>
+              <article className={`pb-4 m-2 ${flexDirection == "flex-col" ? "border-b" : "" }  sm:p-2 }`} key={firstPost.id}>
               <Link  href={`/${categorySlug}/${firstPost.slug}`}>
-                <div className={`${firstPostHasLargeImage ? "" : "flex flex-row"}`}>
+                <div className={` ${inlineTitle? "lg:flex lg:flex-row" : ""} ${firstPostHasLargeImage ? "" : "flex flex-row"}`}>
                     <div className={` ${showImage ? "block" : "hidden"}`}>
                       {firstPost.featuredImage &&  (
                         <div>
-                        <Image className={`border object-cover ${firstPostHasLargeImage ? "" : "w-[35vw]"}  `}
+                        <Image className={`border object-cover ${inlineTitle ? "w-[35vw] lg:w-[10vw] mr-2" : ""} `}
                               src={firstPost.featuredImage.node.sourceUrl} 
                               width="800"
                               height="800" 
@@ -82,18 +85,18 @@ const CategorySection: React.FC<CategorySectionProps> =  ({
             </article>
             )}
 
-         {/* ----- Remaining Posts in the Loop ----- */}
+            {/* ----- Remaining Posts in the Loop ----- */}
 
-         <div className={`${gridLayout ? "flex flex-col" : `lg:flex lg:${flexDirection}`}`}>
+            <div className={`flex flex-col lg:${flexDirection} `}>
 
-          {displayedPosts.map((post, index) => (  
+            {displayedPosts.map((post, index) => (  
              index !== 0 && (
               <article className={`pb-4 m-2 ${flexDirection == "flex-col" ? "border-b" : "" }  sm:p-2`} key={post.id}>
                 <Link  href={`/${categorySlug}/${post.slug}`}>
-                  <div className={`flex  ${gridLayout ? "flex-col lg:flex-row" : "lg:flex-col"}  `}>
+                  <div className={` flex  ${inlineTitle? "lg:flex lg:flex-row" : "lg:flex-col"} `}>
                       <div className={`${showImage ? "block" : "hidden"} flex-shrink-0`}>
                         {post.featuredImage &&  (
-                          <Image className={`border object-cover  ${gridLayout ? "lg:w-[10vw]" : "w-[35vw]"}`}
+                          <Image className={`border object-cover  ${inlineTitle ? "w-[35vw] lg:w-[10vw] mr-2" : "w-[35vw]"}`}
                                 src={post.featuredImage.node.sourceUrl} 
                                 width="800"
                                 height="800"  
@@ -102,15 +105,15 @@ const CategorySection: React.FC<CategorySectionProps> =  ({
                           )}
                           
                       </div>
-                        <h2 className={`font-bold text-lg/6 ${showImage ? "ml-2" : "" } ${gridLayout ? "" : "lg:ml-0"} ${showImage ? "mt-2" : ""}`}>{post.title}</h2>
+                        <h2 className={`font-bold text-lg/6 ${showImage ? "ml-2" : "" } ${showImage ? "mt-2" : ""}`}>{post.title}</h2>
                   </div>
 
                   <div className={` hidden ${showExtract ? "sm:block" : "hidden"}  mt-2 text-sm/5`} dangerouslySetInnerHTML={{ __html: post.excerpt }}>
                   </div>
                 </Link>
               </article>
-         )))}
-         </div>
+            )))}
+            </div>
         </div> 
       </div>
 
