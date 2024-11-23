@@ -35,7 +35,7 @@ export default function Advert(props: AdvertProps) {
             try {
 
                 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-                console.log(`apiBaseUrl is: ${apiBaseUrl}`)
+            
 
 
                 const response = await fetch(`/api/advert?type=${type}&country=${formattedCountryQuery}`, {
@@ -53,6 +53,7 @@ export default function Advert(props: AdvertProps) {
                     throw new Error(`Error: ${response.statusText}`);
                 }
                 const data: AdvertData[] = await response.json();
+                console.log(data)
                 setBanners(data);
             } catch (err) {
                 setError('Failed to load banners');
@@ -69,7 +70,7 @@ export default function Advert(props: AdvertProps) {
     }
 
     if (banners.length === 0) {
-        return <p>No banners available</p>;
+        return <p></p>;
     }
 
     const randomIndex = Math.floor(Math.random() * banners.length);
