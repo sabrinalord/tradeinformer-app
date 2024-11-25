@@ -14,7 +14,7 @@ if (!apiUrl) {
     slug?: string;
     first?: number;
     after?: string | null;
-    [key: string]: any;
+    [key: string]: string | number | null | undefined;
   }
 
   
@@ -44,7 +44,7 @@ async function fetchGraphQL(query: string, variables?: GraphQLVariables) {
 async function handleResponseErrors(response: Response){
     if (!response.ok) {
         const errorDetails = await response.json(); 
-        throw new Error(`Failed to fetch posts: ${response.status} ${errorDetails.message} `);
+        throw new Error(`Failed to fetch posts: ${response.statusText} ${errorDetails.message} `);
       } 
 
 }

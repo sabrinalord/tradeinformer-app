@@ -34,10 +34,6 @@ export default function Advert(props: AdvertProps) {
             console.log(`user country is: ${formattedCountryQuery}`)
             try {
 
-                const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-            
-
-
                 const response = await fetch(`/api/advert?type=${type}&country=${formattedCountryQuery}`, {
                     method: 'GET',
                     headers: {

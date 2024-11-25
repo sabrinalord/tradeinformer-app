@@ -4,7 +4,6 @@ import CategorySection from "./components/CategorySection";
 import Advert from "./components/Advert";
 import Navbar from "./components/Navbar";
 import SocialNavbar from "./components/SocialNavbar";
-import DynamicHeroAd from "./components/DynamicHeroAd";
 import YouTubePlayer from "./components/YoutubePlayer";
 import PodcastPlayer from "./components/PodcastPlayer";
 
@@ -65,7 +64,7 @@ export const dynamicParams = true;
               </div>
 
               <div className="col-span-1 sm:col-span-12">
-                <DynamicHeroAd></DynamicHeroAd>
+              <Advert type="desktop_billboard_middle"></Advert>
               </div>
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4 ">
@@ -73,7 +72,7 @@ export const dynamicParams = true;
               </div>
 
               <div className=" col-span-1 lg:col-span-3 p-2 sm:p-4 ">
-                <h3>Ad</h3>
+              <Advert type="sidebar"></Advert>
               </div>
 
 
@@ -101,7 +100,7 @@ export const dynamicParams = true;
               </div>
 
               <div className="col-span-1 lg:col-span-3 p-2 sm:p-4 ">
-                <h3>Ad</h3>
+               <Advert type="sidebar"></Advert>
                 <CategorySection filteredPosts={filterByCategoryName("newsletter", posts)} numberOfPosts={4} showImage={false}></CategorySection>
               </div>
 

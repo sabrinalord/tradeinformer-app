@@ -26,6 +26,11 @@
     slug: string;
     title: string;
     content: string;
+    author: {
+      node: {
+        name : string;
+      }
+    };
     date: string; 
     categories: {
       nodes: {

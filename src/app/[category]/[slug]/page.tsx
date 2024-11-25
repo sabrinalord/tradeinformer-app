@@ -2,6 +2,10 @@ import { Post, SinglePostResponse, PostsResponse, MenuResponse, MenuItem} from "
 import {fetchPosts, fetchPostBySlug, fetchHeaderMenu, fetchPostsByCategory } from "../../../lib/fetchData"
 import Navbar from "@/app/components/Navbar";
 import CategorySection from "@/app/components/CategorySection";
+import Advert from "@/app/components/Advert";
+import Image from 'next/image';
+import SocialNavbar from "@/app/components/SocialNavbar";
+import styles from './Page.module.css';
 
 
 
@@ -35,10 +39,19 @@ export default async function Page({ params }: { params: { slug: string } }) {
     const postsData: SinglePostResponse  = await fetchPostBySlug(slug);
     const post: Post = postsData?.data?.postBy || [];
 
+    const date = new Date(post.date);
+
+    const options: Intl.DateTimeFormatOptions = { 
+        year: "numeric", 
+        month: "long",   
+        day: "numeric", 
+      };
+
+    const formattedDate = new Intl.DateTimeFormat("en-US", options).format(date);
+
+
     const sidebarPostsData: PostsResponse  = await fetchPostsByCategory("interviews");
     const sidebarPosts: Post[] = sidebarPostsData?.data?.posts?.nodes ?? [];
-
-
 
 
     if (!post) {
@@ -48,15 +61,27 @@ export default async function Page({ params }: { params: { slug: string } }) {
     return (
         <div className="overflow-hidden">
         <Navbar headerItems={menuItems}></Navbar>
-        <div className="container mx-auto sm:mx-8 md:mx-16 lg:mx-32">
-            <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4">
+        <SocialNavbar></SocialNavbar>
+      
+        <div className="container mx-auto">
+        <Advert type="desktop_billboard_top"></Advert>
+            <main className ="grid grid-cols-1 sm:grid-cols-12 gap-4 mt-8">
             <article className="col-span-8 p-4">
-                <h1 className="font-bold text-[1.4em] mb-4">{post.title}</h1>
-                <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
+                <h1 className="font-bold lg:text-[1.6em] mb-4">{post.title}</h1>
+                <Image className=""
+                              src={post.featuredImage.node.sourceUrl} 
+                              width="800"
+                              height="800" 
+                              alt={post.featuredImage.node.altText || 'Featured Image'} >
+                    </Image> 
+                <p className="mt-2">By {post.author.node.name} | {formattedDate}</p>
+                <div className={styles.content} dangerouslySetInnerHTML={{ __html: post.content }}></div>
             </article>
 
             <div className="sm:col-span-3  p-2 sm:p-4 ">
+                <Advert type="sidebar"></Advert>
                 <CategorySection filteredPosts={sidebarPosts} numberOfPosts={2} showExtract={false}></CategorySection>
+              
               </div>
             </main>
         </div>
