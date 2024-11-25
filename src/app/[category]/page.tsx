@@ -1,5 +1,5 @@
-import { Post, SinglePostResponse, PostsResponse, MenuResponse, MenuItem} from "@/app/types";
-import {fetchPosts, fetchPostBySlug, fetchHeaderMenu, fetchPostsByCategory } from "../../lib/fetchData"
+import { Post, PostsResponse, MenuResponse, MenuItem} from "@/app/types";
+import {fetchHeaderMenu, fetchPostsByCategory } from "../../lib/fetchData"
 import Navbar from "@/app/components/Navbar";
 import CategorySection from "@/app/components/CategorySection";
 import Advert from "../components/Advert";
