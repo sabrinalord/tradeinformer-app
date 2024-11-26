@@ -14,6 +14,7 @@ export const revalidate = 10;
 export const dynamicParams = true;
 
 
+// below function is needed for static generation of post paths at build time
 export async function generateStaticParams() {
 
     const postsData: PostsResponse  = await fetchPosts();
