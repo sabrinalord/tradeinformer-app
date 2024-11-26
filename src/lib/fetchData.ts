@@ -1,3 +1,4 @@
+import { GET_CATEGORIES } from "@/app/queries/getCategories";
 import { GET_HEADER_MENU, GET_FOOTER_MENU } from "@/app/queries/getMenus";
 import { GET_POST_BY_SLUG } from "@/app/queries/getPostBySlug";
 import { GET_POSTS } from "@/app/queries/getPosts";
@@ -51,6 +52,12 @@ async function handleResponseErrors(response: Response){
 
 export async function fetchHeaderMenu() {
     return fetchGraphQL(GET_HEADER_MENU);
+}
+
+export async function fetchCategories() {
+ const response = await fetchGraphQL(GET_CATEGORIES);
+ const categories = response?.data?.categories?.nodes || [];
+ return categories.map((category: { slug: string }) => category.slug);
 }
 
 
@@ -108,7 +115,7 @@ export async function fetchPostsByCategory(category:string): Promise<PostsRespon
   while (hasNextPage) {
     const variables = {
       slug: "",
-      first:100,        
+      first:10,        
       after: afterCursor,
       category: category 
     };
@@ -135,7 +142,7 @@ export async function fetchPostsByCategory(category:string): Promise<PostsRespon
         nodes: allPosts,
         pageInfo: {
           endCursor: finalEndCursor,
-          hasNextPage: false, // We've fetched all pages, so set hasNextPage to false
+          hasNextPage: false,
         },
       },
     },

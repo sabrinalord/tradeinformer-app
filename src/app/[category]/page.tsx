@@ -3,6 +3,7 @@ import {fetchHeaderMenu, fetchPostsByCategory } from "../../lib/fetchData"
 import Navbar from "@/app/components/Navbar";
 import CategorySection from "@/app/components/CategorySection";
 import Advert from "../components/Advert";
+import CategoryFeaturedPost from "../components/CategoryFeaturedPost";
 
 
 export const revalidate = 10;
@@ -36,12 +37,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <Advert type="desktop_billboard_top"></Advert>
             <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4">
             <div className="col-span-1  sm:col-span-12 lg:col-span-9  p-2 sm:p-4 lg:flex ">
-                  <div className="col-span-1  sm:col-span-12 lg:col-span-6  p-2 sm:p-4 ">
-                  < CategorySection filteredPosts={categoryPosts} numberOfPosts={1} showExtract={false} ></CategorySection>
+                  <div className="col-span-1  sm:col-span-12 lg:col-span-9  p-2 sm:p-4 ">
+                  < CategoryFeaturedPost post={categoryPosts[0]} ></CategoryFeaturedPost>
                   </div>
 
-                  <div className="col-span-1  sm:col-span-12 lg:col-span-3  p-2 sm:p-4 ">
-                  <CategorySection filteredPosts={categoryPosts} numberOfPosts={3} showCategoryTitle={false} offset={1} firstPostHasLargeImage={false} inlineTitle={true} showExtract={false} ></CategorySection>
+                  <div className="col-span-1  sm:col-span-12 lg:col-span-9  p-2 sm:p-4 ">
+                  <CategorySection filteredPosts={categoryPosts} numberOfPosts={3} showCategoryTitle={false} offset={1}  ></CategorySection>
                   </div>
               </div>
 

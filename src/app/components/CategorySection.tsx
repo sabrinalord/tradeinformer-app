@@ -63,7 +63,7 @@ const CategorySection: React.FC<CategorySectionProps> =  ({
                     <div className={` ${showImage ? "block" : "hidden"}`}>
                       {firstPost.featuredImage &&  (
                         <div>
-                        <Image className={`border object-cover ${inlineTitle ? "w-[35vw] lg:w-[10vw] mr-2" : ""} `}
+                        <Image className={`border object-cover ${inlineTitle ? "w-[35vw] mr-2" : ""} `}
                               src={firstPost.featuredImage.node.sourceUrl} 
                               width="800"
                               height="800" 
@@ -105,9 +105,8 @@ const CategorySection: React.FC<CategorySectionProps> =  ({
                           )}
                           
                       </div>
-                        <h2 className={`font-bold text-lg/6 ${showImage ? "ml-2" : "" } ${showImage ? "mt-2" : ""}`}>{post.title}</h2>
+                        <h2 className={`font-bold text-lg/6 ${showImage ? "ml-2 lg:ml-0" : "" } `}>{post.title}</h2>
                   </div>
-
                   <div className={` hidden ${showExtract ? "sm:block" : "hidden"}  mt-2 text-sm/5`} dangerouslySetInnerHTML={{ __html: post.excerpt }}>
                   </div>
                 </Link>
