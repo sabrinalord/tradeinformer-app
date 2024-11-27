@@ -4,6 +4,9 @@ import Navbar from "@/app/components/Navbar";
 import CategoryPostsList from "@/app/components/CategoryPostsList";
 import Advert from "../components/Advert";
 import CategoryFeaturedPost from "../components/CategoryFeaturedPost";
+import RandomCategorySidebar from "../components/RandomCategorySidebar";
+import { NewsletterSignUp } from "../components/NewsletterSignUp";
+import SocialNavbar from "../components/SocialNavbar";
 
 export const revalidate = 10;
 export const dynamicParams = true;
@@ -20,7 +23,7 @@ const fetchCategoryPosts = async (categorySlug: string): Promise<Post[]> => {
 };
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { category } = params;
+  const { category } = await params;
 
   // Fetch menu data
   const headerMenuData: MenuResponse = await fetchHeaderMenu();
@@ -29,55 +32,46 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   // Fetch post data
   const categoryPosts = await fetchCategoryPosts(category);
 
-  // fetch randomised category data for sidebar
-  const categories: string[] = await fetchCategories();
-  const filteredCategories = categories.filter(fetchedCatSlug => fetchedCatSlug !== category);
-
-  const randomCatSlug = filteredCategories.length > 0 
-    ? filteredCategories[Math.floor(Math.random() * filteredCategories.length)]
-    : null;
-
-  const randomCategoryPosts = randomCatSlug 
-    ? await fetchCategoryPosts(randomCatSlug) 
-    : [];
 
   return (
+    <>
+    <NewsletterSignUp></NewsletterSignUp>
     <div className="overflow-hidden">
-      <Navbar headerItems={menuItems} />
-
-      <div className="container mx-auto sm:mx-8 md:mx-16 lg:mx-32">
-        <Advert type="desktop_billboard_top" />
-        <main className="grid grid-cols-1 sm:grid-cols-12 gap-4">
-
-          <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4">
+      <Navbar headerItems={menuItems}></Navbar>
+      <SocialNavbar></SocialNavbar>
+      <div className="container mx-auto">
+        <Advert type="desktop_billboard_top"></Advert>
+          <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
             <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4">
-              <CategoryFeaturedPost post={categoryPosts[0]} />
+            <div>
+            <CategoryFeaturedPost post={categoryPosts[0]} />
             </div>
-
-            <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4">
-              <CategoryPostsList 
+            <div>
+                <CategoryPostsList 
                 filteredPosts={categoryPosts} 
                 numberOfPosts={3} 
                 showCategoryTitle={false} 
                 flexDirection={"flex-row"}
                 offset={1} 
-              />
-               <CategoryPostsList 
+                />
+                <CategoryPostsList 
                 filteredPosts={categoryPosts} 
                 firstPostHasLargeImage={false}
                 numberOfPosts={6} 
                 showCategoryTitle={false} 
                 offset={4} 
-              />
+                />
+              </div>
             </div>
-          </div>
+             
 
-          {/* Sidebar Content (Random Category Posts) */}
-          <div className="sm:col-span-3 p-2 sm:p-4">
-            <CategoryPostsList filteredPosts={randomCategoryPosts} numberOfPosts={2} showExtract={false} showCategoryTitle />
-          </div>
-        </main>
+              {/* Sidebar Content (Random Category Posts) */}
+              <div className="sm:col-span-3 p-2 sm:p-4">
+              <RandomCategorySidebar alreadyDisplayedCategory={category}></RandomCategorySidebar>
+              </div>
+    </main>
       </div>
     </div>
+    </>
   );
 }

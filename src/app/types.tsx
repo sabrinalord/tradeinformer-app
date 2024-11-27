@@ -84,3 +84,15 @@ export interface MenuItem {
         country?: string; 
     }
     
+    export interface CategoriesResponse {
+     data: {
+      categories: {
+        nodes: CategoryNode[];
+      };
+     }
+    }
+    
+    export interface CategoryNode {
+      slug: string;
+      name: string;
+    }

@@ -79,7 +79,7 @@ export const NewsletterSignUp = () => {
 
 
     return (
-        <div className={` ${showSignUp ? "fixed" : "hidden"} top-0 left-0 w-screen bg-babyBlue p-2 text-white items-center animate-slideDown`}>
+        <div className={` ${showSignUp ? "fixed" : "hidden"} top-0 z-10 left-0 w-screen bg-babyBlue p-2 text-white items-center animate-slideDown`}>
               <div className="absolute top-0 right-0 m-2">
                 <button onClick={handleSignUpModal} className=" text-white font-extrabold hover:text-gray-600">
                                 <XMarkIcon className="h-6 w-6" />

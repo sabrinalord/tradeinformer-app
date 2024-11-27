@@ -2,11 +2,11 @@ import { Post, SinglePostResponse, PostsResponse, MenuResponse, MenuItem} from "
 import {fetchPosts, fetchPostBySlug, fetchHeaderMenu, fetchPostsByCategory } from "../../../lib/fetchData"
 import Navbar from "@/app/components/Navbar";
 
-import CategoryPostsList from "@/app/components/CategoryPostsList";
 import Advert from "@/app/components/Advert";
 import Image from 'next/image';
 import SocialNavbar from "@/app/components/SocialNavbar";
 import styles from './Page.module.css';
+import RandomCategorySidebar from "@/app/components/RandomCategorySidebar";
 
 
 
@@ -27,13 +27,14 @@ export async function generateStaticParams() {
 
     return posts.map((post: Post) => ({
         slug: post.slug,
-        category: post.categories.nodes[0]?.slug || 'uncategorised'
+        categorySlug: post.categories.nodes[0]?.slug || 'uncategorised',
+        categoryName: post.categories.nodes[0]?.name || 'uncategorised'
     }));
 
 }
 
-export default async function Page({ params }: { params: { category: string; slug: string } }) {
-    const { category, slug } = params;
+export default async function Page({ params }: { params: { categoryName: string; categorySlug: string; slug: string } }) {
+    const { categorySlug, categoryName, slug } = await params;
 
     const headerMenuData: MenuResponse = await fetchHeaderMenu();
     const menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
@@ -53,14 +54,6 @@ export default async function Page({ params }: { params: { category: string; slu
     const formattedDate = new Intl.DateTimeFormat("en-US", options).format(date);
 
 
-    const sidebarPostsData: PostsResponse  = await fetchPostsByCategory("interviews");
-    const sidebarPosts: Post[] = sidebarPostsData?.data?.posts?.nodes ?? [];
-
-
-    if (!post) {
-        return <h1>Post not found!</h1>;
-    }
-
     return (
         <div className="overflow-hidden">
         <Navbar headerItems={menuItems}></Navbar>
@@ -78,13 +71,13 @@ export default async function Page({ params }: { params: { category: string; slu
                               alt={post.featuredImage.node.altText || 'Featured Image'} >
                     </Image> 
                 <p className="mt-2">By {post.author.node.name} | {formattedDate}</p>
+                <p>{categoryName}</p>
                 <div className={styles.content} dangerouslySetInnerHTML={{ __html: post.content }}></div>
             </article>
 
             <div className="sm:col-span-3  p-2 sm:p-4 ">
                 <Advert type="sidebar"></Advert>
-                <CategoryPostsList filteredPosts={sidebarPosts} numberOfPosts={2} showExtract={false}></CategoryPostsList>
-              
+                <RandomCategorySidebar alreadyDisplayedCategory={categorySlug}></RandomCategorySidebar>
               </div>
             </main>
         </div>

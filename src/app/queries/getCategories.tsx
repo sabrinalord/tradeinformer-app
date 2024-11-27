@@ -3,6 +3,7 @@ export const GET_CATEGORIES = `
     categories {
       nodes {
         slug
+        name
       }
     }
   }
