@@ -27,15 +27,17 @@ export async function generateStaticParams() {
 
     return posts.map((post: Post) => ({
         slug: post.slug,
+        category: post.categories.nodes[0]?.slug || 'uncategorised'
     }));
 
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export default async function Page({ params }: { params: { category: string; slug: string } }) {
+    const { category, slug } = params;
 
     const headerMenuData: MenuResponse = await fetchHeaderMenu();
     const menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
-    const { slug } = params;
+ 
 
     const postsData: SinglePostResponse  = await fetchPostBySlug(slug);
     const post: Post = postsData?.data?.postBy || [];
