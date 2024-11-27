@@ -2,7 +2,7 @@ import { Post, SinglePostResponse, PostsResponse, MenuResponse, MenuItem} from "
 import {fetchPosts, fetchPostBySlug, fetchHeaderMenu, fetchPostsByCategory } from "../../../lib/fetchData"
 import Navbar from "@/app/components/Navbar";
 
-import CategorySection from "@/app/components/CategorySection";
+import CategoryPostsList from "@/app/components/CategoryPostsList";
 import Advert from "@/app/components/Advert";
 import Image from 'next/image';
 import SocialNavbar from "@/app/components/SocialNavbar";
@@ -81,7 +81,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
             <div className="sm:col-span-3  p-2 sm:p-4 ">
                 <Advert type="sidebar"></Advert>
-                <CategorySection filteredPosts={sidebarPosts} numberOfPosts={2} showExtract={false}></CategorySection>
+                <CategoryPostsList filteredPosts={sidebarPosts} numberOfPosts={2} showExtract={false}></CategoryPostsList>
               
               </div>
             </main>

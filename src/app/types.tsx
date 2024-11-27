@@ -42,7 +42,7 @@
     featuredImage: {
       node: {
         sourceUrl: string;
-        altText: string | null;
+        altText: string | undefined;
       }; 
     } ; 
   }

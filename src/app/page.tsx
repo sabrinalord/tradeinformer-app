@@ -1,6 +1,6 @@
 
 
-import CategorySection from "./components/CategorySection";
+import CategoryPostsList from "./components/CategoryPostsList";
 import Advert from "./components/Advert";
 import Navbar from "./components/Navbar";
 import SocialNavbar from "./components/SocialNavbar";
@@ -43,25 +43,25 @@ export const dynamicParams = true;
           <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
 
               <div className="block lg:hidden col-span-1 sm:col-span-12 lg:col-span-3 p-2 sm:p-4 ">
-                <CategorySection filteredPosts={featuredPost?.data?.posts?.nodes || []} numberOfPosts={1}></CategorySection>
+                <CategoryPostsList filteredPosts={featuredPost?.data?.posts?.nodes || []} numberOfPosts={1} ></CategoryPostsList>
                 <div>
-                <CategorySection filteredPosts={newsletterPosts?.data?.posts?.nodes || []} inlineTitle={true} numberOfPosts={4} firstPostHasLargeImage={false}></CategorySection>
+                <CategoryPostsList filteredPosts={newsletterPosts?.data?.posts?.nodes || []} inlineText={true} numberOfPosts={4} firstPostHasLargeImage={false}></CategoryPostsList>
                 </div>
               </div>
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-3 p-2 sm:p-4 ">
-                <CategorySection filteredPosts={techNewsPosts?.data?.posts?.nodes || []} numberOfPosts={3}></CategorySection>
+                <CategoryPostsList filteredPosts={techNewsPosts?.data?.posts?.nodes || []} numberOfPosts={3}></CategoryPostsList>
               </div>
 
               <div className="col-span-1 hidden lg:block lg:col-span-6 border-l-2 border-r-2 border-gray-100 p-2 sm:p-4 ">
-                <CategorySection filteredPosts={featuredPost?.data?.posts?.nodes || []} numberOfPosts={1}></CategorySection>
+                <CategoryPostsList filteredPosts={featuredPost?.data?.posts?.nodes || []} numberOfPosts={1}></CategoryPostsList>
                 <div>
-                <CategorySection filteredPosts={newsletterPosts?.data?.posts?.nodes || []} numberOfPosts={2} flexDirection="flex-row" ></CategorySection>
+                <CategoryPostsList filteredPosts={newsletterPosts?.data?.posts?.nodes || []} numberOfPosts={2} flexDirection="flex-row" firstPostHasLargeImage={false} ></CategoryPostsList>
                 </div>
               </div>
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-3 p-2 sm:p-4 ">
-                <CategorySection filteredPosts={brokerNewsPosts?.data?.posts?.nodes || []} numberOfPosts={3}></CategorySection>
+                <CategoryPostsList filteredPosts={brokerNewsPosts?.data?.posts?.nodes || []} numberOfPosts={3}></CategoryPostsList>
               </div>
 
               <div className="col-span-1 sm:col-span-12">
@@ -69,7 +69,7 @@ export const dynamicParams = true;
               </div>
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4 ">
-                <CategorySection filteredPosts={institutionalTradingPosts?.data?.posts?.nodes || []} numberOfPosts={3} flexDirection = 'flex-row'></CategorySection>
+                <CategoryPostsList filteredPosts={institutionalTradingPosts?.data?.posts?.nodes || []} numberOfPosts={3} flexDirection = 'flex-row'></CategoryPostsList>
               </div>
 
               <div className=" col-span-1 lg:col-span-3 p-2 sm:p-4 ">
@@ -79,16 +79,16 @@ export const dynamicParams = true;
 
               <div className="col-span-1  sm:col-span-12 lg:col-span-9  p-2 sm:p-4 lg:flex ">
                   <div className="col-span-1  sm:col-span-12 lg:col-span-6  p-2 sm:p-4 ">
-                  < CategorySection filteredPosts={interviewsPosts?.data?.posts?.nodes || []} numberOfPosts={1} showExtract={false} ></CategorySection>
+                  < CategoryPostsList filteredPosts={interviewsPosts?.data?.posts?.nodes || []} numberOfPosts={1} showExtract={false} ></CategoryPostsList>
                   </div>
 
                   <div className="col-span-1  sm:col-span-12 lg:col-span-3  p-2 sm:p-4 ">
-                  <CategorySection filteredPosts={interviewsPosts?.data?.posts?.nodes || []} numberOfPosts={3} showCategoryTitle={false} offset={1} firstPostHasLargeImage={false} inlineTitle={true} showExtract={false} ></CategorySection>
+                  <CategoryPostsList filteredPosts={interviewsPosts?.data?.posts?.nodes || []} numberOfPosts={3} showCategoryTitle={false} offset={1} firstPostHasLargeImage={false} inlineText={true} showExtract={false} ></CategoryPostsList>
                   </div>
               </div>
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-3   p-2 sm:p-4 ">
-                <CategorySection filteredPosts={guestPosts?.data?.posts?.nodes || []} numberOfPosts={2} showExtract={false}></CategorySection>
+                <CategoryPostsList filteredPosts={guestPosts?.data?.posts?.nodes || []} numberOfPosts={2} showExtract={false}></CategoryPostsList>
               </div>
 
               <div className=" col-span-1 sm:col-span-12 lg:col-span-6  p-2 sm:p-4 ">
@@ -100,15 +100,15 @@ export const dynamicParams = true;
               </div>
              
              <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4 ">
-                <CategorySection filteredPosts={startABrokerPosts?.data?.posts?.nodes || []} numberOfPosts={3} flexDirection = 'flex-row'></CategorySection>
+                <CategoryPostsList filteredPosts={startABrokerPosts?.data?.posts?.nodes || []} numberOfPosts={3} flexDirection = 'flex-row'></CategoryPostsList>
                 <div className="mt-4">
-                <CategorySection filteredPosts={fxCfdLicensingPosts?.data?.posts?.nodes || []} numberOfPosts={4} flexDirection = 'flex-row'></CategorySection>
+                <CategoryPostsList filteredPosts={fxCfdLicensingPosts?.data?.posts?.nodes || []} numberOfPosts={4} flexDirection = 'flex-row'></CategoryPostsList>
                 </div>
               </div>
 
               <div className="col-span-1 lg:col-span-3 p-2 sm:p-4 ">
                <Advert type="sidebar"></Advert>
-                <CategorySection filteredPosts={newsletterPosts?.data?.posts?.nodes || []} offset={3} numberOfPosts={4} showImage={false}></CategorySection>
+                <CategoryPostsList filteredPosts={newsletterPosts?.data?.posts?.nodes || []} offset={3} numberOfPosts={4} showImage={false}></CategoryPostsList>
               </div>
 
        

@@ -1,7 +1,7 @@
 import { Post, PostsResponse, MenuResponse, MenuItem } from "@/app/types";
 import { fetchCategories, fetchHeaderMenu, fetchPostsByCategory } from "../../lib/fetchData";
 import Navbar from "@/app/components/Navbar";
-import CategorySection from "@/app/components/CategorySection";
+import CategoryPostsList from "@/app/components/CategoryPostsList";
 import Advert from "../components/Advert";
 import CategoryFeaturedPost from "../components/CategoryFeaturedPost";
 
@@ -55,14 +55,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </div>
 
             <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4">
-              <CategorySection 
+              <CategoryPostsList 
                 filteredPosts={categoryPosts} 
                 numberOfPosts={3} 
                 showCategoryTitle={false} 
                 flexDirection={"flex-row"}
                 offset={1} 
               />
-               <CategorySection 
+               <CategoryPostsList 
                 filteredPosts={categoryPosts} 
                 firstPostHasLargeImage={false}
                 numberOfPosts={6} 
@@ -74,7 +74,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
           {/* Sidebar Content (Random Category Posts) */}
           <div className="sm:col-span-3 p-2 sm:p-4">
-            <CategorySection filteredPosts={randomCategoryPosts} numberOfPosts={2} showExtract={false} showCategoryTitle />
+            <CategoryPostsList filteredPosts={randomCategoryPosts} numberOfPosts={2} showExtract={false} showCategoryTitle />
           </div>
         </main>
       </div>
