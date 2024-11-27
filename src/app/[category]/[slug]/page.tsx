@@ -26,9 +26,9 @@ export async function generateStaticParams() {
     }
 
     return posts.map((post: Post) => ({
-        slug: post.slug,
         categorySlug: post.categories.nodes[0]?.slug || 'uncategorised',
-        categoryName: post.categories.nodes[0]?.name || 'uncategorised'
+        categoryName: post.categories.nodes[0]?.name || 'uncategorised',
+        slug: post.slug
     }));
 
 }
