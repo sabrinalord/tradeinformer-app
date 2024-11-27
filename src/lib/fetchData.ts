@@ -3,7 +3,7 @@ import { GET_HEADER_MENU, GET_FOOTER_MENU } from "@/app/queries/getMenus";
 import { GET_POST_BY_SLUG } from "@/app/queries/getPostBySlug";
 import { GET_POSTS } from "@/app/queries/getPosts";
 import { GET_POSTS_BY_CATEGORY } from "@/app/queries/getPostsByCategory";
-import {CategoriesResponse, CategoryNode, Post, PostsResponse} from "@/app/types";
+import {CategoriesResponse, Post, PostsResponse} from "@/app/types";
 const apiUrl: string = process.env.GRAPHQL_API_URL as string;
 
 if (!apiUrl) {
@@ -54,11 +54,6 @@ export async function fetchHeaderMenu() {
     return fetchGraphQL(GET_HEADER_MENU);
 }
 
-// export async function fetchCategories() {
-//  const response = await fetchGraphQL(GET_CATEGORIES);
-//  const categories = response?.data?.categories?.nodes || [];
-//  return categories.map((category: { slug: string, name:string }) => category);
-// }
 
 
 export async function fetchCategories(): Promise<CategoriesResponse> {
