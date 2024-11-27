@@ -33,8 +33,12 @@ export async function generateStaticParams() {
 
 }
 
-export default async function Page({ params }: { params: { categoryName: string; categorySlug: string; slug: string } }) {
-    const { categorySlug, categoryName, slug } = await params;
+export default async function Page({
+    params,
+  }: {
+    params: { categorySlug: string; categoryName: string; slug: string };
+  }) {
+    const { categorySlug, categoryName, slug } = params;
 
     const headerMenuData: MenuResponse = await fetchHeaderMenu();
     const menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];

@@ -2,6 +2,7 @@ import React from 'react';
 import { Post } from '../types';
 import Link from 'next/link'; 
 import Image from 'next/image';
+import CategoryHeader from './CategoryHeader';
 
 
 interface CategoryFeaturedPostProps {
@@ -19,22 +20,12 @@ const CategoryFeaturedPost: React.FC<CategoryFeaturedPostProps> =  ({
   const categoryName = post.categories.nodes[0].name;
   const categorySlug = post.categories.nodes[0].slug;
 
-
- const renderCategoryHeader = () => (
-
-    <span className="flex items-center mb-4">
-      <h1 className="ml-2 font-bold uppercase text-lg">{categoryName}</h1>
-      <div className="flex-1 border-t border-gray-300 ml-2"></div>
-    </span>
-  
-);
-
-
     return (
-        <div className={` `}>
-          {renderCategoryHeader()}
+        <div>
+          <CategoryHeader categoryName={categoryName} showCategoryTitle></CategoryHeader>
 
-          <article className="bg-gray-100 p-6 flex flex-col lg:flex-row gap-6 mb-2">
+
+          <article className="bg-gray-100 p-6 flex m-2 flex-col lg:flex-row gap-6 mb-2">
           <div>
           <Link href={`/${categorySlug}/${post.slug}`}>
             <h2 className="text-2xl lg:text-3xl font-bold leading-tight mb-4">
