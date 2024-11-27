@@ -1,7 +1,7 @@
 import { Post, SinglePostResponse, PostsResponse, MenuResponse, MenuItem} from "@/app/types";
-import {fetchPosts, fetchPostBySlug, fetchHeaderMenu, fetchPostsByCategory } from "../../../lib/fetchData"
+import {fetchPosts, fetchPostBySlug, fetchHeaderMenu } from "../../../lib/fetchData"
 import Navbar from "@/app/components/Navbar";
-
+import { formatDate } from "../../../lib/dateFormatter";
 import Advert from "@/app/components/Advert";
 import Image from 'next/image';
 import SocialNavbar from "@/app/components/SocialNavbar";
@@ -43,15 +43,7 @@ export default async function Page({ params }: { params: { categoryName: string;
     const postsData: SinglePostResponse  = await fetchPostBySlug(slug);
     const post: Post = postsData?.data?.postBy || [];
 
-    const date = new Date(post.date);
-
-    const options: Intl.DateTimeFormatOptions = { 
-        year: "numeric", 
-        month: "long",   
-        day: "numeric", 
-      };
-
-    const formattedDate = new Intl.DateTimeFormat("en-US", options).format(date);
+    const formattedDate = formatDate(post.date);
 
 
     return (

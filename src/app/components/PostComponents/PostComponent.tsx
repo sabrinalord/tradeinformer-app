@@ -2,6 +2,7 @@ import React from 'react';
 import { Post } from '../../types';
 import Link from 'next/link';
 import ImageComponent from './ImageComponent';
+import { formatDate } from '@/lib/dateFormatter';
 
 interface PostProps {
   post: Post;
@@ -22,6 +23,8 @@ const PostComponent: React.FC<PostProps> = ({
   isFirstPost,
   categorySlug,
 }) => {
+  const formattedDate = formatDate(post.date);
+
   return (
     <article className={`pb-4 m-2 ${inlineText ? '' : 'border-b'} sm:p-2`} key={post.id}>
       <Link href={`/${categorySlug}/${post.slug}`}>
@@ -39,6 +42,7 @@ const PostComponent: React.FC<PostProps> = ({
             <h2 className={`font-bold mt-2 ${isFirstPost && firstPostHasLargeImage ? 'text-xl' : 'text-lg/6'}`}>
               {post.title}
             </h2>
+            <p className="text-sm">{formattedDate}</p>
             {showExtract && (
             <div
             className={`mt-2 ${isFirstPost && firstPostHasLargeImage ? 'text-base' : 'text-sm/5'}`}
