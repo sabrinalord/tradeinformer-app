@@ -26,8 +26,7 @@ export async function generateStaticParams() {
     }
 
     return posts.map((post: Post) => ({
-        categorySlug: post.categories.nodes[0]?.slug || 'uncategorised',
-        categoryName: post.categories.nodes[0]?.name || 'uncategorised',
+        category: post.categories.nodes[0]?.slug,
         slug: post.slug
     }));
 
@@ -36,9 +35,9 @@ export async function generateStaticParams() {
 export default async function Page({
     params,
   }: {
-    params: { categorySlug: string; categoryName: string; slug: string };
+    params: { category:string, slug: string };
   }) {
-    const { categorySlug, categoryName, slug } = params;
+    const { category, slug } = params;
 
     const headerMenuData: MenuResponse = await fetchHeaderMenu();
     const menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
@@ -67,13 +66,13 @@ export default async function Page({
                               alt={post.featuredImage.node.altText || 'Featured Image'} >
                     </Image> 
                 <p className="mt-2">By {post.author.node.name} | {formattedDate}</p>
-                <p>{categoryName}</p>
+              {/* <p>{categoryName}</p> */}
                 <div className={styles.content} dangerouslySetInnerHTML={{ __html: post.content }}></div>
             </article>
 
             <div className="sm:col-span-3  p-2 sm:p-4 ">
                 <Advert type="sidebar"></Advert>
-                <RandomCategorySidebar alreadyDisplayedCategory={categorySlug}></RandomCategorySidebar>
+                <RandomCategorySidebar alreadyDisplayedCategory={category}></RandomCategorySidebar>
               </div>
             </main>
         </div>
