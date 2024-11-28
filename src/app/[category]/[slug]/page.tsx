@@ -48,8 +48,7 @@ export default async function Page({
     const post: Post = postsData?.data?.postBy || [];
 
     const formattedDate = formatDate(post.date);
-    const categoryName = post.categories.nodes[0]?.name
-
+    const categoryName = post.categories.nodes[0]?.name || "Unknown Category";
 
     return (
         <div className="overflow-hidden">
