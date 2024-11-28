@@ -12,9 +12,9 @@ export const revalidate = 10;
 export const dynamicParams = true;
 
 interface CategoryPageProps {
-  params: {
+  params:Promise<{
     category: string;
-  };
+  }>;
 }
 
 const fetchCategoryPosts = async (categorySlug: string): Promise<Post[]> => {
