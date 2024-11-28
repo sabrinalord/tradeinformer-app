@@ -148,11 +148,25 @@ export async function fetchPostsByCategory(category:string): Promise<PostsRespon
   };
 }
 
-export async function fetchPostBySlug(slug: string) { 
-    const variables = { slug };
-    return fetchGraphQL(GET_POST_BY_SLUG, variables);
-}
+// export async function fetchPostBySlug(slug: string) { 
+//     const variables = { slug };
+//     return fetchGraphQL(GET_POST_BY_SLUG, variables);
+// }
 
+export async function fetchPostBySlug(slug: string) {
+  const variables = { slug };
+  try {
+      const response = await fetchGraphQL(GET_POST_BY_SLUG, variables);
+      console.log(`Response for slug "${slug}":`, JSON.stringify(response, null, 2));
+      if (!response?.data?.postBy) {
+          console.error(`Post not found for slug: ${slug}`);
+          return null;
+      }
+      return response;
+  } catch (error) {
+      console.error(`Error fetching post by slug: ${slug}`, error);
+      return null;
+  }
 
 
 
