@@ -58,7 +58,7 @@ export default function Advert(props: AdvertProps) {
         }
         
         fetchBanners();
-    }, [userCountry]);
+    }, [userCountry, props.type]);
 
 
     if (error) {
