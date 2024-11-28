@@ -16,20 +16,19 @@ export const dynamicParams = true;
 
 // below function is needed for static generation of post paths at build time
 export async function generateStaticParams() {
-
-    const postsData: PostsResponse  = await fetchPosts();
+    const postsData: PostsResponse = await fetchPosts();
     const posts: Post[] = postsData?.data?.posts?.nodes || [];
 
-    if (!Array.isArray(posts)){
-        console.error('fetchPosts did not return an array');
-        return [];
-    }
+    posts.forEach((post) => {
+        if (!post.categories?.nodes?.[0]?.slug) {
+            console.error("Post missing category slug:", JSON.stringify(post, null, 2));
+        }
+    });
 
     return posts.map((post: Post) => ({
-        category: post.categories.nodes[0]?.slug,
-        slug: post.slug
+        category: post.categories?.nodes?.[0]?.slug || "unknown-category",
+        slug: post.slug,
     }));
-
 }
 
 export default async function Page({
