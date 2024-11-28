@@ -10,7 +10,7 @@ import RandomCategorySidebar from "@/app/components/RandomCategorySidebar";
 
 
 
-export const revalidate = 10;
+export const revalidate = 60;
 export const dynamicParams = true;
 
 
@@ -26,6 +26,7 @@ export async function generateStaticParams() {
     }
 
     return posts.map((post: Post) => ({
+        category: post.categories.nodes[0]?.slug,
         slug: post.slug
     }));
 
@@ -36,7 +37,8 @@ export default async function Page({
   }: {
     params: Promise<{ slug: string }>;
   }) {
-    const { slug } = await params
+    const { category, slug } = await params;
+
 
     const headerMenuData: MenuResponse = await fetchHeaderMenu();
     const menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
@@ -47,8 +49,6 @@ export default async function Page({
 
     const formattedDate = formatDate(post.date);
     const categoryName = post.categories.nodes[0]?.name
-    const categorySlug = post.categories.nodes[0]?.slug
-
 
 
     return (
@@ -74,7 +74,7 @@ export default async function Page({
 
             <div className="sm:col-span-3  p-2 sm:p-4 ">
                 <Advert type="sidebar"></Advert>
-                <RandomCategorySidebar alreadyDisplayedCategory={categorySlug}></RandomCategorySidebar>
+                <RandomCategorySidebar alreadyDisplayedCategory={category}></RandomCategorySidebar>
               </div>
             </main>
         </div>

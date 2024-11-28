@@ -11,7 +11,6 @@ interface AdvertProps {
 
 export default function Advert(props: AdvertProps) {
     const [banners, setBanners] = useState<AdvertData[]>([]);
-    const [error, setError] = useState<string | null>(null);
     const [userCountry, setUserCountry] =  useState<string | null>(null);
 
     useEffect(() => {
@@ -52,7 +51,6 @@ export default function Advert(props: AdvertProps) {
                 console.log(data)
                 setBanners(data);
             } catch (err) {
-                setError('Failed to load banners');
                 console.error(err);
             }
         }
@@ -60,10 +58,6 @@ export default function Advert(props: AdvertProps) {
         fetchBanners();
     }, [userCountry, props.type]);
 
-
-    if (error) {
-        return <p>{error}</p>;
-    }
 
     if (banners.length === 0) {
         return <p></p>;
