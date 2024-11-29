@@ -1,5 +1,5 @@
-import { Post, PostsResponse, MenuResponse, MenuItem } from "@/app/types";
-import { fetchHeaderMenu, fetchPostsByCategory } from "../../lib/fetchData";
+import { Post, PostsResponse, MenuResponse, MenuItem, CategoriesResponse, CategoryNode } from "@/app/types";
+import { fetchCategories, fetchHeaderMenu, fetchPostsByCategory } from "../../lib/fetchData";
 import Navbar from "@/app/components/Navbar";
 import CategoryPostsList from "@/app/components/CategoryPostsList";
 import Advert from "../components/Advert";
@@ -17,10 +17,22 @@ interface CategoryPageProps {
   }>;
 }
 
+
+export async function generateStaticParams() {
+  const categoriesResponse: CategoriesResponse = await fetchCategories();
+  const categories: CategoryNode[] = categoriesResponse?.data?.categories?.nodes || [];
+
+  return categories.map((category) => ({
+    category: category.slug,
+  }));
+}
+
 const fetchCategoryPosts = async (categorySlug: string): Promise<Post[]> => {
   const postsData: PostsResponse = await fetchPostsByCategory(categorySlug);
   return postsData?.data?.posts?.nodes ?? [];
 };
+
+
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category } = await params;

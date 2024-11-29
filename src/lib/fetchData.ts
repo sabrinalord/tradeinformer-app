@@ -167,7 +167,7 @@ export async function fetchPostBySlug(slug: string) {
       console.error(`Error fetching post by slug: ${slug}`, error);
       return null;
   }
-
+}
 
 
 
