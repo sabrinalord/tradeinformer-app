@@ -36,7 +36,7 @@
       nodes: {
         name: string;
         slug: string;
-      }[];
+      }[]; 
     };
     excerpt: string;
     featuredImage: {
@@ -92,7 +92,7 @@ export interface MenuItem {
      }
     }
     
-    export interface CategoryNode {
+  export interface CategoryNode {
       slug: string;
       name: string;
     }

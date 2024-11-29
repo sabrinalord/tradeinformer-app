@@ -1,5 +1,5 @@
 import { Post, SinglePostResponse, PostsResponse, MenuResponse, MenuItem} from "@/app/types";
-import {fetchPosts, fetchPostBySlug, fetchHeaderMenu } from "../../../lib/fetchData"
+import {fetchPosts, fetchPostBySlug, fetchHeaderMenu} from "../../../lib/fetchData"
 import Navbar from "@/app/components/Navbar";
 import { formatDate } from "../../../lib/dateFormatter";
 import Advert from "@/app/components/Advert";
@@ -26,7 +26,7 @@ export async function generateStaticParams() {
     });
 
     return posts.map((post: Post) => ({
-        category: post.categories?.nodes?.[0]?.slug || "unknown-category",
+        category: post.categories.nodes[0].slug,
         slug: post.slug,
     }));
 }
@@ -34,7 +34,7 @@ export async function generateStaticParams() {
 export default async function Page({
     params,
   }: {
-    params: Promise<{ category: string, slug: string }>;
+    params: Promise<{category: string, slug: string  }>;
   }) {
     const { category, slug } = await params;
 
@@ -47,7 +47,8 @@ export default async function Page({
     const post: Post = postsData?.data?.postBy || [];
 
     const formattedDate = formatDate(post.date);
-    const categoryName = post.categories.nodes[0]?.name || "Unknown Category";
+    const categoryName = post.categories.nodes[0]?.name || "Category";
+
 
     return (
         <div className="overflow-hidden">

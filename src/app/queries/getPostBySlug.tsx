@@ -8,14 +8,12 @@ export const GET_POST_BY_SLUG = `query GetPostBySlug($slug: String!) {
       }
     }
     date
-    categories {
-      edges {
-        node {
-          name
-          slug
-        }
-      }
-    }
+     categories {
+          nodes {
+            name
+            slug
+          }
+     }
     featuredImage {
       node {
         sourceUrl

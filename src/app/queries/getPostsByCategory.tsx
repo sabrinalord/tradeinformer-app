@@ -8,7 +8,7 @@ export const GET_POSTS_BY_CATEGORY = `query GetPostsByCategory($first: Int, $aft
         title
         date
         content
-        categories {
+         categories {
           nodes {
             name
             slug
