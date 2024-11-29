@@ -66,7 +66,7 @@ export default function Advert(props: AdvertProps) {
 
     return (
      
-    <div className="flex justify-center m-2 p-2">
+    <div className="flex justify-center mt-2 mb-4 p-2">
         <Link href={banner.target_url} target="_blank" rel="noopener noreferrer">
              <Image src={banner.image_url} width={800} height={300} alt="advertisement"></Image>
         </Link>

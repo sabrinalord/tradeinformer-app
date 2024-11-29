@@ -38,17 +38,17 @@ const PostComponent: React.FC<PostProps> = ({
               firstPostHasLargeImage={firstPostHasLargeImage}
             />
           )}
-          <div>
-            <h2 className={`font-bold mt-2 ${isFirstPost && firstPostHasLargeImage ? 'text-xl' : 'text-lg/6'}`}>
+          <div className={` ${inlineText ? "ml-2" : "mt-2"}`}>
+            <h2 className={`font-bold `}>
               {post.title}
             </h2>
             <p className="text-sm">{formattedDate}</p>
             {showExtract && (
             <div
-            className={`mt-2 ${isFirstPost && firstPostHasLargeImage ? 'text-base' : 'text-sm/5'}`}
+            className={`mt-2`}
             dangerouslySetInnerHTML={{ __html: post.excerpt }}
               /> 
-        )}
+           )}
           </div>
         </div>
 

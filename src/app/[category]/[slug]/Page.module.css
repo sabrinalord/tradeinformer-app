@@ -1,9 +1,4 @@
-.content {
-    margin-top:10px;
-    font-size: 1.2em;
-    line-height: 1.6;
-  }
-  
+
   .content a {
     color: #0090c4;
   }
@@ -12,3 +7,6 @@
     margin-bottom: 26px;
   }
 
+.link {
+  color: #0090c4;
+}
