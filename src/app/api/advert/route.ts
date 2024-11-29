@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { AdvertData, AdvertType } from '../../types';
 
 export async function GET(request: Request) {
-    console.log(`trying the banner route`);
 
     const { searchParams } = new URL(request.url);
     const type = searchParams.get('type') as AdvertType;
@@ -11,7 +10,6 @@ export async function GET(request: Request) {
     const formattedUserCountry = encodeURIComponent(userCountry);
 
     const apiUrl = `https://tradeinformer.com/wp-json/banner-ads/v1/list?type=${type}&country=${formattedUserCountry}`;
-    console.log(` api url is: ${apiUrl}`);
     
     try {
         const response = await fetch(apiUrl);

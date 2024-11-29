@@ -2,9 +2,6 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   const body = await req.json();
-  console.log('Received request body:', body);
-
-
   const { email } = body;
 
   if (!email) {
@@ -37,7 +34,6 @@ export async function POST(req: Request) {
     }
   
     const result = await response.json();
-    console.log('GraphQL response:', result);
   
     if (result.errors) {
       console.error('GraphQL Errors:', result.errors);

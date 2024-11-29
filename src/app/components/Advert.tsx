@@ -30,7 +30,6 @@ export default function Advert(props: AdvertProps) {
             const countryToUse = userCountry ? `${userCountry},All Countries` : 'All Countries';
             const formattedCountryQuery = encodeURIComponent(countryToUse);
         
-            console.log(`user country is: ${formattedCountryQuery}`)
             try {
 
                 const response = await fetch(`/api/advert?type=${type}&country=${formattedCountryQuery}`, {
@@ -48,7 +47,6 @@ export default function Advert(props: AdvertProps) {
                     throw new Error(`Error: ${response.statusText}`);
                 }
                 const data: AdvertData[] = await response.json();
-                console.log(data)
                 setBanners(data);
             } catch (err) {
                 console.error(err);

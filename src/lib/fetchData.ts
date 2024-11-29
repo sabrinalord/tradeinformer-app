@@ -157,7 +157,6 @@ export async function fetchPostBySlug(slug: string) {
   const variables = { slug };
   try {
       const response = await fetchGraphQL(GET_POST_BY_SLUG, variables);
-      console.log(`Response for slug "${slug}":`, JSON.stringify(response, null, 2));
       if (!response?.data?.postBy) {
           console.error(`Post not found for slug: ${slug}`);
           return null;

@@ -35,7 +35,6 @@ export const NewsletterSignUpInNav = () => {
         });
   
         const result = await response.json();
-        console.log(result);
   
         if (response.ok && result.success) {
           setMessage("Thank you for subscribing to TradeInformer!");

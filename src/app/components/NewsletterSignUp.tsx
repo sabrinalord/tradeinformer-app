@@ -44,11 +44,8 @@ export const NewsletterSignUp = () => {
     });
 
     const onSubmit = async (data: z.infer<typeof schema>) => {
-      console.log("Submitted data:", data); 
       setMessage(null);
 
-  
-      
       try {
         const response = await fetch("/api/newsletterSubscribe", {
           method: "POST",
@@ -59,7 +56,6 @@ export const NewsletterSignUp = () => {
         });
   
         const result = await response.json();
-        console.log(result);
   
         if (response.ok && result.success) {
           setMessage("Thank you for subscribing to TradeInformer!");
