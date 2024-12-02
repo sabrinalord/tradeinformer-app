@@ -8,7 +8,7 @@ interface PostProps {
   post: Post;
   showImage: boolean;
   showExtract: boolean;
-  inlineText: boolean;
+  inlineTextOnDesktop: boolean;
   firstPostHasLargeImage: boolean;
   isFirstPost: boolean;
   categorySlug: string;
@@ -18,7 +18,7 @@ const PostComponent: React.FC<PostProps> = ({
   post,
   showImage = true,
   showExtract = true,
-  inlineText = false,
+  inlineTextOnDesktop = false,
   firstPostHasLargeImage = true,
   isFirstPost,
   categorySlug,
@@ -26,19 +26,19 @@ const PostComponent: React.FC<PostProps> = ({
   const formattedDate = formatDate(post.date);
 
   return (
-    <article className={`pb-4 m-2 ${inlineText ? '' : 'border-b'} `} key={post.id}>
+    <article className={`pb-4 m-2 ${inlineTextOnDesktop ? '' : 'border-b'} `} key={post.id}>
       <Link href={`/${categorySlug}/${post.slug}`}>
-        <div className={` ${inlineText && !firstPostHasLargeImage ? 'flex flex-row' : ' flex flex-col'}`}>
+        <div className={`${inlineTextOnDesktop ? "flex flex-row" : "flex flex-row lg:flex-col"} ${firstPostHasLargeImage && isFirstPost ? "flex flex-col" : ""}`}>
           {showImage && post.featuredImage && (
             <ImageComponent
               src={post.featuredImage.node.sourceUrl}
               altText={post.featuredImage.node.altText}
-              inlineText={inlineText}
+              inlineTextOnDesktop={inlineTextOnDesktop}
               isFirstPost={isFirstPost}
               firstPostHasLargeImage={firstPostHasLargeImage}
             />
           )}
-          <div className={` ${inlineText ? "ml-2" : "mt-2"}`}>
+          <div className={` ml-2 lg:ml-0 ${inlineTextOnDesktop ? "lg:ml-2" : "lg:mt-2"}`}>
             <h2 className={`font-bold `}>
               {post.title}
             </h2>

@@ -43,9 +43,9 @@ export const dynamicParams = true;
           <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
 
               <div className="block lg:hidden col-span-1 sm:col-span-12 lg:col-span-3 p-2 sm:p-4 ">
-                <CategoryPostsList filteredPosts={featuredPost?.data?.posts?.nodes || []} numberOfPosts={1} ></CategoryPostsList>
+                <CategoryPostsList filteredPosts={featuredPost?.data?.posts?.nodes || []} numberOfPosts={1} firstPostHasLargeImage ></CategoryPostsList>
                 <div>
-                <CategoryPostsList filteredPosts={newsletterPosts?.data?.posts?.nodes || []} inlineText={true} numberOfPosts={4} firstPostHasLargeImage={false}></CategoryPostsList>
+                <CategoryPostsList filteredPosts={newsletterPosts?.data?.posts?.nodes || []} numberOfPosts={4} firstPostHasLargeImage={false}></CategoryPostsList>
                 </div>
               </div>
 
@@ -82,8 +82,8 @@ export const dynamicParams = true;
                   < CategoryPostsList filteredPosts={interviewsPosts?.data?.posts?.nodes || []} numberOfPosts={1} showExtract={false} ></CategoryPostsList>
                   </div>
 
-                  <div className="col-span-1  sm:col-span-12 lg:col-span-3  p-2 sm:p-4 ">
-                  <CategoryPostsList filteredPosts={interviewsPosts?.data?.posts?.nodes || []} numberOfPosts={3} showCategoryTitle={false} offset={1} firstPostHasLargeImage={false} inlineText={true} showExtract={false} ></CategoryPostsList>
+                  <div className="col-span-1  sm:col-span-12 lg:col-span-3  p-2 sm:p-4 lg:mt-8">
+                  <CategoryPostsList filteredPosts={interviewsPosts?.data?.posts?.nodes || []} numberOfPosts={3} showCategoryTitle={false} offset={1} firstPostHasLargeImage={false} inlineTextOnDesktop={true} showExtract={false} ></CategoryPostsList>
                   </div>
               </div>
 
@@ -106,7 +106,8 @@ export const dynamicParams = true;
                 </div>
               </div>
 
-              <div className="col-span-1 lg:col-span-3 p-2 sm:p-4 ">
+              <div className="col-span-1 sm:col-span-12 lg:col-span-3 p-2 sm:p-4 ">
+                <div className="col-span-1 sm:col-span-5 lg:col-span-3" ></div>
                <Advert type="sidebar"></Advert>
                 <CategoryPostsList filteredPosts={newsletterPosts?.data?.posts?.nodes || []} offset={3} numberOfPosts={4} showImage={false}></CategoryPostsList>
               </div>

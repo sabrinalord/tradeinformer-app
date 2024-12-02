@@ -11,7 +11,7 @@ interface CategoryPostsListProps {
   showImage?: boolean;
   showExtract?: boolean;
   flexDirection?: 'flex-col' | 'flex-row';
-  inlineText?: boolean;
+  inlineTextOnDesktop?: boolean;
   showCategoryTitle?: boolean;
 }
 
@@ -23,7 +23,7 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
   showImage = true,
   showExtract = true,
   flexDirection = 'flex-col',
-  inlineText = false,
+  inlineTextOnDesktop = false,
   showCategoryTitle = true,
 }) => {
   if (!filteredPosts.length) return null;
@@ -45,7 +45,7 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
           post={firstPost}
           showImage={showImage}
           showExtract={showExtract}
-          inlineText={inlineText}
+          inlineTextOnDesktop={inlineTextOnDesktop}
           firstPostHasLargeImage={firstPostHasLargeImage}
           isFirstPost={true}
           categorySlug={categorySlug}
@@ -58,7 +58,7 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
             post={post}
             showImage={showImage}
             showExtract={showExtract}
-            inlineText={inlineText}
+            inlineTextOnDesktop={inlineTextOnDesktop}
             firstPostHasLargeImage={firstPostHasLargeImage}
             isFirstPost={false}
             categorySlug={categorySlug}

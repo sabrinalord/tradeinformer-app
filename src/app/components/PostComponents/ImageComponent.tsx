@@ -4,7 +4,7 @@ import Image from 'next/image';
 interface ImageProps {
   src: string;
   altText?: string;
-  inlineText: boolean;
+  inlineTextOnDesktop: boolean;
   isFirstPost: boolean;
   firstPostHasLargeImage: boolean;
 }
@@ -12,11 +12,11 @@ interface ImageProps {
 const ImageComponent: React.FC<ImageProps> = ({
   src,
   altText = 'Featured Image',
-  inlineText,
+  inlineTextOnDesktop,
   isFirstPost,
   firstPostHasLargeImage,
 }) => {
-  const imageClasses = `border object-cover ${isFirstPost && firstPostHasLargeImage ? 'w-[100vw] sm:w-[500px] lg:w-[800px]' : 'w-[300px]'} ${ inlineText ? 'w-[35vw] lg:w-[10vw]' : ''}`;
+  const imageClasses = `border object-cover ${isFirstPost && firstPostHasLargeImage ? 'w-[100vw] lg:w-[800px] mb-4' : 'w-[150px] sm:w-[250px] lg:w-[300px]'} ${ inlineTextOnDesktop ? 'w-[150px] sm:w-[250px] lg:w-[150px]' : ''}`;
 
   return (
     <div className={`flex-shrink-0 `}>

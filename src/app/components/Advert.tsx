@@ -64,10 +64,14 @@ export default function Advert(props: AdvertProps) {
     const randomIndex = Math.floor(Math.random() * banners.length);
     const banner = banners[randomIndex];
 
+
+        const isSidebar = props.type === 'sidebar';
+
+
     return (
      
-    <div className="flex justify-center mt-2 mb-4 p-2">
-        <Link href={banner.target_url} target="_blank" rel="noopener noreferrer">
+    <div className={`flex justify-center mt-2 mb-4 p-2`}>
+        <Link style={isSidebar ? { maxWidth: '400px' } : undefined} href={banner.target_url} target="_blank" rel="noopener noreferrer">
              <Image src={banner.image_url} width={800} height={300} alt="advertisement"></Image>
         </Link>
       </div>
