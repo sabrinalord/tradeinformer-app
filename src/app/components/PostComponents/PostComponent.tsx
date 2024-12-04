@@ -26,7 +26,7 @@ const PostComponent: React.FC<PostProps> = ({
   const formattedDate = formatDate(post.date);
 
   return (
-    <article className={`pb-4 m-2 ${inlineTextOnDesktop ? '' : 'border-b'} lg:max-w-[265px]`} key={post.id}>
+    <article className={`pb-4 p-1 m-2 ${inlineTextOnDesktop ? '' : 'border-b lg:max-w-[270px]'} `} key={post.id}>
       <Link href={`/${categorySlug}/${post.slug}`}>
         <div className={`${inlineTextOnDesktop ? "flex flex-row" : "flex flex-row lg:flex-col"} ${firstPostHasLargeImage && isFirstPost ? "flex flex-col" : ""}`}>
           {showImage && post.featuredImage && (

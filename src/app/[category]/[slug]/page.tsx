@@ -1,5 +1,5 @@
 import { Post, SinglePostResponse, PostsResponse, MenuResponse, MenuItem} from "@/app/types";
-import {fetchPosts, fetchPostBySlug, fetchHeaderMenu} from "../../../lib/fetchData"
+import {fetchPosts, fetchPostBySlug, fetchHeaderMenu, fetchFooterMenu} from "../../../lib/fetchData"
 import Navbar from "@/app/components/Navbar";
 import { formatDate } from "../../../lib/dateFormatter";
 import Advert from "@/app/components/Advert";
@@ -8,6 +8,7 @@ import SocialNavbar from "@/app/components/SocialNavbar";
 import styles from './Page.module.css';
 import RandomCategorySidebar from "@/app/components/RandomCategorySidebar";
 import Link from "next/link";
+import Footer from "@/app/components/Footer";
 
 
 
@@ -42,6 +43,10 @@ export default async function Page({
 
     const headerMenuData: MenuResponse = await fetchHeaderMenu();
     const menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
+
+    const footerMenuData: MenuResponse = await fetchFooterMenu();
+    const footerMenuItems: MenuItem[] = footerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
+    
  
 
     const postsData: SinglePostResponse  = await fetchPostBySlug(slug);
@@ -87,6 +92,8 @@ export default async function Page({
               </div>
             </main>
         </div>
+        <Footer footerItems={footerMenuItems}></Footer>
+
         </div>
     )
   }

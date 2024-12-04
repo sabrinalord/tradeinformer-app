@@ -18,8 +18,8 @@ const ImageComponent: React.FC<ImageProps> = ({
 }) => {
   const imageClasses = `
     border object-cover
-    ${isFirstPost && firstPostHasLargeImage ? 'w-full lg:w-[250px] lg:h-[150px]' : ''}
-    ${!isFirstPost || !firstPostHasLargeImage ? 'w-[130px] h-[100px] sm:w-[250px] sm:h-[150px]' : ''}
+    ${isFirstPost && firstPostHasLargeImage ? 'w-full lg:w-[280px] lg:h-[150px]' : ''}
+    ${!isFirstPost || !firstPostHasLargeImage ? 'w-[130px] h-[100px] sm:w-[280px] sm:h-[150px]' : ''}
   `;
 
   return (

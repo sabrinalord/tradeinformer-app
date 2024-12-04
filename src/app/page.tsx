@@ -11,7 +11,7 @@ import { NewsletterSignUp } from "./components/NewsletterSignUp";
 import { fetchFooterMenu, fetchHeaderMenu, fetchPosts, fetchPostsByCategory } from "@/lib/fetchData";
 import Footer from "./components/Footer";
 import HomePageFeaturedPost from "./components/PostComponents/HomePageFeaturedPost";
-import OneLargePost3SmallGrid from "./components/OneLargePost3SmallGrid";
+import OneLargePost3SmallGrid from "./components/PostComponents/OneLargePost3SmallGrid";
 
 
 export const revalidate = 10;
@@ -105,7 +105,9 @@ const filterByCategory = (categorySlug: string) => {
               </div>
              
              <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4 ">
-                <CategoryPostsList filteredPosts={filterByCategory("start-a-broker") || []} numberOfPosts={6} flexDirection = 'flex-row'></CategoryPostsList>
+                <CategoryPostsList filteredPosts={filterByCategory("start-a-broker") || []} numberOfPosts={3} flexDirection = 'flex-row'></CategoryPostsList>
+                <CategoryPostsList filteredPosts={filterByCategory("start-a-broker") || []} offset={3} showCategoryTitle={false} numberOfPosts={3} flexDirection = 'flex-row'></CategoryPostsList>
+
                 <div className="mt-4">
                 <CategoryPostsList filteredPosts={filterByCategory("fx-cfd-liscensing") || []} numberOfPosts={4} flexDirection = 'flex-row'></CategoryPostsList>
                 </div>

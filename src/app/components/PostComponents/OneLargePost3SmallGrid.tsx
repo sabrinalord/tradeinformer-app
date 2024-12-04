@@ -1,7 +1,7 @@
 import React from 'react';
-import { Post } from '../types';
-import PostComponent from './PostComponents/PostComponent';
-import CategoryHeader from './CategoryHeader';
+import { Post } from '../../types';
+import PostComponent from './PostComponent';
+import CategoryHeader from '../CategoryHeader';
 import Image from 'next/image';
 import Link from 'next/link';
 import { formatDate } from '@/lib/dateFormatter';

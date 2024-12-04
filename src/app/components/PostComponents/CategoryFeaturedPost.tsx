@@ -25,8 +25,8 @@ const CategoryFeaturedPost: React.FC<CategoryFeaturedPostProps> =  ({
           <CategoryHeader categoryName={categoryName} showCategoryTitle></CategoryHeader>
 
 
-          <article className="bg-gray-100 p-6 flex m-2 flex-col lg:flex-row gap-6 mb-2">
-          <div>
+          <article className="bg-gray-100 flex m-2 p-4 flex-col lg:flex-row gap-2 mb-2">
+          <div className="m-6">
           <Link href={`/${categorySlug}/${post.slug}`}>
             <h2 className="text-2xl lg:text-3xl font-bold leading-tight mb-4">
             {post.title}

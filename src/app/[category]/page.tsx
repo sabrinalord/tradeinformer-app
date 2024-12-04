@@ -1,5 +1,5 @@
 import { Post, PostsResponse, MenuResponse, MenuItem, CategoriesResponse, CategoryNode } from "@/app/types";
-import { fetchCategories, fetchHeaderMenu, fetchPostsByCategory } from "../../lib/fetchData";
+import { fetchCategories, fetchFooterMenu, fetchHeaderMenu, fetchPostsByCategory } from "../../lib/fetchData";
 import Navbar from "@/app/components/Navbar";
 import CategoryPostsList from "@/app/components/CategoryPostsList";
 import Advert from "../components/Advert";
@@ -7,6 +7,7 @@ import CategoryFeaturedPost from "../components/PostComponents/CategoryFeaturedP
 import RandomCategorySidebar from "../components/RandomCategorySidebar";
 import { NewsletterSignUp } from "../components/NewsletterSignUp";
 import SocialNavbar from "../components/SocialNavbar";
+import Footer from "../components/Footer";
 
 export const revalidate = 10;
 export const dynamicParams = true;
@@ -41,6 +42,11 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const headerMenuData: MenuResponse = await fetchHeaderMenu();
   const menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
 
+
+  const footerMenuData: MenuResponse = await fetchFooterMenu();
+  const footerMenuItems: MenuItem[] = footerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
+  
+
   // Fetch post data
   const categoryPosts = await fetchCategoryPosts(category);
 
@@ -55,10 +61,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <Advert type="desktop_billboard_top"></Advert>
           <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
             <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4">
-              <div>
+              <div className="lg:mb-6">
               <CategoryFeaturedPost post={categoryPosts[0]} />
               </div>
+
               <div>
+                <div  className="lg:mb-10">
                 <CategoryPostsList 
                 filteredPosts={categoryPosts} 
                 numberOfPosts={3} 
@@ -67,12 +75,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 flexDirection={"flex-row"}
                 offset={1} 
                 />
+                </div>
+             
                 <CategoryPostsList 
                 filteredPosts={categoryPosts} 
                 firstPostHasLargeImage={false}
                 numberOfPosts={6} 
                 showCategoryTitle={false} 
                 offset={4} 
+                inlineTextOnDesktop
                 />
               </div>
             </div>
@@ -84,6 +95,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </div>
     </main>
       </div>
+      <Footer footerItems={footerMenuItems}></Footer>
     </div>
     </>
   );
