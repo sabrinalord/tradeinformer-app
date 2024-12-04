@@ -8,7 +8,8 @@ import YouTubePlayer from "./components/YoutubePlayer";
 import PodcastPlayer from "./components/PodcastPlayer";
 import { PostsResponse, MenuResponse, MenuItem } from "./types";                                           
 import { NewsletterSignUp } from "./components/NewsletterSignUp";
-import { fetchHeaderMenu, fetchPostsByCategory } from "@/lib/fetchData";
+import { fetchFooterMenu, fetchHeaderMenu, fetchPostsByCategory } from "@/lib/fetchData";
+import Footer from "./components/Footer";
 
 
 export const revalidate = 10;
@@ -19,6 +20,10 @@ export const dynamicParams = true;
 
     const headerMenuData: MenuResponse = await fetchHeaderMenu();
     const menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
+
+    const footerMenuData: MenuResponse = await fetchFooterMenu();
+    const footerMenuItems: MenuItem[] = footerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
+    
 
       const featuredPost: PostsResponse = await fetchPostsByCategory("featured");
       const newsletterPosts: PostsResponse = await fetchPostsByCategory("newsletter");
@@ -115,6 +120,7 @@ export const dynamicParams = true;
        
           </main>
           </div>
+          <Footer footerItems={footerMenuItems}></Footer>
       </div>
   </>
   );
