@@ -71,7 +71,7 @@ export async function fetchPosts(): Promise<PostsResponse> {
   while (hasNextPage) {
     const variables = {
       slug: "",
-      first:100,        
+      first:50,        
       after: afterCursor 
     };
 
@@ -148,10 +148,6 @@ export async function fetchPostsByCategory(category:string): Promise<PostsRespon
   };
 }
 
-// export async function fetchPostBySlug(slug: string) { 
-//     const variables = { slug };
-//     return fetchGraphQL(GET_POST_BY_SLUG, variables);
-// }
 
 export async function fetchPostBySlug(slug: string) {
   const variables = { slug };

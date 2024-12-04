@@ -28,8 +28,8 @@ const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
                 </div>           
          </div>
  
-            <nav>
-                <ul className="flex  w-full ">
+            <nav >
+                <ul className="flex  w-full  ">
                     { headerItems.map((item) => (
                         item.label != "WhatsApp Updates" ? ( 
                         <li className={`p-2 mr-4 sm:p-4  border-gray-500 ${item.label != "News" ? "border-l" : "" }`} key={item.id}>
@@ -40,7 +40,7 @@ const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
                             </button>
              
                                 {item.label === selectedParent && item.childItems?.edges?.length ? (
-                                    <ul className="absolute bg-darkNavy  w-full overflow-x-auto z-0 whitespace-nowrap flex pb-4 mt-4 left-0 pt-3 border-t border-gray-500">
+                                    <ul className="absolute bg-darkNavy  w-full z-0  flex pb-4 mt-4 left-0 pt-3 border-t border-gray-500 whitespace-nowrap overflow-x-auto sm:whitespace-normal sm:flex-wrap sm:overflow-x-hidden">
                                         {item.childItems.edges.map((child)=> {
                                             return (
                                             <li className="ml-8 " key={child.node.id}> 

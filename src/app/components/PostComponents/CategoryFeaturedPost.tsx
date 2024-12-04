@@ -1,8 +1,8 @@
 import React from 'react';
-import { Post } from '../types';
+import { Post } from '../../types';
 import Link from 'next/link'; 
 import Image from 'next/image';
-import CategoryHeader from './CategoryHeader';
+import CategoryHeader from '../CategoryHeader';
 
 
 interface CategoryFeaturedPostProps {

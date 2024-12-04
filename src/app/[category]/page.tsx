@@ -3,7 +3,7 @@ import { fetchCategories, fetchHeaderMenu, fetchPostsByCategory } from "../../li
 import Navbar from "@/app/components/Navbar";
 import CategoryPostsList from "@/app/components/CategoryPostsList";
 import Advert from "../components/Advert";
-import CategoryFeaturedPost from "../components/CategoryFeaturedPost";
+import CategoryFeaturedPost from "../components/PostComponents/CategoryFeaturedPost";
 import RandomCategorySidebar from "../components/RandomCategorySidebar";
 import { NewsletterSignUp } from "../components/NewsletterSignUp";
 import SocialNavbar from "../components/SocialNavbar";

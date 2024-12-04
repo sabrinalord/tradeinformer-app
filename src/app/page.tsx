@@ -6,10 +6,12 @@ import Navbar from "./components/Navbar";
 import SocialNavbar from "./components/SocialNavbar";
 import YouTubePlayer from "./components/YoutubePlayer";
 import PodcastPlayer from "./components/PodcastPlayer";
-import { PostsResponse, MenuResponse, MenuItem } from "./types";                                           
+import { PostsResponse, Post, MenuResponse, MenuItem } from "./types";                                           
 import { NewsletterSignUp } from "./components/NewsletterSignUp";
-import { fetchFooterMenu, fetchHeaderMenu, fetchPostsByCategory } from "@/lib/fetchData";
+import { fetchFooterMenu, fetchHeaderMenu, fetchPosts, fetchPostsByCategory } from "@/lib/fetchData";
 import Footer from "./components/Footer";
+import HomePageFeaturedPost from "./components/PostComponents/HomePageFeaturedPost";
+import OneLargePost3SmallGrid from "./components/OneLargePost3SmallGrid";
 
 
 export const revalidate = 10;
@@ -24,17 +26,19 @@ export const dynamicParams = true;
     const footerMenuData: MenuResponse = await fetchFooterMenu();
     const footerMenuItems: MenuItem[] = footerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
     
+    const allPostsData: PostsResponse = await fetchPosts();
+    const allPosts: Post[] = allPostsData?.data?.posts?.nodes || [];
 
-      const featuredPost: PostsResponse = await fetchPostsByCategory("featured");
-      const newsletterPosts: PostsResponse = await fetchPostsByCategory("newsletter");
-      const techNewsPosts: PostsResponse = await fetchPostsByCategory("tech-news");
-      const brokerNewsPosts: PostsResponse = await fetchPostsByCategory("broker-news");
-      const institutionalTradingPosts: PostsResponse = await fetchPostsByCategory("institutional-trading");
-      const interviewsPosts: PostsResponse = await fetchPostsByCategory("interviews");
-      const guestPosts: PostsResponse = await fetchPostsByCategory("guest-posts");
-      const startABrokerPosts: PostsResponse = await fetchPostsByCategory("start-a-broker");
-      const fxCfdLicensingPosts: PostsResponse = await fetchPostsByCategory("fx-cfd-licensing");
+
+
+
+    const featuredPost = allPosts[0];
+// do not filter the latest post as this is the featured post
     
+const filterByCategory = (categorySlug: string) => {
+      return allPosts.slice(1).filter((post) => post.categories?.nodes[0]?.slug === categorySlug);
+    };
+
 
   return ( 
     <>
@@ -48,25 +52,25 @@ export const dynamicParams = true;
           <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
 
               <div className="block lg:hidden col-span-1 sm:col-span-12 lg:col-span-3 p-2 sm:p-4 ">
-                <CategoryPostsList filteredPosts={featuredPost?.data?.posts?.nodes || []} numberOfPosts={1} firstPostHasLargeImage ></CategoryPostsList>
+                <HomePageFeaturedPost post={featuredPost} categorySlug={featuredPost.categories.nodes[0].slug}></HomePageFeaturedPost>
                 <div>
-                <CategoryPostsList filteredPosts={newsletterPosts?.data?.posts?.nodes || []} numberOfPosts={4} firstPostHasLargeImage={false}></CategoryPostsList>
+                <CategoryPostsList filteredPosts={filterByCategory("newsletter") || []} numberOfPosts={4} firstPostHasLargeImage={false}></CategoryPostsList>
                 </div>
               </div>
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-3 p-2 sm:p-4 ">
-                <CategoryPostsList filteredPosts={techNewsPosts?.data?.posts?.nodes || []} numberOfPosts={3}></CategoryPostsList>
+                <CategoryPostsList filteredPosts={filterByCategory("tech-news") || []} numberOfPosts={3}></CategoryPostsList>
               </div>
 
               <div className="col-span-1 hidden lg:block lg:col-span-6 border-l-2 border-r-2 border-gray-100 p-2 sm:p-4 ">
-                <CategoryPostsList filteredPosts={featuredPost?.data?.posts?.nodes || []} numberOfPosts={1}></CategoryPostsList>
-                <div>
-                <CategoryPostsList filteredPosts={newsletterPosts?.data?.posts?.nodes || []} numberOfPosts={2} flexDirection="flex-row" firstPostHasLargeImage={false} ></CategoryPostsList>
+              <HomePageFeaturedPost post={featuredPost} categorySlug={featuredPost.categories.nodes[0].slug}></HomePageFeaturedPost>
+              <div>
+                <CategoryPostsList filteredPosts={filterByCategory("newsletter")} numberOfPosts={2} flexDirection="flex-row" firstPostHasLargeImage={false} ></CategoryPostsList>
                 </div>
               </div>
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-3 p-2 sm:p-4 ">
-                <CategoryPostsList filteredPosts={brokerNewsPosts?.data?.posts?.nodes || []} numberOfPosts={3}></CategoryPostsList>
+                <CategoryPostsList filteredPosts={filterByCategory("broker-news") || []} numberOfPosts={3}></CategoryPostsList>
               </div>
 
               <div className="col-span-1 sm:col-span-12">
@@ -74,7 +78,7 @@ export const dynamicParams = true;
               </div>
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4 ">
-                <CategoryPostsList filteredPosts={institutionalTradingPosts?.data?.posts?.nodes || []} numberOfPosts={3} flexDirection = 'flex-row'></CategoryPostsList>
+                <CategoryPostsList filteredPosts={filterByCategory("institutional-trading") || []} numberOfPosts={3} flexDirection = 'flex-row' firstPostHasLargeImage></CategoryPostsList>
               </div>
 
               <div className=" col-span-1 lg:col-span-3 p-2 sm:p-4 ">
@@ -84,16 +88,12 @@ export const dynamicParams = true;
 
               <div className="col-span-1  sm:col-span-12 lg:col-span-9  p-2 sm:p-4 lg:flex ">
                   <div className="col-span-1  sm:col-span-12 lg:col-span-6  p-2 sm:p-4 ">
-                  < CategoryPostsList filteredPosts={interviewsPosts?.data?.posts?.nodes || []} numberOfPosts={1} showExtract={false} ></CategoryPostsList>
-                  </div>
-
-                  <div className="col-span-1  sm:col-span-12 lg:col-span-3  p-2 sm:p-4 lg:mt-8">
-                  <CategoryPostsList filteredPosts={interviewsPosts?.data?.posts?.nodes || []} numberOfPosts={3} showCategoryTitle={false} offset={1} firstPostHasLargeImage={false} inlineTextOnDesktop={true} showExtract={false} ></CategoryPostsList>
+                  <OneLargePost3SmallGrid filteredPosts={filterByCategory("interviews") || []} numberOfPosts={4} showExtract={false}></OneLargePost3SmallGrid >
                   </div>
               </div>
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-3   p-2 sm:p-4 ">
-                <CategoryPostsList filteredPosts={guestPosts?.data?.posts?.nodes || []} numberOfPosts={2} showExtract={false}></CategoryPostsList>
+                <CategoryPostsList filteredPosts={filterByCategory("guest-posts") || []} numberOfPosts={2} showExtract={false}></CategoryPostsList>
               </div>
 
               <div className=" col-span-1 sm:col-span-12 lg:col-span-6  p-2 sm:p-4 ">
@@ -105,16 +105,16 @@ export const dynamicParams = true;
               </div>
              
              <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4 ">
-                <CategoryPostsList filteredPosts={startABrokerPosts?.data?.posts?.nodes || []} numberOfPosts={3} flexDirection = 'flex-row'></CategoryPostsList>
+                <CategoryPostsList filteredPosts={filterByCategory("start-a-broker") || []} numberOfPosts={6} flexDirection = 'flex-row'></CategoryPostsList>
                 <div className="mt-4">
-                <CategoryPostsList filteredPosts={fxCfdLicensingPosts?.data?.posts?.nodes || []} numberOfPosts={4} flexDirection = 'flex-row'></CategoryPostsList>
+                <CategoryPostsList filteredPosts={filterByCategory("fx-cfd-liscensing") || []} numberOfPosts={4} flexDirection = 'flex-row'></CategoryPostsList>
                 </div>
               </div>
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-3 p-2 sm:p-4 ">
                 <div className="col-span-1 sm:col-span-5 lg:col-span-3" ></div>
                <Advert type="sidebar"></Advert>
-                <CategoryPostsList filteredPosts={newsletterPosts?.data?.posts?.nodes || []} offset={3} numberOfPosts={4} showImage={false}></CategoryPostsList>
+                <CategoryPostsList filteredPosts={filterByCategory("newsletter") || []} offset={3} numberOfPosts={3} showImage={false}></CategoryPostsList>
               </div>
 
        
