@@ -2,12 +2,9 @@ import React from 'react';
 
 interface CategoryHeaderProps {
   categoryName: string;
-  showCategoryTitle: boolean;
 }
 
-const CategoryHeader: React.FC<CategoryHeaderProps> = ({ categoryName, showCategoryTitle }) => {
-  if (!showCategoryTitle || categoryName === 'Featured') return null;
-
+const CategoryHeader: React.FC<CategoryHeaderProps> = ({ categoryName }) => {
   return (
     <span className="flex items-center mb-4">
       <h1 className="ml-2 font-bold uppercase text-lg">{categoryName}</h1>

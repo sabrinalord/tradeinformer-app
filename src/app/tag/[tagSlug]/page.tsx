@@ -9,6 +9,7 @@ import { NewsletterSignUp } from "../../components/NewsletterSignUp";
 import SocialNavbar from "../../components/SocialNavbar";
 import Footer from "../../components/Footer";
 import { fetchPostsByTag } from "@/lib/fetchData";
+import CategoryHeader from "@/app/components/CategoryHeader";
 
 export const revalidate = 10;
 export const dynamicParams = true;
@@ -62,12 +63,12 @@ export default async function TagPage({ params }: TagPageProps) {
         <Advert type="desktop_billboard_top"></Advert>
           <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
             <div className="col-span-1 sm:col-span-12">
-                Tagged as: {tagName}
+            <CategoryHeader categoryName={`Tagged as: ${tagName}`}></CategoryHeader>
                 </div>
             <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4">
               
               <div className="mb-5 sm:mb-8 lg:mb-10">
-              <CategoryFeaturedPost post={tagPosts[0]} />
+              <CategoryFeaturedPost showCategoryHeader={false}  post={tagPosts[0]} />
               </div>
 
               <div>

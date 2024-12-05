@@ -7,11 +7,13 @@ import CategoryHeader from '../CategoryHeader';
 
 interface CategoryFeaturedPostProps {
   post: Post;
+  showCategoryHeader?: boolean;
 }
 
 
 const CategoryFeaturedPost: React.FC<CategoryFeaturedPostProps> =  ({
-  post
+  post,
+  showCategoryHeader = true,
  }) => {
 
   if (!post) return null;
@@ -22,8 +24,9 @@ const CategoryFeaturedPost: React.FC<CategoryFeaturedPostProps> =  ({
 
     return (
         <div>
-          <CategoryHeader categoryName={categoryName} showCategoryTitle></CategoryHeader>
-
+            {showCategoryHeader && (
+                        <CategoryHeader categoryName={categoryName} ></CategoryHeader>
+            )}
 
    <article className="bg-gray-100 flex flex-col lg:flex-row m-2 p-4 gap-2 mb-2">
 
