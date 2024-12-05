@@ -22,7 +22,6 @@ interface OneLargefirstPost3SmallGridProps {
 const OneLargefirstPost3SmallGrid: React.FC<OneLargefirstPost3SmallGridProps> = ({
   filteredPosts,
   numberOfPosts,
-  firstPostHasLargeImage = true,
   offset = 0,
   showCategoryTitle = true,
 }) => {

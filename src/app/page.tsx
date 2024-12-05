@@ -8,7 +8,7 @@ import YouTubePlayer from "./components/YoutubePlayer";
 import PodcastPlayer from "./components/PodcastPlayer";
 import { PostsResponse, Post, MenuResponse, MenuItem } from "./types";                                           
 import { NewsletterSignUp } from "./components/NewsletterSignUp";
-import { fetchFooterMenu, fetchHeaderMenu, fetchPosts, fetchPostsByCategory } from "@/lib/fetchData";
+import { fetchFooterMenu, fetchHeaderMenu, fetchPosts } from "@/lib/fetchData";
 import Footer from "./components/Footer";
 import HomePageFeaturedPost from "./components/PostComponents/HomePageFeaturedPost";
 import OneLargePost3SmallGrid from "./components/PostComponents/OneLargePost3SmallGrid";
