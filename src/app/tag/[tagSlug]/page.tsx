@@ -62,17 +62,16 @@ export default async function TagPage({ params }: TagPageProps) {
       <div className="container mx-auto p-2">
         <Advert type="desktop_billboard_top"></Advert>
           <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
-            <div className="col-span-1 sm:col-span-12">
-            <CategoryHeader categoryName={`Tagged as: ${tagName}`}></CategoryHeader>
-                </div>
+           
             <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4">
+                <CategoryHeader categoryName={`Tagged as: ${tagName}`}></CategoryHeader>
               
               <div className="mb-5 sm:mb-8 lg:mb-10">
               <CategoryFeaturedPost showCategoryHeader={false}  post={tagPosts[0]} />
               </div>
 
               <div>
-                <div  className="lg:mb-10">
+                <div className="lg:mb-10">
                 <CategoryPostsList 
                 filteredPosts={tagPosts} 
                 numberOfPosts={3} 

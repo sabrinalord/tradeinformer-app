@@ -66,6 +66,7 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
             firstPostHasLargeImage={firstPostHasLargeImage}
             isFirstPost={false}
             categorySlug={categorySlug}
+            flexDirection={flexDirection}
             key={post.id}
           />
         ))}

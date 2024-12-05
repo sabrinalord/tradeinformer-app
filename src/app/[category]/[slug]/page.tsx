@@ -87,11 +87,18 @@ export default async function Page({
                 
                 {post.tags.nodes && (
                 <div>
-                    <ul>
-                        <li><span className="p-2 bg-[#266fef] text-white uppercase">Tags</span></li>
-                        {post.tags.nodes.map((tag) => (
-                            <li key={tag.uri}><Link href={tag.uri}>{tag.name}</Link> </li>
-                        )) }
+                
+                    <ul className="flex flex-wrap space-x-1 text-sm">
+                    <li className="inline-fle p-2 m-2 bg-[#266fef] text-white uppercase">
+                     Tags
+                    </li>
+                    {post.tags.nodes.map((tag) => (
+                        <li key={tag.uri} className="inline-flex">
+                        <Link className="p-2 m-2 border  hover:bg-gray-100" href={tag.uri}>
+                            {tag.name}
+                        </Link>
+                        </li>
+                    ))}
                     </ul>
                 </div>
                 )}
