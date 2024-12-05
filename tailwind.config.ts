@@ -23,6 +23,7 @@ const config: Config = {
   			navy: 'var(--navy)',
   			darkNavy: 'var(--darkNavy)',
   			babyBlue: 'var(--babyBlue)',
+			linkBlue: 'var(--linkBlue)',
   			warmYellow: 'var(--warmYellow)',
   			foreground: 'hsl(var(--foreground))',
   			card: {

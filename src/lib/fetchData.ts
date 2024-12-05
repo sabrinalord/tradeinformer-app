@@ -3,7 +3,9 @@ import { GET_HEADER_MENU, GET_FOOTER_MENU } from "@/app/queries/getMenus";
 import { GET_POST_BY_SLUG } from "@/app/queries/getPostBySlug";
 import { GET_POSTS } from "@/app/queries/getPosts";
 import { GET_POSTS_BY_CATEGORY } from "@/app/queries/getPostsByCategory";
-import {CategoriesResponse, Post, PostsResponse} from "@/app/types";
+import { GET_POSTS_BY_TAG } from "@/app/queries/getPostsByTag";
+import { GET_TAGS } from "@/app/queries/getTags";
+import {CategoriesResponse, Post, PostsResponse, TagsResponse} from "@/app/types";
 const apiUrl: string = process.env.GRAPHQL_API_URL as string;
 
 if (!apiUrl) {
@@ -17,6 +19,14 @@ if (!apiUrl) {
     after?: string | null;
     [key: string]: string | number | null | undefined;
   }
+
+  type FetchPostsVariables = {
+    slug: string;
+    first: number;
+    after?: string | null;
+    category?: string;
+    tagSlug?: string;
+  };
 
   
 async function fetchGraphQL(query: string, variables?: GraphQLVariables) {
@@ -61,65 +71,25 @@ export async function fetchCategories(): Promise<CategoriesResponse> {
   return data; 
 }
 
-export async function fetchPosts(): Promise<PostsResponse> {
-  let allPosts: Post[] = [];
-  let hasNextPage = true;
-  let afterCursor: string | null = null;
-  let finalEndCursor: string | null = null;
-
-
-  while (hasNextPage) {
-    const variables = {
-      slug: "",
-      first:50,        
-      after: afterCursor 
-    };
-
-    const data = await fetchGraphQL(GET_POSTS, variables) as PostsResponse;
-
-    if (!data || !data.data || !data.data.posts) {
-      throw new Error("Error fetching posts");
-    }
-
-    const newPosts = data.data.posts.nodes;
-    allPosts = [...allPosts, ...newPosts];
-
-    afterCursor = data.data.posts.pageInfo.endCursor;
-    hasNextPage = data.data.posts.pageInfo.hasNextPage;
-
-    finalEndCursor = afterCursor;
-
-  }
-
-  return {
-    data: {
-      posts: {
-        nodes: allPosts,
-        pageInfo: {
-          endCursor: finalEndCursor,
-          hasNextPage: false, // We've fetched all pages, so set hasNextPage to false
-        },
-      },
-    },
-  };
+export async function fetchTags(): Promise<TagsResponse> {
+  const data = await fetchGraphQL(GET_TAGS);
+  return data; 
 }
 
-export async function fetchPostsByCategory(category:string): Promise<PostsResponse> {
+
+async function fetchPaginatedPosts(
+  query: string,
+  variables: Omit<FetchPostsVariables, "after">
+): Promise<PostsResponse> {
   let allPosts: Post[] = [];
   let hasNextPage = true;
   let afterCursor: string | null = null;
   let finalEndCursor: string | null = null;
 
-
   while (hasNextPage) {
-    const variables = {
-      slug: "",
-      first:10,        
-      after: afterCursor,
-      category: category 
-    };
+    const paginatedVariables = { ...variables, after: afterCursor}; 
 
-    const data = await fetchGraphQL(GET_POSTS_BY_CATEGORY, variables) as PostsResponse;
+    const data = await fetchGraphQL(query, paginatedVariables) as PostsResponse;
 
     if (!data || !data.data || !data.data.posts) {
       throw new Error("Error fetching posts");
@@ -130,9 +100,7 @@ export async function fetchPostsByCategory(category:string): Promise<PostsRespon
 
     afterCursor = data.data.posts.pageInfo.endCursor;
     hasNextPage = data.data.posts.pageInfo.hasNextPage;
-
     finalEndCursor = afterCursor;
-
   }
 
   return {
@@ -148,6 +116,30 @@ export async function fetchPostsByCategory(category:string): Promise<PostsRespon
   };
 }
 
+export async function fetchPosts(): Promise<PostsResponse> {
+  return fetchPaginatedPosts(GET_POSTS, {
+    slug: "",
+    first: 40
+  });
+}
+
+
+export async function fetchPostsByCategory(
+  category: string
+): Promise<PostsResponse> {
+  return fetchPaginatedPosts(GET_POSTS_BY_CATEGORY, {
+    slug: "", 
+    category,
+    first: 30
+  });
+}
+
+export async function fetchPostsByTag(tagSlug: string): Promise<PostsResponse> {
+  return fetchPaginatedPosts(GET_POSTS_BY_TAG, {
+    slug: "", tagSlug,
+    first: 30
+  });
+}
 
 export async function fetchPostBySlug(slug: string) {
   const variables = { slug };

@@ -45,6 +45,13 @@
         altText: string | undefined;
       }; 
     } ; 
+    tags: {
+      nodes: {
+        name: string;
+        slug: string;
+        uri: string;
+      }[];
+    }
   }
 
   export interface MenuResponse {
@@ -93,6 +100,20 @@ export interface MenuItem {
     }
     
   export interface CategoryNode {
+      slug: string;
+      name: string;
+    }
+
+
+    export interface TagsResponse {
+      data: {
+       tags: {
+         nodes: TagNode[];
+       };
+      }
+     }
+
+     export interface TagNode {
       slug: string;
       name: string;
     }

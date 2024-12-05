@@ -60,7 +60,7 @@ const OneLargefirstPost3SmallGrid: React.FC<OneLargefirstPost3SmallGridProps> = 
  </div>
       
            <div className={` mt-2 lg:ml-0 lg:mt-2`}>
-             <h2 className={`font-bold `}>
+             <h2 className={`font-bold hover:text-linkBlue hover:underline  `}>
                {firstPost.title}
              </h2>
              <p className="text-sm">{formattedDate}</p>

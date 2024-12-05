@@ -11,7 +11,7 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = ({footerItems}) => {
 
     return (
-            <div className="bg-navy p-4  text-white ">
+            <div className="bg-navy p-4 mt-20 text-white ">
                 <div className="flex flex-wrap lg:justify-evenly">
                 {footerItems.map((item) => (
                     <ul className="p-2 min-w-[170px] max-w-[250px] sm:p-4 m-2" key={item.id}>

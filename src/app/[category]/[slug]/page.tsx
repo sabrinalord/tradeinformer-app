@@ -49,8 +49,8 @@ export default async function Page({
     
  
 
-    const postsData: SinglePostResponse  = await fetchPostBySlug(slug);
-    const post: Post = postsData?.data?.postBy || [];
+    const postData: SinglePostResponse  = await fetchPostBySlug(slug);
+    const post: Post = postData?.data?.postBy || [];
 
     const formattedDate = formatDate(post.date);
     const categoryName = post.categories.nodes[0]?.name || "Category";
@@ -61,7 +61,7 @@ export default async function Page({
         <Navbar headerItems={menuItems}></Navbar>
         <SocialNavbar></SocialNavbar>
       
-        <div className="container mx-auto">
+        <div className="container mx-auto p-2">
         <Advert type="desktop_billboard_top"></Advert>
             <main className ="grid grid-cols-1 sm:grid-cols-12 gap-4 mt-8">
                 <div className="col-span-1 sm:col-span-12 p-4">
@@ -75,8 +75,8 @@ export default async function Page({
                     <div className="border-b mt-5 sm:mt-10 sm:mb-4"></div>
                 </div>
 
-            <article className="col-span-1 sm:col-span-12 lg:col-span-8 sm:p-4">
-                <Image className="lg:p-4"
+            <article className="col-span-1 sm:col-span-12 lg:col-span-8 sm:p-4 ">
+                <Image className="lg:p-6 ml-auto mr-auto"
                               src={post.featuredImage.node.sourceUrl} 
                               width="800"
                               height="800" 
@@ -84,12 +84,23 @@ export default async function Page({
                     </Image> 
     
                 <div className={` ${styles.content} mt-4`} dangerouslySetInnerHTML={{ __html: post.content }}></div>
+                
+                {post.tags.nodes && (
+                <div>
+                    <ul>
+                        <li><span className="p-2 bg-[#266fef] text-white uppercase">Tags</span></li>
+                        {post.tags.nodes.map((tag) => (
+                            <li key={tag.uri}><Link href={tag.uri}>{tag.name}</Link> </li>
+                        )) }
+                    </ul>
+                </div>
+                )}
             </article>
 
-            <div className="col-span-1 sm:col-span-6  lg:col-span-3  p-2 sm:p-4 ">
-                <Advert type="sidebar"></Advert>
-                <RandomCategorySidebar alreadyDisplayedCategory={category}></RandomCategorySidebar>
-              </div>
+                <div className="col-span-1 sm:col-span-6  lg:col-span-3  p-2 sm:p-4 ">
+                    <Advert type="sidebar"></Advert>
+                    <RandomCategorySidebar alreadyDisplayedCategory={category}></RandomCategorySidebar>
+                </div>
             </main>
         </div>
         <Footer footerItems={footerMenuItems}></Footer>

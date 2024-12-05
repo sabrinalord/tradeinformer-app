@@ -35,7 +35,7 @@ const HomePageFeaturedPost:React.FC<HomePageFeaturedPostProps> = ({
     </div>
          
               <div className={` ml-2 lg:ml-0 mt-2`}>
-                <h2 className={`font-bold text-xl `}>
+                <h2 className={`font-bold text-xl hover:text-linkBlue hover:underline `}>
                   {post.title}
                 </h2>
                 <p className="text-sm">{formattedDate}</p>

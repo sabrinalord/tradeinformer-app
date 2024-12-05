@@ -1,28 +1,35 @@
 
 export const GET_POSTS = `query GetPosts($first: Int, $after: String) {
   posts(first: $first, after: $after) {
-       nodes {
-       id
-       slug
-       title
-       date
+    nodes {
+      id
+      slug
+      title
+      date
       content
-     author {
-      node {
-        name
+      author {
+        node {
+          name
+        }
       }
-    }
-    categories {
+      categories {
         nodes {
           name
           slug
         }
-    }
+      }
       excerpt
       featuredImage {
         node {
           sourceUrl
           altText
+        }
+      }
+      tags {
+        nodes {
+          name
+          slug
+          uri
         }
       }
     }

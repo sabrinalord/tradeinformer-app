@@ -1,14 +1,17 @@
-
-
-export const GET_POSTS_BY_CATEGORY = `query GetPostsByCategory($first: Int, $after: String, $category: String) {
-    posts(first: $first, after: $after, where: {categoryName: $category}) {
+export const GET_POSTS_BY_TAG = `query GetPosts($first: Int, $after: String, $tagSlug: String) {
+    posts(first: $first, after: $after, where: {tag: $tagSlug}) {
       nodes {
         id
         slug
         title
         date
         content
-         categories {
+        author {
+          node {
+            name
+          }
+        }
+        categories {
           nodes {
             name
             slug
@@ -21,19 +24,18 @@ export const GET_POSTS_BY_CATEGORY = `query GetPostsByCategory($first: Int, $aft
             altText
           }
         }
-       tags {
-        nodes {
-          name
-          slug
-          uri
+        tags {
+          nodes {
+            name
+            slug
+            uri
+          }
         }
-      }
-
       }
       pageInfo {
         endCursor
         hasNextPage
       }
     }
-  }`;
-  
+  }
+    `

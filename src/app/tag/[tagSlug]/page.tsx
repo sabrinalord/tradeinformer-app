@@ -1,55 +1,56 @@
-import { Post, PostsResponse, MenuResponse, MenuItem, CategoriesResponse, CategoryNode } from "@/app/types";
-import { fetchCategories, fetchFooterMenu, fetchHeaderMenu, fetchPostsByCategory } from "../../lib/fetchData";
+import { Post, PostsResponse, MenuResponse, MenuItem, TagsResponse, TagNode } from "@/app/types";
+import { fetchFooterMenu, fetchHeaderMenu, fetchTags } from "../../../lib/fetchData";
 import Navbar from "@/app/components/Navbar";
 import CategoryPostsList from "@/app/components/CategoryPostsList";
-import Advert from "../components/Advert";
-import CategoryFeaturedPost from "../components/PostComponents/CategoryFeaturedPost";
-import RandomCategorySidebar from "../components/RandomCategorySidebar";
-import { NewsletterSignUp } from "../components/NewsletterSignUp";
-import SocialNavbar from "../components/SocialNavbar";
-import Footer from "../components/Footer";
+import Advert from "../../components/Advert";
+import CategoryFeaturedPost from "../../components/PostComponents/CategoryFeaturedPost";
+import RandomCategorySidebar from "../../components/RandomCategorySidebar";
+import { NewsletterSignUp } from "../../components/NewsletterSignUp";
+import SocialNavbar from "../../components/SocialNavbar";
+import Footer from "../../components/Footer";
+import { fetchPostsByTag } from "@/lib/fetchData";
 
 export const revalidate = 10;
 export const dynamicParams = true;
 
-interface CategoryPageProps {
+interface TagPageProps {
   params:Promise<{
-    category: string;
+    tagSlug: string;
+    tagName: string
   }>;
 }
 
 
 export async function generateStaticParams() {
-  const categoriesResponse: CategoriesResponse = await fetchCategories();
-  const categories: CategoryNode[] = categoriesResponse?.data?.categories?.nodes || [];
+  const tagsResponse: TagsResponse = await fetchTags();
+  const tags: TagNode[] = tagsResponse?.data?.tags?.nodes || [];
 
-  return categories.map((category) => ({
-    category: category.slug,
+  return tags.map((tag) => ({
+    tagSlug: tag.slug
   }));
 }
 
-const fetchCategoryPosts = async (categorySlug: string): Promise<Post[]> => {
-  const postsData: PostsResponse = await fetchPostsByCategory(categorySlug);
+const fetchTagPosts = async (tagSlug: string): Promise<Post[]> => {
+  const postsData: PostsResponse = await fetchPostsByTag(tagSlug);
   return postsData?.data?.posts?.nodes ?? [];
 };
 
 
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
-  const { category } = await params;
+export default async function TagPage({ params }: TagPageProps) {
+  const { tagSlug} = await params;
 
   // Fetch menu data
   const headerMenuData: MenuResponse = await fetchHeaderMenu();
   const menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
-
 
   const footerMenuData: MenuResponse = await fetchFooterMenu();
   const footerMenuItems: MenuItem[] = footerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
   
 
   // Fetch post data
-  const categoryPosts = await fetchCategoryPosts(category);
-
+  const tagPosts = await fetchTagPosts(tagSlug);
+  const tagName = tagPosts?.[0]?.tags?.nodes?.find((tag) => tag.slug === tagSlug)?.name || "Unknown Tag";
 
   return (
     <>
@@ -60,16 +61,19 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <div className="container mx-auto p-2">
         <Advert type="desktop_billboard_top"></Advert>
           <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
+            <div className="col-span-1 sm:col-span-12">
+                Tagged as: {tagName}
+                </div>
             <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4">
               
               <div className="mb-5 sm:mb-8 lg:mb-10">
-              <CategoryFeaturedPost post={categoryPosts[0]} />
+              <CategoryFeaturedPost post={tagPosts[0]} />
               </div>
 
               <div>
                 <div  className="lg:mb-10">
                 <CategoryPostsList 
-                filteredPosts={categoryPosts} 
+                filteredPosts={tagPosts} 
                 numberOfPosts={3} 
                 showCategoryTitle={false} 
                 firstPostHasLargeImage = {false}
@@ -79,7 +83,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 </div>
              
                 <CategoryPostsList 
-                filteredPosts={categoryPosts} 
+                filteredPosts={tagPosts} 
                 firstPostHasLargeImage={false}
                 numberOfPosts={6} 
                 showCategoryTitle={false} 
@@ -92,7 +96,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
               {/* Sidebar Content (Random Category Posts) */}
               <div className="sm:col-span-3 p-2 sm:p-4">
-              <RandomCategorySidebar alreadyDisplayedCategory={category}></RandomCategorySidebar>
+              <RandomCategorySidebar alreadyDisplayedCategory={"guest-posts"}></RandomCategorySidebar>
               </div>
     </main>
       </div>

@@ -48,6 +48,7 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
           inlineTextOnDesktop={inlineTextOnDesktop}
           firstPostHasLargeImage={firstPostHasLargeImage}
           isFirstPost={true}
+          flexDirection={flexDirection}
           categorySlug={categorySlug}
         />
       )}

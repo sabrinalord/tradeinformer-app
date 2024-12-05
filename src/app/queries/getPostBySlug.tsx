@@ -20,5 +20,12 @@ export const GET_POST_BY_SLUG = `query GetPostBySlug($slug: String!) {
         altText
       }
     }
+         tags {
+        nodes {
+          name
+          slug
+          uri
+        }
+      }
   }
 }`
