@@ -17,6 +17,7 @@ const SocialNavbar: React.FC = () => {
          <nav className="flex mt-2 ">
        
 
+       {/* WhatsApp Updates */}
             <Link className="mr-2" href="https://api.whatsapp.com/send/?phone=447510165171&text&type=phone_number&app_absent=0">
                 <button
                 type="button"

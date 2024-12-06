@@ -7,8 +7,10 @@ import Image from 'next/image';
 import SocialNavbar from "@/app/components/SocialNavbar";
 import styles from './Page.module.css';
 import RandomCategorySidebar from "@/app/components/RandomCategorySidebar";
+
 import Link from "next/link";
 import Footer from "@/app/components/Footer";
+import SocialShareForArticles from "@/app/components/SocialShareForArticles";
 
 
 
@@ -71,7 +73,8 @@ export default async function Page({
                         <span className="">By <strong>{post.author.node.name}</strong> </span>   
                         <span className="ml-2 mr-2 text-gray-200"> | </span>  
                         <span className="ml-2">{formattedDate}</span>
-                        </p>
+                     </p>
+                     <SocialShareForArticles articleTitle={post.title}></SocialShareForArticles>
                     <div className="border-b mt-5 sm:mt-10 sm:mb-4"></div>
                 </div>
 
