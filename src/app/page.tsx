@@ -1,6 +1,6 @@
 
 
-import CategoryPostsList from "./components/CategoryPostsList";
+import CategoryPostsList from "./components/PostComponents/CategoryPostsList";
 import Advert from "./components/Advert";
 import Navbar from "./components/Navbar";
 import SocialNavbar from "./components/SocialNavbar";

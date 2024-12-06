@@ -1,7 +1,7 @@
 import { Post, PostsResponse, MenuResponse, MenuItem, CategoriesResponse, CategoryNode } from "@/app/types";
 import { fetchCategories, fetchFooterMenu, fetchHeaderMenu, fetchPostsByCategory } from "../../lib/fetchData";
 import Navbar from "@/app/components/Navbar";
-import CategoryPostsList from "@/app/components/CategoryPostsList";
+import CategoryPostsList from "@/app/components/PostComponents/CategoryPostsList";
 import Advert from "../components/Advert";
 import CategoryFeaturedPost from "../components/PostComponents/CategoryFeaturedPost";
 import RandomCategorySidebar from "../components/RandomCategorySidebar";
@@ -30,7 +30,9 @@ export async function generateStaticParams() {
 
 const fetchCategoryPosts = async (categorySlug: string): Promise<Post[]> => {
   const postsData: PostsResponse = await fetchPostsByCategory(categorySlug);
+
   return postsData?.data?.posts?.nodes ?? [];
+
 };
 
 
@@ -85,6 +87,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 showCategoryTitle={false} 
                 offset={4} 
                 inlineTextOnDesktop
+                hasLoadMore={true}
                 />
               </div>
             </div>

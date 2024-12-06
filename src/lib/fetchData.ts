@@ -79,7 +79,7 @@ export async function fetchTags(): Promise<TagsResponse> {
 
 async function fetchPaginatedPosts(
   query: string,
-  variables: Omit<FetchPostsVariables, "after">
+  variables: FetchPostsVariables
 ): Promise<PostsResponse> {
   let allPosts: Post[] = [];
   let hasNextPage = true;
@@ -125,12 +125,14 @@ export async function fetchPosts(): Promise<PostsResponse> {
 
 
 export async function fetchPostsByCategory(
-  category: string
+  category: string,
+  afterCursor: string | null = null
 ): Promise<PostsResponse> {
   return fetchPaginatedPosts(GET_POSTS_BY_CATEGORY, {
     slug: "", 
     category,
-    first: 30
+    first: 30,
+    after: afterCursor,
   });
 }
 

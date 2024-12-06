@@ -1,7 +1,7 @@
 
 import { fetchCategories, fetchPostsByCategory } from "@/lib/fetchData";
 import { CategoriesResponse, CategoryNode, Post, PostsResponse, } from "../types";
-import CategoryPostsList from "./CategoryPostsList";
+import CategoryPostsList from "./PostComponents/CategoryPostsList";
 
 interface RandomCategorySidebarProps {
     alreadyDisplayedCategory?: string

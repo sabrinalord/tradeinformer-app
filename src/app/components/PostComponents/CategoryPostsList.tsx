@@ -1,7 +1,8 @@
 import React from 'react';
-import { Post } from '../types';
-import PostComponent from './PostComponents/PostComponent';
-import CategoryHeader from './CategoryHeader';
+import { Post } from '../../types';
+import PostComponent from './PostComponent';
+import CategoryHeader from '../CategoryHeader';
+import LoadMorePosts from './LoadMorePosts';
 
 interface CategoryPostsListProps {
   numberOfPosts: number;
@@ -13,6 +14,7 @@ interface CategoryPostsListProps {
   flexDirection?: 'flex-col' | 'flex-row';
   inlineTextOnDesktop?: boolean;
   showCategoryTitle?: boolean;
+  hasLoadMore?: boolean;
 }
 
 const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
@@ -25,14 +27,15 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
   flexDirection = 'flex-col',
   inlineTextOnDesktop = false,
   showCategoryTitle = true,
+  hasLoadMore = false,
 }) => {
   if (!filteredPosts.length) return null;
 
   const validOffset = Math.min(offset, filteredPosts.length);
   const categoryName = filteredPosts[0].categories.nodes[0].name;
   const categorySlug = filteredPosts[0].categories.nodes[0].slug;
-  const displayedPosts = filteredPosts.slice(validOffset, validOffset + numberOfPosts);
-  const firstPost = displayedPosts[0];
+  const initialPosts = filteredPosts.slice(validOffset, validOffset + numberOfPosts);
+  const firstPost = initialPosts[0];
 
   return (
     <div>
@@ -57,7 +60,7 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
       )}
 
       {/* Render Remaining Posts */}
-        {displayedPosts.map((post, index) => index !== 0 && (
+        {initialPosts.map((post, index) => index !== 0 && (
           <PostComponent
             post={post}
             showImage={showImage}
@@ -72,6 +75,17 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
         ))}
      
  </div>
+      {hasLoadMore && (
+      <LoadMorePosts 
+      allPosts={filteredPosts} 
+      initialCount={numberOfPosts} 
+      increment={5} 
+      categorySlug={categorySlug}
+      flexDirection={flexDirection}
+      inlineTextOnDesktop={ inlineTextOnDesktop}
+      >
+      </LoadMorePosts>
+      )}
     </div>
   );
 };

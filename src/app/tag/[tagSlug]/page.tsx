@@ -1,7 +1,7 @@
 import { Post, PostsResponse, MenuResponse, MenuItem, TagsResponse, TagNode } from "@/app/types";
 import { fetchFooterMenu, fetchHeaderMenu, fetchTags } from "../../../lib/fetchData";
 import Navbar from "@/app/components/Navbar";
-import CategoryPostsList from "@/app/components/CategoryPostsList";
+import CategoryPostsList from "@/app/components/PostComponents/CategoryPostsList";
 import Advert from "../../components/Advert";
 import CategoryFeaturedPost from "../../components/PostComponents/CategoryFeaturedPost";
 import RandomCategorySidebar from "../../components/RandomCategorySidebar";
