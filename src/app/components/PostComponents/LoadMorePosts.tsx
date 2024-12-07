@@ -43,13 +43,15 @@ const LoadMorePosts: React.FC<LoadMorePostsProps> = ({
       { threshold: 1.0 }
     );
 
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
+    const currentObserverRef = observerRef.current; 
+
+    if (currentObserverRef) {
+      observer.observe(currentObserverRef);
     }
 
     return () => {
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current);
+      if (currentObserverRef) {
+        observer.unobserve(currentObserverRef);
       }
     };
   }, [visibleCount, allPosts.length]);
@@ -61,7 +63,7 @@ const LoadMorePosts: React.FC<LoadMorePostsProps> = ({
  
       {/* Dynamically Loaded Posts */}
       <div className={`flex flex-col lg:${flexDirection} justify-between`}>
-        {displayedPosts.map((post, index) => (
+        {displayedPosts.map((post) => (
           <PostComponent
             post={post}
             showImage={showImage}
