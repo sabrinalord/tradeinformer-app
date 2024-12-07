@@ -16,14 +16,12 @@ interface OneLargefirstPost3SmallGridProps {
   showExtract?: boolean;
   flexDirection?: 'flex-col' | 'flex-row';
   inlineTextOnDesktop?: boolean;
-  showCategoryTitle?: boolean;
 }
 
 const OneLargefirstPost3SmallGrid: React.FC<OneLargefirstPost3SmallGridProps> = ({
   filteredPosts,
   numberOfPosts,
   offset = 0,
-  showCategoryTitle = true,
 }) => {
   if (!filteredPosts.length) return null;
 
@@ -38,7 +36,7 @@ const OneLargefirstPost3SmallGrid: React.FC<OneLargefirstPost3SmallGridProps> = 
 
   return (
     <div>
-      <CategoryHeader categoryName={categoryName} showCategoryTitle={showCategoryTitle} />
+      <CategoryHeader categoryName={categoryName} />
       
  <div className={`flex flex-col lg:flex-row`}>
 
