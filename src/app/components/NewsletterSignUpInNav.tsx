@@ -7,10 +7,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { schema } from "../registrationSchema";
 import { z } from "zod";
+import  Recaptcha from "../components/Recaptcha";
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+
 
 
 export const NewsletterSignUpInNav = () => {
   const [message, setMessage] = useState<string | null>(null);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+
 
     const form = useForm<z.infer<typeof schema>>({
         resolver:zodResolver(schema),
@@ -23,6 +28,10 @@ export const NewsletterSignUpInNav = () => {
       console.log("Submitted data:", data); 
       setMessage(null);
 
+      if (!recaptchaToken) {
+        setMessage("Please complete the reCAPTCHA verification.");
+        return;
+      }
   
       
       try {
@@ -31,7 +40,9 @@ export const NewsletterSignUpInNav = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(
+         {   ...data,
+          recaptchaToken})
         });
   
         const result = await response.json();
@@ -39,6 +50,7 @@ export const NewsletterSignUpInNav = () => {
         if (response.ok && result.success) {
           setMessage("Thank you for subscribing to TradeInformer!");
           form.reset(); 
+          setRecaptchaToken(null);
         } else {
           if (result.message === "This email is already subscribed.") {
             setMessage("This email is already subscribed.");
@@ -52,8 +64,14 @@ export const NewsletterSignUpInNav = () => {
       }
     };
 
+    const handleRecaptchaVerify = (token: string) => {
+      setRecaptchaToken(token); // Update the token in state
+    };
+
 
     return (
+      <GoogleReCaptchaProvider reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}>
+
         <div className="flex sm:flex-col lg:flex-row">
                 <div className="">
                         <p className="font-bold hidden lg:block text-[12px] sm:text-[16px]">Subscribe to TradeInformer</p>
@@ -87,8 +105,10 @@ export const NewsletterSignUpInNav = () => {
             <Button className="ml-2 h-8" type="submit">Subscribe</Button>
           </form>
         </Form>
+        <Recaptcha onVerify={handleRecaptchaVerify} /> 
        </div>
    
         </div>
+        </GoogleReCaptchaProvider>
       );
 }
