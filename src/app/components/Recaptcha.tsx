@@ -11,11 +11,15 @@ const Recaptcha: React.FC<RecaptchaProps> = ({ onVerify }) => {
   const { executeRecaptcha } = useGoogleReCaptcha();
 
   useEffect(() => {
+    if (!executeRecaptcha) return;
+
     const verifyCallback = async () => {
-      if (executeRecaptcha) {
-        const token = await executeRecaptcha();
-        onVerify(token); // Send token to backend or handle verification here
-      }
+        try {
+          const token = await executeRecaptcha();
+          onVerify(token);
+        } catch (error) {
+          console.error('reCAPTCHA execution failed:', error);
+        }
     };
     verifyCallback();
   }, [executeRecaptcha, onVerify]);

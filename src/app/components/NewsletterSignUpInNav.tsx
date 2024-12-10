@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import {Input} from  "@/components/ui/input";
 import { Form, FormControl,   FormField, FormItem, FormMessage} from "@/components/ui/form";
-import { useState } from 'react';
+import { SetStateAction, useCallback, useState } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { schema } from "../registrationSchema";
@@ -14,7 +14,7 @@ import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 export const NewsletterSignUpInNav = () => {
   const [message, setMessage] = useState<string | null>(null);
-  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
 
 
     const form = useForm<z.infer<typeof schema>>({
@@ -64,9 +64,13 @@ export const NewsletterSignUpInNav = () => {
       }
     };
 
-    const handleRecaptchaVerify = (token: string) => {
-      setRecaptchaToken(token); // Update the token in state
-    };
+// have used useCallback to memoize the function reference - this is so handleRecaptchaVerify function
+// maintains a stable reference across renders. This is because it is passed as a dependency
+// to the Recaptcha component's useEffect. Without memoization, it causes an infinite loop in useEffect.
+
+    const handleRecaptchaVerify = useCallback((token: SetStateAction<string | null>) => {
+      setRecaptchaToken(token);
+  }, []);
 
 
     return (
