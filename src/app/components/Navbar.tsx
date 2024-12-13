@@ -32,9 +32,9 @@ const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
                 <ul className="flex  w-full  ">
                     { headerItems.map((item) => (
                         item.label != "WhatsApp Updates" ? ( 
-                        <li className={`p-2 mr-4 sm:p-4  border-gray-500 ${item.label != "News" ? "border-l" : "" }`} key={item.id}>
-                            <button className="sm:pr-16"  onClick={() => setSelectedParent(item.label)}>
-                                <Link className={`w-fit sm:text-[1.3em] font-bold pb-1 pr-4 ${ selectedParent == item.label ? "border-b-4 border-b-babyBlue" : "" }`} href={item.url} >
+                        <li className={`p-2 mr-4 lg:p-4  border-gray-500 ${item.label != "News" ? "border-l" : "" }`} key={item.id}>
+                            <button className="md:pr-13 lg:pr-16"  onClick={() => setSelectedParent(item.label)}>
+                                <Link className={`w-fit lg:text-[1.3em] font-bold pb-1 pr-4 ${ selectedParent == item.label ? "border-b-4 border-b-babyBlue" : "" }`} href={item.url} >
                                 {item.label}
                                 </Link>
                             </button>
