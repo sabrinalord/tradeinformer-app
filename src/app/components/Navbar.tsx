@@ -3,9 +3,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { MenuItem } from '../types';
-import { NewsletterSignUpInNav } from './NewsletterSignUpInNav';
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { NewsletterSignUpComponents } from './NewsletterSignUpComponents';
 
 
