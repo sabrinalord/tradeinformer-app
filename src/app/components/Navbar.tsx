@@ -4,6 +4,9 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { MenuItem } from '../types';
 import { NewsletterSignUpInNav } from './NewsletterSignUpInNav';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { NewsletterSignUpComponents } from './NewsletterSignUpComponents';
 
 
 
@@ -13,7 +16,7 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
-
+  
     const [selectedParent, setSelectedParent] = useState<string | null>("News");   
 
     return (
@@ -24,7 +27,7 @@ const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
                 </Link> 
 
                 <div className="hidden sm:flex flex-col sm:flex-row ml-auto justify-items-center">
-                     <NewsletterSignUpInNav></NewsletterSignUpInNav>
+               <NewsletterSignUpComponents></NewsletterSignUpComponents>  
                 </div>           
          </div>
  

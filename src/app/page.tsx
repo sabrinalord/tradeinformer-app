@@ -7,7 +7,6 @@ import SocialNavbar from "./components/SocialNavbar";
 import YouTubePlayer from "./components/YoutubePlayer";
 import PodcastPlayer from "./components/PodcastPlayer";
 import { PostsResponse, Post, MenuResponse, MenuItem } from "./types";                                           
-import { NewsletterSignUp } from "./components/NewsletterSignUp";
 import { fetchFooterMenu, fetchHeaderMenu, fetchPosts } from "@/lib/fetchData";
 import Footer from "./components/Footer";
 import HomePageFeaturedPost from "./components/PostComponents/HomePageFeaturedPost";
@@ -42,8 +41,6 @@ const filterByCategory = (categorySlug: string) => {
 
   return ( 
     <>
-      <NewsletterSignUp></NewsletterSignUp>
-
     <div className="overflow-hidden">
       <Navbar headerItems={menuItems}></Navbar>
       <SocialNavbar></SocialNavbar>

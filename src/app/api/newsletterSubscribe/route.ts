@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
+  console.log('posting to newsletter api');
   const body = await req.json();
   const { email, recaptchaToken } = body;
+  
 
   if (!email) {
     return NextResponse.json({ success: false, message: 'Email is required' }, { status: 400 });
@@ -15,6 +17,7 @@ export async function POST(req: Request) {
 
    // first verify reCAPTCHA token with Google 
    const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+   console.log(secretKey)
    if (!secretKey) {
      return NextResponse.json(
        { success: false, message: 'Server configuration error: Missing reCAPTCHA secret key.' },
@@ -56,6 +59,7 @@ export async function POST(req: Request) {
   // add subscriber via GraphQL API for subscription
 
   try {
+    console.log('adding subscriber to wordpress db')
     const response = await fetch(process.env.GRAPHQL_API_URL as string, {
       method: 'POST',
       headers: {

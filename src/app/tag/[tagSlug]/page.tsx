@@ -5,7 +5,6 @@ import CategoryPostsList from "@/app/components/PostComponents/CategoryPostsList
 import Advert from "../../components/Advert";
 import CategoryFeaturedPost from "../../components/PostComponents/CategoryFeaturedPost";
 import RandomCategorySidebar from "../../components/RandomCategorySidebar";
-import { NewsletterSignUp } from "../../components/NewsletterSignUp";
 import SocialNavbar from "../../components/SocialNavbar";
 import Footer from "../../components/Footer";
 import { fetchPostsByTag } from "@/lib/fetchData";
@@ -55,9 +54,10 @@ export default async function TagPage({ params }: TagPageProps) {
 
   return (
     <>
-    <NewsletterSignUp></NewsletterSignUp>
+
     <div className="overflow-hidden">
       <Navbar headerItems={menuItems}></Navbar>
+    
       <SocialNavbar></SocialNavbar>
       <div className="container mx-auto p-2">
         <Advert type="desktop_billboard_top"></Advert>

@@ -1,19 +1,32 @@
 'use client';
+
 import { Button } from "@/components/ui/button";
 import {Input} from  "@/components/ui/input";
 import { Form, FormControl,   FormField, FormItem, FormMessage} from "@/components/ui/form";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, SetStateAction } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { schema } from "../registrationSchema";
 import { z } from "zod";
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useNewsletterSignUp } from "../hook/useNewsletterSignUp";
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 
-export const NewsletterSignUp = () => {
-  const [message, setMessage] = useState<string | null>(null); 
+
+export const NewsletterSignUpTopModal = () => {
+
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
+ 
+  const { 
+    message, 
+    setMessage,
+    onSubmit } = useNewsletterSignUp();
+  
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
   const scrollThreshold = 300;
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,38 +56,32 @@ export const NewsletterSignUp = () => {
         },
     });
 
-    const onSubmit = async (data: z.infer<typeof schema>) => {
-      setMessage(null);
+    const handleFormSubmit = async (data: z.infer<typeof schema>) => {
+      console.log('executing generate token from newsletter top modal ');
 
       try {
-        const response = await fetch("/api/newsletterSubscribe", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
-  
-        const result = await response.json();
-  
-        if (response.ok && result.success) {
-          setMessage("Thank you for subscribing to TradeInformer!");
-          form.reset(); 
-        } else {
-          if (result.message === "This email is already subscribed.") {
-            setMessage("This email is already subscribed.");
-          } else {
-            setMessage(result.message || 'Something went wrong. Please try again.');
-          }
+        if (!executeRecaptcha) {
+          setMessage("reCAPTCHA is not available. Please try again.");
+          return;
         }
+        console.log('executing generate token from newsletter sign up in nav');
+        const recaptchaToken = await executeRecaptcha("newsletter_signup_top_modal");
+        if (!recaptchaToken) {
+          setMessage("reCAPTCHA validation failed. Please try again.");
+          return;
+        }
+       
+        await onSubmit(data, recaptchaToken);
       } catch (error) {
-        console.error('Error submitting form:', error);
-        setMessage('An unexpected error occurred. Please try again.');
+        console.error("Error during form submission:", error);
+        setMessage("An unexpected error occurred. Please try again.");
       }
-    };
+
+    }
 
 
     return (
+        
         <div className={` ${showSignUp ? "fixed" : "hidden"} top-0 z-10 left-0 w-screen bg-babyBlue p-2 text-white items-center animate-slideDown`}>
               <div className="absolute top-0 right-0 m-2">
                 <button onClick={handleSignUpModal} className=" text-white font-extrabold hover:text-gray-600">
@@ -90,7 +97,7 @@ export const NewsletterSignUp = () => {
           <div className="flex justify-center">
             <div className="pt-2">
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="flex text-black">
+                    <form onSubmit={form.handleSubmit(handleFormSubmit)} className="flex text-black">
                       <FormField
                         control={form.control}
                         name="email"
@@ -110,10 +117,13 @@ export const NewsletterSignUp = () => {
                     </FormMessage>)}
                           </FormItem>
                         )}
-                      />
-                      <Button className="ml-2 text-black bg-warmYellow hover:bg-[#e0c200] w-20 h-8 sm:w-28 " type="submit">Subscribe</Button>
+                      />                  
+                        <Button className="ml-2 text-black bg-warmYellow hover:bg-[#e0c200] w-20 h-8 sm:w-28 " type="submit">Subscribe</Button>
+
                     </form>
                   </Form>
+          
+
             </div>
           </div>
             

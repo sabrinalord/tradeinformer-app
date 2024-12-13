@@ -5,7 +5,6 @@ import CategoryPostsList from "@/app/components/PostComponents/CategoryPostsList
 import Advert from "../components/Advert";
 import CategoryFeaturedPost from "../components/PostComponents/CategoryFeaturedPost";
 import RandomCategorySidebar from "../components/RandomCategorySidebar";
-import { NewsletterSignUp } from "../components/NewsletterSignUp";
 import SocialNavbar from "../components/SocialNavbar";
 import Footer from "../components/Footer";
 
@@ -55,7 +54,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <>
-    <NewsletterSignUp></NewsletterSignUp>
     <div className="overflow-hidden">
       <Navbar headerItems={menuItems}></Navbar>
       <SocialNavbar></SocialNavbar>
