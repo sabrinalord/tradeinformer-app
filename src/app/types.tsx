@@ -77,15 +77,15 @@ export interface MenuItem {
               };  
         };
 
-        export type AdvertType = 
+        export type WidgetType = 
         | "desktop_billboard_top"
         | "mobile_billboard_top"
         | "desktop_billboard_middle"
         | "mobile_billboard_middle"
         | "sidebar";
     
-    export interface AdvertData {
-        type: AdvertType;
+    export interface WidgetData {
+        type: WidgetType;
         image_url: string;
         target_url: string;
         country?: string; 

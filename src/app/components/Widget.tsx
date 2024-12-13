@@ -1,16 +1,16 @@
 
 'use client'
 import { useEffect, useState } from 'react';
-import { AdvertData, AdvertType } from '../types';
+import { WidgetData, WidgetType } from '../types';
 import Link from 'next/link';
 import Image from 'next/image';
 
-interface AdvertProps {
-    type: AdvertType;
+interface WidgetProps {
+    type: WidgetType;
 }
 
-export default function Advert(props: AdvertProps) {
-    const [banners, setBanners] = useState<AdvertData[]>([]);
+export default function Widget(props: WidgetProps) {
+    const [banners, setBanners] = useState<WidgetData[]>([]);
     const [userCountry, setUserCountry] =  useState<string | null>(null);
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export default function Advert(props: AdvertProps) {
         
             try {
 
-                const response = await fetch(`/api/advert?type=${type}&country=${formattedCountryQuery}`, {
+                const response = await fetch(`/api/widget?type=${type}&country=${formattedCountryQuery}`, {
                     method: 'GET',
                     headers: {
                       'Content-Type': 'application/json', 
@@ -46,7 +46,7 @@ export default function Advert(props: AdvertProps) {
                 if (!response.ok) {
                     throw new Error(`Error: ${response.statusText}`);
                 }
-                const data: AdvertData[] = await response.json();
+                const data: WidgetData[] = await response.json();
                 setBanners(data);
             } catch (err) {
                 console.error(err);
@@ -72,7 +72,7 @@ export default function Advert(props: AdvertProps) {
      
     <div className={`flex justify-center mt-2 mb-4 p-2`}>
         <Link style={isSidebar ? { maxWidth: '400px' } : undefined} href={banner.target_url} target="_blank" rel="noopener noreferrer">
-             <Image src={banner.image_url} width={800} height={300} alt="advertisement"></Image>
+             <Image src={banner.image_url} width={800} height={300} alt="Widgetisement"></Image>
         </Link>
       </div>
      

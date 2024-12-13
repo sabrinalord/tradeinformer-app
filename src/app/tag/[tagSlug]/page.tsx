@@ -2,7 +2,7 @@ import { Post, PostsResponse, MenuResponse, MenuItem, TagsResponse, TagNode } fr
 import { fetchFooterMenu, fetchHeaderMenu, fetchTags } from "../../../lib/fetchData";
 import Navbar from "@/app/components/Navbar";
 import CategoryPostsList from "@/app/components/PostComponents/CategoryPostsList";
-import Advert from "../../components/Advert";
+import Widget from "../../components/Widget";
 import CategoryFeaturedPost from "../../components/PostComponents/CategoryFeaturedPost";
 import RandomCategorySidebar from "../../components/RandomCategorySidebar";
 import SocialNavbar from "../../components/SocialNavbar";
@@ -60,7 +60,7 @@ export default async function TagPage({ params }: TagPageProps) {
     
       <SocialNavbar></SocialNavbar>
       <div className="container mx-auto p-2">
-        <Advert type="desktop_billboard_top"></Advert>
+        <Widget type="desktop_billboard_top"></Widget>
           <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
            
             <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4">

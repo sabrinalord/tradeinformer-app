@@ -2,7 +2,7 @@ import { Post, SinglePostResponse, PostsResponse, MenuResponse, MenuItem} from "
 import {fetchPosts, fetchPostBySlug, fetchHeaderMenu, fetchFooterMenu} from "../../../lib/fetchData"
 import Navbar from "@/app/components/Navbar";
 import { formatDate } from "../../../lib/dateFormatter";
-import Advert from "@/app/components/Advert";
+import Widget from "@/app/components/Widget";
 import Image from 'next/image';
 import SocialNavbar from "@/app/components/SocialNavbar";
 import styles from './Page.module.css';
@@ -64,7 +64,7 @@ export default async function Page({
         <SocialNavbar></SocialNavbar>
       
         <div className="container mx-auto p-2">
-        <Advert type="desktop_billboard_top"></Advert>
+        <Widget type="desktop_billboard_top"></Widget>
             <main className ="grid grid-cols-1 sm:grid-cols-12 gap-4 mt-8">
                 <div className="col-span-1 sm:col-span-12 p-4">
                    <Link className={styles.link} href={`/${category}`}>{categoryName}</Link> 
@@ -108,7 +108,7 @@ export default async function Page({
             </article>
 
                 <div className="col-span-1 sm:col-span-6  lg:col-span-3  p-2 sm:p-4 ">
-                    <Advert type="sidebar"></Advert>
+                    <Widget type="sidebar"></Widget>
                     <RandomCategorySidebar alreadyDisplayedCategory={category}></RandomCategorySidebar>
                 </div>
             </main>

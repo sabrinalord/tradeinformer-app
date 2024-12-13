@@ -1,7 +1,7 @@
 
 
 import CategoryPostsList from "./components/PostComponents/CategoryPostsList";
-import Advert from "./components/Advert";
+import Widget from "./components/Widget";
 import Navbar from "./components/Navbar";
 import SocialNavbar from "./components/SocialNavbar";
 import YouTubePlayer from "./components/YoutubePlayer";
@@ -46,7 +46,7 @@ const filterByCategory = (categorySlug: string) => {
       <SocialNavbar></SocialNavbar>
 
       <div className="container mx-auto p-2">
-        <Advert type="desktop_billboard_top"></Advert>
+        <Widget type="desktop_billboard_top"></Widget>
          
           <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
               <div className="block lg:hidden col-span-1 sm:col-span-12 lg:col-span-3 sm:p-4 ">
@@ -72,7 +72,7 @@ const filterByCategory = (categorySlug: string) => {
               </div>
 
               <div className="col-span-1 sm:col-span-12">
-              <Advert type="desktop_billboard_middle"></Advert>
+              <Widget type="desktop_billboard_middle"></Widget>
               </div>
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-9 sm:p-4 ">
@@ -80,7 +80,7 @@ const filterByCategory = (categorySlug: string) => {
               </div>
 
               <div className=" col-span-1 lg:col-span-3 sm:p-4 ">
-              <Advert type="sidebar"></Advert>
+              <Widget type="sidebar"></Widget>
               </div>
 
 
@@ -113,7 +113,7 @@ const filterByCategory = (categorySlug: string) => {
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-4 ">
                 <div className="col-span-1 sm:col-span-5 lg:col-span-3" ></div>
-               <Advert type="sidebar"></Advert>
+               <Widget type="sidebar"></Widget>
                 <CategoryPostsList filteredPosts={filterByCategory("newsletter") || []} offset={3} numberOfPosts={3} showImage={false}></CategoryPostsList>
               </div>
 
