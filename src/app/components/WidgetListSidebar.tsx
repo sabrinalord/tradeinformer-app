@@ -1,5 +1,4 @@
 
-'use client'
 import { WidgetData} from '../types';
 import Widget from './Widget';
 

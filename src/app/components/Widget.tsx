@@ -1,6 +1,4 @@
 
-'use client'
-import { useEffect, useState } from 'react';
 import { WidgetData, WidgetType } from '../types';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -13,7 +11,6 @@ interface WidgetProps {
 export default function Widget({type, data}: WidgetProps) {
 
     const isSidebar = type === 'sidebar';
-
 
     return (
      
