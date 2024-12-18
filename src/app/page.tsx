@@ -48,61 +48,64 @@ const filterByCategory = (categorySlug: string) => {
       <div className="container mx-auto p-2">
         <Widget type="desktop_billboard_top"></Widget>
          
-          <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
-              <div className="block lg:hidden col-span-1 sm:col-span-12 lg:col-span-3 sm:p-4 ">
+          <main className =" grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">
+              <div className="block lg:hidden col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
                 <HomePageFeaturedPost post={featuredPost} categorySlug={featuredPost.categories.nodes[0].slug}></HomePageFeaturedPost>
                 <div>
                 <CategoryPostsList filteredPosts={filterByCategory("newsletter") || []} numberOfPosts={4} firstPostHasLargeImage={false}></CategoryPostsList>
                 </div>
               </div>
 
-              <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-4 ">
-                <CategoryPostsList filteredPosts={filterByCategory("tech-news") || []} numberOfPosts={3}></CategoryPostsList>
+              <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
+              <Widget type="sidebar"></Widget>
+              <Widget type="sidebar"></Widget>
+
+                <CategoryPostsList filteredPosts={filterByCategory("tech-news") || []} numberOfPosts={3} inlineTextOnDesktop showExtract={false}></CategoryPostsList>
               </div>
 
-              <div className="col-span-1 hidden lg:block lg:col-span-6 border-l-2 border-r-2 border-gray-100 sm:p-4 ">
+              <div className="col-span-1 hidden lg:block lg:col-span-6 border-l-2 border-r-2 border-gray-100 sm:p-2 ">
               <HomePageFeaturedPost post={featuredPost} categorySlug={featuredPost.categories.nodes[0].slug}></HomePageFeaturedPost>
               <div>
                 <CategoryPostsList filteredPosts={filterByCategory("newsletter")} numberOfPosts={2} flexDirection="flex-row" firstPostHasLargeImage={false} ></CategoryPostsList>
                 </div>
               </div>
 
-              <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-4 ">
-                <CategoryPostsList filteredPosts={filterByCategory("broker-news") || []} numberOfPosts={3}></CategoryPostsList>
+              <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
+                <CategoryPostsList filteredPosts={filterByCategory("broker-news") || []} inlineTextOnDesktop numberOfPosts={3} showExtract={false}></CategoryPostsList>
               </div>
 
               <div className="col-span-1 sm:col-span-12">
               <Widget type="desktop_billboard_middle"></Widget>
               </div>
 
-              <div className="col-span-1 sm:col-span-12 lg:col-span-9 sm:p-4 ">
+              <div className="col-span-1 sm:col-span-12 lg:col-span-9 sm:p-2 ">
                 <CategoryPostsList filteredPosts={filterByCategory("institutional-trading") || []} numberOfPosts={3} flexDirection = 'flex-row' firstPostHasLargeImage></CategoryPostsList>
               </div>
 
-              <div className=" col-span-1 lg:col-span-3 sm:p-4 ">
+              <div className=" col-span-1 lg:col-span-3 sm:p-2 ">
               <Widget type="sidebar"></Widget>
               </div>
 
 
-              <div className="col-span-1  sm:col-span-12 lg:col-span-9  sm:p-4 lg:flex ">
-                  <div className="col-span-1  sm:col-span-12 lg:col-span-6  sm:p-4 ">
-                  <OneLargePost3SmallGrid filteredPosts={filterByCategory("interviews") || []} numberOfPosts={4} showExtract={false}></OneLargePost3SmallGrid >
+              <div className="col-span-1  sm:col-span-12 lg:col-span-9  sm:p-2 lg:flex ">
+                  <div className="col-span-1  sm:col-span-12 lg:col-span-6  sm:p-2 ">
+                  <OneLargePost3SmallGrid filteredPosts={filterByCategory("interviews") || []} numberOfPosts={4} showExtract={false} ></OneLargePost3SmallGrid >
                   </div>
               </div>
 
-              <div className="col-span-1 sm:col-span-12 lg:col-span-3   sm:p-4 ">
+              <div className="col-span-1 sm:col-span-12 lg:col-span-3   sm:p-2 ">
                 <CategoryPostsList filteredPosts={filterByCategory("guest-posts") || []} numberOfPosts={2} showExtract={false}></CategoryPostsList>
               </div>
 
-              <div className=" col-span-1 sm:col-span-12 lg:col-span-6  sm:p-4 ">
+              <div className=" col-span-1 sm:col-span-12 lg:col-span-6  sm:p-2 ">
                 <YouTubePlayer></YouTubePlayer>
               </div>
 
-              <div className=" col-span-1 sm:col-span-12 lg:col-span-6 sm:p-4 ">
+              <div className=" col-span-1 sm:col-span-12 lg:col-span-6 sm:p-2 ">
                 <PodcastPlayer></PodcastPlayer>
               </div>
              
-             <div className="col-span-1 sm:col-span-12 lg:col-span-9 sm:p-4 ">
+             <div className="col-span-1 sm:col-span-12 lg:col-span-9 sm:p-2 ">
                 <CategoryPostsList filteredPosts={filterByCategory("start-a-broker") || []} numberOfPosts={3} flexDirection = 'flex-row'></CategoryPostsList>
                 <CategoryPostsList filteredPosts={filterByCategory("start-a-broker") || []} offset={3} showCategoryTitle={false} numberOfPosts={3} flexDirection = 'flex-row'></CategoryPostsList>
 
@@ -111,7 +114,7 @@ const filterByCategory = (categorySlug: string) => {
                 </div>
               </div>
 
-              <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-4 ">
+              <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
                 <div className="col-span-1 sm:col-span-5 lg:col-span-3" ></div>
                <Widget type="sidebar"></Widget>
                 <CategoryPostsList filteredPosts={filterByCategory("newsletter") || []} offset={3} numberOfPosts={3} showImage={false}></CategoryPostsList>

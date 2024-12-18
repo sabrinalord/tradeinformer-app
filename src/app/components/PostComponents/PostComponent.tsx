@@ -30,7 +30,7 @@ const PostComponent: React.FC<PostProps> = ({
   return (
     <article className={`pb-4 p-1 m-2 ${flexDirection == 'flex-col' ? 'border-b pt-4 ' : '' }${inlineTextOnDesktop ? '' : 'lg:max-w-[270px]'} `} key={post.id}>
       <Link href={`/${categorySlug}/${post.slug}`}>
-        <div className={`${inlineTextOnDesktop ? 'flex flex-row' : 'flex flex-row lg:flex-col'} ${firstPostHasLargeImage && isFirstPost ? 'flex flex-col' : ''}`}>
+        <div className={`${inlineTextOnDesktop ? 'flex flex-row' : 'flex flex-row lg:flex-col'} ${firstPostHasLargeImage && isFirstPost && !inlineTextOnDesktop ? 'flex flex-col' : ''}`}>
           {showImage && post.featuredImage && (
             <ImageComponent
               src={post.featuredImage.node.sourceUrl}
@@ -40,7 +40,7 @@ const PostComponent: React.FC<PostProps> = ({
               firstPostHasLargeImage={firstPostHasLargeImage}
             />
           )}
-          <div className={` ml-2 ${isFirstPost && firstPostHasLargeImage ? 'mt-2' : ''} lg:ml-0 ${inlineTextOnDesktop ? 'lg:ml-2' : 'lg:mt-2'}`}>
+          <div className={` ml-2 ${isFirstPost && firstPostHasLargeImage && !inlineTextOnDesktop ? 'mt-2' : ''} lg:ml-0 ${inlineTextOnDesktop ? 'lg:ml-2' : 'lg:mt-2'}`}>
             <h2 className={`font-bold hover:text-linkBlue hover:underline `}>
               {post.title}
             </h2>
