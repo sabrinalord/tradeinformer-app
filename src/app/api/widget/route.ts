@@ -3,13 +3,7 @@ import { WidgetData, WidgetType } from '../../types';
 
 export async function GET(request: Request) {
 
-    const { searchParams } = new URL(request.url);
-    const type = searchParams.get('type') as WidgetType;
-    const userCountry = searchParams.get('country') || 'All Countries';
-
-    const formattedUserCountry = encodeURIComponent(userCountry);
-
-    const apiUrl = `https://tradeinformer.com/wp-json/banner-ads/v1/list?type=${type}&country=${formattedUserCountry}`;
+    const apiUrl = `https://tradeinformer.com/wp-json/banner-ads/v1/list`;
     
     try {
         const response = await fetch(apiUrl);
