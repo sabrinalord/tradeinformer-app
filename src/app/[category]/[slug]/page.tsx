@@ -61,24 +61,33 @@ export default async function Page({
     return (
         <div className="overflow-hidden">
         <Navbar headerItems={menuItems}></Navbar>
-        <SocialNavbar></SocialNavbar>
       
         <div className="container mx-auto p-2">
-        <Widget type="desktop_billboard_top"></Widget>
+          <Widget type="desktop_billboard_top"></Widget>
             <main className ="grid grid-cols-1 sm:grid-cols-12 gap-4 mt-8">
-                <div className="col-span-1 sm:col-span-12 p-4">
-                   <Link className={styles.link} href={`/${category}`}>{categoryName}</Link> 
-                    <h1 className="font-bold lg:text-[1.6em] mb-4">{post.title}</h1>
-                    <p className="mt-2 text-sm">
-                        <span className="">By <strong>{post.author.node.name}</strong> </span>   
-                        <span className="ml-2 mr-2 text-gray-200"> | </span>  
-                        <span className="ml-2">{formattedDate}</span>
-                     </p>
-                     <SocialShareForArticles articleTitle={post.title}></SocialShareForArticles>
-                    <div className="border-b mt-5 sm:mt-10 sm:mb-4"></div>
+                <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
+                <Widget type="sidebar"></Widget>
+                <Widget type="sidebar"></Widget>
                 </div>
+                    
+            <article className="col-span-1 sm:col-span-12 lg:col-span-6 sm:p-4 ">
+                <div className="">
+                   <Link className={styles.link} href={`/${category}`}>{categoryName}</Link> 
+                   <div className="flex justify-between">
+                    <h1 className="font-bold lg:text-[1.6em] ">{post.title}</h1>
 
-            <article className="col-span-1 sm:col-span-12 lg:col-span-8 sm:p-4 ">
+                   </div>
+                    <div className="border-b mt-2 sm:mb-2"></div>
+
+                    <div className="flex justify-between mt-2 mb-2">
+                        <div className="text-xs">
+                            <p >By <strong>{post.author.node.name}</strong></p>
+                            <p>{formattedDate}</p>
+                        </div>
+                        <SocialShareForArticles articleTitle={post.title}></SocialShareForArticles>
+
+                    </div>
+                </div>
                 <Image className="lg:p-6 ml-auto mr-auto"
                               src={post.featuredImage.node.sourceUrl} 
                               width="800"
@@ -89,28 +98,30 @@ export default async function Page({
                 <div className={` ${styles.content} mt-4`} dangerouslySetInnerHTML={{ __html: post.content }}></div>
                 
                 {post.tags.nodes && (
-                <div>
-                
-                    <ul className="flex flex-wrap space-x-1 text-sm">
-                    <li className="inline-fle p-2 m-2 bg-[#266fef] text-white uppercase">
-                     Tags
-                    </li>
-                    {post.tags.nodes.map((tag) => (
-                        <li key={tag.uri} className="inline-flex">
-                        <Link className="p-2 m-2 border  hover:bg-gray-100" href={tag.uri}>
-                            {tag.name}
-                        </Link>
-                        </li>
-                    ))}
-                    </ul>
-                </div>
-                )}
+                    <div>
+                        <ul className="flex flex-wrap text-sm">
+                            <li className="inline-fle p-2 m-2 bg-[#266fef] text-white uppercase">
+                            Tags
+                            </li>
+                            {post.tags.nodes.map((tag) => (
+                                <li key={tag.uri} className="inline-flex">
+                                <Link className="p-2 m-2 border  hover:bg-gray-100" href={tag.uri}>
+                                    {tag.name}
+                                </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    )}
+
             </article>
 
-                <div className="col-span-1 sm:col-span-6  lg:col-span-3  p-2 sm:p-4 ">
-                    <Widget type="sidebar"></Widget>
-                    <RandomCategorySidebar alreadyDisplayedCategory={category}></RandomCategorySidebar>
-                </div>
+            <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
+              <Widget type="sidebar"></Widget>
+              <RandomCategorySidebar></RandomCategorySidebar>
+             </div>
+             
+    
             </main>
         </div>
         <Footer footerItems={footerMenuItems}></Footer>

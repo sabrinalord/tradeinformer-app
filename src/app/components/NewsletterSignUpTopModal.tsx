@@ -11,6 +11,7 @@ import { z } from "zod";
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useNewsletterSignUp } from "../hook/useNewsletterSignUp";
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import SocialNavbar from "./SocialNavbar";
 
 
 
@@ -122,10 +123,12 @@ export const NewsletterSignUpTopModal = () => {
 
                     </form>
                   </Form>
+                  
           
 
             </div>
           </div>
+
             
         
         </div>

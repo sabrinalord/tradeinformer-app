@@ -15,7 +15,15 @@ const SocialShareForArticles: React.FC<{ articleTitle: string}>= ({ articleTitle
     const buttonStyling = "mb-2 h-9 flex rounded px-4 py-2.5 text-sm items-center font-medium text-white shadow-md transition duration-150 ease-in-out hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg";
 
     return (
-        <div className="flex">
+        <div className="flex flex-col">
+            <div className="ml-auto flex flex-col"> 
+              <div className="flex items-center w-full">
+                <div className=" flex-grow"></div>
+                    <p className="px-4 text-[10px] uppercase text-gray-600">
+                    Share article
+                    </p>
+                <div className=" flex-grow"></div>
+            </div>
         <nav className="flex ml-auto">
              {/* WhatsApp Social */}
             <Link 
@@ -113,6 +121,7 @@ const SocialShareForArticles: React.FC<{ articleTitle: string}>= ({ articleTitle
                     </button>
             </Link> 
         </nav>
+        </div>
         </div>
 
     )
