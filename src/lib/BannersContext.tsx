@@ -19,7 +19,7 @@ interface BannersContextType {
     useEffect(() => {
         const fetchBanners = async () => {
           try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/widget`);
+            const res = await fetch('/api/widget');
             if (!res.ok) {
               throw new Error('Failed to fetch banners');
             }

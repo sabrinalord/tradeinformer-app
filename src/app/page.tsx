@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar";
 import SocialNavbar from "./components/SocialNavbar";
 import YouTubePlayer from "./components/YoutubePlayer";
 import PodcastPlayer from "./components/PodcastPlayer";
-import { PostsResponse, Post, MenuResponse, MenuItem, WidgetData } from "./types";                                           
+import { PostsResponse, Post, MenuResponse, MenuItem } from "./types";                                           
 import { fetchFooterMenu, fetchHeaderMenu, fetchPosts } from "@/lib/fetchData";
 import Footer from "./components/Footer";
 import HomePageFeaturedPost from "./components/PostComponents/HomePageFeaturedPost";

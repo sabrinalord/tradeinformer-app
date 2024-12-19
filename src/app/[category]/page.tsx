@@ -59,8 +59,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <SocialNavbar></SocialNavbar>
       <div className="container mx-auto p-2">
         <Widget type="desktop_billboard_top"></Widget>
-          <main className =" grid grid-cols-1 sm:grid-cols-12 gap-4 mt-4">
-            <div className="col-span-1 sm:col-span-12 lg:col-span-9 p-2 sm:p-4">
+          <main className =" grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">
+
+          <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
+              <Widget type='sidebar'></Widget>
+           </div>
+
+
+            <div className="col-span-1 sm:col-span-12 lg:col-span-6 p-2 sm:p-2">
               
               <div className="mb-5 sm:mb-8 lg:mb-10">
               <CategoryFeaturedPost post={categoryPosts[0]} />

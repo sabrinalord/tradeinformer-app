@@ -1,7 +1,7 @@
 'use client';
 import { useBanners } from '../../lib/BannersContext';
 
-import { WidgetData, WidgetType } from '../types';
+import { WidgetType } from '../types';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -24,8 +24,8 @@ export default function Widget({type}: WidgetProps) {
         {type == 'sidebar' && (
 
         filteredBanners.map((banner, index) => (
-         <div className="m-4">
-          <Link key={index} style={{maxWidth: '400px'}} href={banner.target_url} target="_blank" rel="noopener noreferrer">
+         <div key={index} className="m-4">
+          <Link style={{maxWidth: '400px'}} href={banner.target_url} target="_blank" rel="noopener noreferrer">
           <Image src={banner.image_url} width={800} height={300} alt="Widgetisement"></Image>
         </Link>  
         </div>

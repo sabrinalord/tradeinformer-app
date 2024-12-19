@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { WidgetData, WidgetType } from '../../types';
+import { WidgetData} from '../../types';
 
-export async function GET(request: Request) {
+export async function GET() {
 
     const apiUrl = `https://tradeinformer.com/wp-json/banner-ads/v1/list`;
     
