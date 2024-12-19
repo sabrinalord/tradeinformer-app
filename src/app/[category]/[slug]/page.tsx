@@ -4,7 +4,6 @@ import Navbar from "@/app/components/Navbar";
 import { formatDate } from "../../../lib/dateFormatter";
 import Widget from "@/app/components/Widget";
 import Image from 'next/image';
-import SocialNavbar from "@/app/components/SocialNavbar";
 import styles from './Page.module.css';
 import RandomCategorySidebar from "@/app/components/RandomCategorySidebar";
 
@@ -66,7 +65,6 @@ export default async function Page({
           <Widget type="desktop_billboard_top"></Widget>
             <main className ="grid grid-cols-1 sm:grid-cols-12 gap-4 mt-8">
                 <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
-                <Widget type="sidebar"></Widget>
                 <Widget type="sidebar"></Widget>
                 </div>
                     
