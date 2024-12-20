@@ -13,7 +13,6 @@ export default function Widget({type}: WidgetProps) {
       const { banners } = useBanners(); 
       const filteredBanners = banners.filter(banner => banner.type === type);
 
-
       const randomIndex = Math.floor(Math.random() * filteredBanners.length);
       const banner = filteredBanners[randomIndex]
 

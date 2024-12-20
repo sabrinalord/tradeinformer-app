@@ -17,14 +17,14 @@ const ImageComponent: React.FC<ImageProps> = ({
   firstPostHasLargeImage,
 }) => {
   const imageClasses = `
-    border object-cover
-    ${inlineTextOnDesktop ? 'lg:w-[8vw] lg:h-[80px]' : ''}
+    border object-cover 
+    ${inlineTextOnDesktop ? ' lg:w-[100px] lg:h-[80px]' : ''}
     ${isFirstPost && firstPostHasLargeImage ? 'w-full lg:w-[280px] lg:h-[150px]' : ''}
     ${!isFirstPost || !firstPostHasLargeImage ? 'w-[130px] h-[100px] sm:w-[280px] sm:h-[150px]' : ''}
   `;
 
   return (
-    <div className={`flex-shrink-0 `}>     
+    <div className={`flex-shrink-0`}>     
      <Image
         className={imageClasses}
         src={src}

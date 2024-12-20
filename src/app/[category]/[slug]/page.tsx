@@ -64,7 +64,8 @@ export default async function Page({
         <div className="container mx-auto p-2">
           <Widget type="desktop_billboard_top"></Widget>
             <main className ="grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">
-                <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
+               
+                <div className="hidden lg:block col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
                 <Widget type="sidebar"></Widget>
                 </div>
                     
@@ -114,10 +115,17 @@ export default async function Page({
 
             </article>
 
+            <div className="lg:hidden col-span-1 sm:col-span-6 lg:col-span-3 sm:p-2 ">
+                <Widget type="sidebar"></Widget>
+                </div>
+             
+
             <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
               <RandomCategorySidebar></RandomCategorySidebar>
              </div>
-             
+
+              
+         
     
             </main>
         </div>

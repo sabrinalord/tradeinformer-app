@@ -33,7 +33,7 @@ const RandomCategorySidebar: React.FC<RandomCategorySidebarProps> = async (alrea
 
 
     return (
-      <CategoryPostsList filteredPosts={randomCategoryPosts} numberOfPosts={8} showCategoryTitle inlineTextOnDesktop showExtract={false} />
+      <CategoryPostsList filteredPosts={randomCategoryPosts} numberOfPosts={6} firstPostHasLargeImage={false} showCategoryTitle inlineTextOnDesktop showExtract={false} />
     )
 
 }

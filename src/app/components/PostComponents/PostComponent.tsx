@@ -30,7 +30,7 @@ const PostComponent: React.FC<PostProps> = ({
   return (
     <article className={`pb-4 p-1 m-2 ${flexDirection == 'flex-col' ? 'border-b pt-4 ' : '' }${inlineTextOnDesktop ? '' : 'lg:max-w-[270px]'} `} key={post.id}>
       <Link href={`/${categorySlug}/${post.slug}`}>
-        <div className={`${inlineTextOnDesktop ? 'flex flex-row' : 'flex flex-row lg:flex-col'} ${firstPostHasLargeImage && isFirstPost && !inlineTextOnDesktop ? 'flex flex-col' : ''}`}>
+        <div className={` ${isFirstPost && firstPostHasLargeImage ? "flex flex-col" : "flex "} ${inlineTextOnDesktop ? 'lg:flex lg:flex-row' : 'flex flex-row lg:flex-col'} ${firstPostHasLargeImage && isFirstPost && !inlineTextOnDesktop ? 'flex lg:flex-col' : ''}`}>
           {showImage && post.featuredImage && (
             <ImageComponent
               src={post.featuredImage.node.sourceUrl}

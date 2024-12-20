@@ -61,7 +61,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <Widget type="desktop_billboard_top"></Widget>
           <main className =" grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">
 
-          <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
+          <div className="hidden lg:block col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
               <Widget type='sidebar'></Widget>
            </div>
 
@@ -83,6 +83,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 offset={1} 
                 />
                 </div>
+
+                <div className = "lg:hidden max-w-[500px] ml-auto mr-auto">
+                <Widget type='sidebar'></Widget>
+                </div>
              
                 <CategoryPostsList 
                 filteredPosts={categoryPosts} 
@@ -98,6 +102,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
              
 
               {/* Sidebar Content (Random Category Posts) */}
+              
               <div className="sm:col-span-3 p-2 sm:p-4">
               <RandomCategorySidebar alreadyDisplayedCategory={category}></RandomCategorySidebar>
               </div>
