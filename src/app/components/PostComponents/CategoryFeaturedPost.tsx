@@ -30,20 +30,20 @@ const CategoryFeaturedPost: React.FC<CategoryFeaturedPostProps> =  ({
 
    <article className="bg-gray-100 flex flex-col lg:flex-row m-2 p-4 gap-2 mb-2">
 
-  <div className="flex-shrink-0 w-full h-auto lg:w-[400px] relative order-1 lg:order-none">
+  <div className="">
     <Image
-      className="object-cover max-h-[250px] w-full"
+      className="object-cover max-h-[250px] w-[full]"
       src={post.featuredImage.node.sourceUrl}
       alt={post.featuredImage.node.altText || 'Featured Image'} 
-      width={800}
-      height={800}
+      width={600}
+      height={600}
     />
   </div>
 
 
-  <div className=" m-2 sm:m-4 lg:m-6 order-2 lg:order-none">
+  <div className=" m-2  ">
     <Link href={`/${categorySlug}/${post.slug}`}>
-      <h2 className="text-2xl lg:text-3xl font-bold leading-tight mb-4 hover:underline hover:text-linkBlue">
+      <h2 className="text-2xl lg:text-2xl font-bold leading-tight mb-4 hover:underline hover:text-linkBlue">
         {post.title}
       </h2>
       <div 
