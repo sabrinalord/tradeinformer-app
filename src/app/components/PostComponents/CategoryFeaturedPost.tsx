@@ -25,14 +25,14 @@ const CategoryFeaturedPost: React.FC<CategoryFeaturedPostProps> =  ({
     return (
         <div>
             {showCategoryHeader && (
-                        <CategoryHeader categoryName={categoryName} ></CategoryHeader>
+              <CategoryHeader categoryName={categoryName} ></CategoryHeader>
             )}
 
    <article className="bg-gray-100 flex flex-col lg:flex-row m-2 p-4 gap-2 mb-2">
 
-  <div className="">
+  <div className="lg:min-w-[300px]">
     <Image
-      className="object-cover max-h-[250px] w-[full]"
+      className="object-cover max-h-[280px] w-[full]"
       src={post.featuredImage.node.sourceUrl}
       alt={post.featuredImage.node.altText || 'Featured Image'} 
       width={600}
@@ -41,7 +41,7 @@ const CategoryFeaturedPost: React.FC<CategoryFeaturedPostProps> =  ({
   </div>
 
 
-  <div className=" m-2  ">
+  <div className="m-2">
     <Link href={`/${categorySlug}/${post.slug}`}>
       <h2 className="text-2xl lg:text-2xl font-bold leading-tight mb-4 hover:underline hover:text-linkBlue">
         {post.title}

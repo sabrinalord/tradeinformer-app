@@ -68,12 +68,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
             <div className="col-span-1 sm:col-span-12 lg:col-span-6 p-2 sm:p-2">
               
-              <div className="mb-5 sm:mb-8 lg:mb-10">
+              <div className="mb-5 sm:mb-8">
               <CategoryFeaturedPost post={categoryPosts[0]} />
               </div>
 
               <div>
-                <div  className="lg:mb-10">
+                <div  className="lg:mb-8">
                 <CategoryPostsList 
                 filteredPosts={categoryPosts} 
                 numberOfPosts={3} 
