@@ -1,5 +1,5 @@
 'use client';
-import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import React, { createContext,  useContext, ReactNode } from 'react';
 
 import { WidgetData } from '@/app/types';
 
@@ -11,28 +11,10 @@ interface BannersContextType {
 
   interface BannersProviderProps {
     children: ReactNode; 
+    banners: WidgetData[];
   }
 
-  export const BannersProvider: React.FC<BannersProviderProps> = ({ children }) => {
-    const [banners, setBanners] = useState<WidgetData[]>([]);
-
-    useEffect(() => {
-        const fetchBanners = async () => {
-          try {
-            const res = await fetch('/api/widget');
-            if (!res.ok) {
-              throw new Error('Failed to fetch banners');
-            }
-            const data: WidgetData[] = await res.json();
-            setBanners(data);
-          } catch (error) {
-            console.error('Error fetching banners:', error);
-          }
-        };
-    
-        fetchBanners();
-      }, []);
-
+  export const BannersProvider: React.FC<BannersProviderProps> = ({ children, banners }) => {
 
   
     return (
