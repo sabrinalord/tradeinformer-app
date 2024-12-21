@@ -14,7 +14,6 @@ interface CategoryPostsListProps {
   flexDirection?: 'flex-col' | 'flex-row';
   inlineTextOnDesktop?: boolean;
   showCategoryTitle?: boolean;
-  hasLoadMore?: boolean;
   hasPagination?: boolean;
 }
 
@@ -60,6 +59,7 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
  <div className={`flex flex-col lg:${flexDirection} `}>
          {paginatedPosts.map((post, index) => (
         <PostComponent
+          key={index}
           post={post}
           showImage={showImage}
           showExtract={showExtract}
