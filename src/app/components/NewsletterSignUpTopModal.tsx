@@ -25,8 +25,6 @@ export const NewsletterSignUpTopModal = () => {
   
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
   const [signUpDismissed, setSignUpDismissed]  = useState<boolean>(false);
-  console.log(`page load and signUpDismissed is ${signUpDismissed}`)
-
   
   const scrollThreshold = 300;
 
