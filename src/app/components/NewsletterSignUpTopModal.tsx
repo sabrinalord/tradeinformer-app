@@ -18,36 +18,42 @@ export const NewsletterSignUpTopModal = () => {
 
   const { executeRecaptcha } = useGoogleReCaptcha();
 
- 
   const { 
     message, 
     setMessage,
     onSubmit } = useNewsletterSignUp();
   
   const [showSignUp, setShowSignUp] = useState<boolean>(false);
+  const [signUpDismissed, setSignUpDismissed]  = useState<boolean>(false);
+  console.log(`page load and signUpDismissed is ${signUpDismissed}`)
+
+  
   const scrollThreshold = 300;
 
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > scrollThreshold) {
-        setShowSignUp(true);
-      } else {
-        setShowSignUp(false);
-      }
-    };
+    setSignUpDismissed(false)
+    setShowSignUp(true);
 
-    window.addEventListener('scroll', handleScroll);
+      const handleScroll = () => {
+        if (window.scrollY > scrollThreshold && !signUpDismissed ) {
+          setShowSignUp(true);
+        }
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+  
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
   }, []);
   
 
   const handleSignUpModal= () => {  
-    setShowSignUp(!showSignUp)
-    return setShowSignUp
+    setShowSignUp(false);
+    setSignUpDismissed(true)
+    console.log(`cross clicked and signUpDismissed is ${signUpDismissed}`)
   }
     const form = useForm<z.infer<typeof schema>>({
         resolver:zodResolver(schema),
@@ -57,14 +63,12 @@ export const NewsletterSignUpTopModal = () => {
     });
 
     const handleFormSubmit = async (data: z.infer<typeof schema>) => {
-      console.log('executing generate token from newsletter top modal ');
 
       try {
         if (!executeRecaptcha) {
           setMessage("reCAPTCHA is not available. Please try again.");
           return;
         }
-        console.log('executing generate token from newsletter sign up in nav');
         const recaptchaToken = await executeRecaptcha("newsletter_signup_top_modal");
         if (!recaptchaToken) {
           setMessage("reCAPTCHA validation failed. Please try again.");
@@ -72,6 +76,14 @@ export const NewsletterSignUpTopModal = () => {
         }
        
         await onSubmit(data, recaptchaToken);
+        setMessage("Thank you for subscribing to TradeInformer.");
+
+
+        setTimeout(() => {
+          setShowSignUp(false);
+          setSignUpDismissed(true);
+         }, 1000)
+    
       } catch (error) {
         console.error("Error during form submission:", error);
         setMessage("An unexpected error occurred. Please try again.");
@@ -82,7 +94,7 @@ export const NewsletterSignUpTopModal = () => {
 
     return (
         
-        <div className={` ${showSignUp ? "fixed" : "hidden"} top-0 z-10 left-0 w-screen bg-babyBlue p-2 text-white items-center animate-slideDown`}>
+        <div className={` ${showSignUp ? "fixed" : "hidden"} ${signUpDismissed ? "hidden" : ""} top-0 z-10 left-0 w-screen bg-babyBlue p-2 text-white items-center animate-slideDown`}>
               <div className="absolute top-0 right-0 m-2">
                 <button onClick={handleSignUpModal} className=" text-white font-extrabold hover:text-gray-600">
                                 <XMarkIcon className="h-6 w-6" />
@@ -111,16 +123,17 @@ export const NewsletterSignUpTopModal = () => {
                                 {form.formState.errors.email.message}
                               </FormMessage>
                             )}
-                            {message && (
-                    <FormMessage className={message.includes("Thank you") ? "text-white" : "text-destructive"}>
-                      {message}
-                    </FormMessage>)}
                           </FormItem>
+                          
                         )}
                       />                  
                         <Button className="ml-2 text-black bg-warmYellow hover:bg-[#e0c200] w-20 h-8 sm:w-28 " type="submit">Subscribe</Button>
 
                     </form>
+                    {message && (
+                    <FormMessage className={message.includes("Thank you") ? "text-white" : "text-destructive"}>
+                      {message}
+                    </FormMessage>)}
                   </Form>
                   
           

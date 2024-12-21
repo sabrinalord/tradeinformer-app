@@ -104,7 +104,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
               {/* Sidebar Content (Random Category Posts) */}
               
-              <div className="hidden lg:block lg:col-span-3 p-2 sm:p-4">
+              <div className="hidden lg:block lg:col-span-3 sm:p-2">
               <RandomCategorySidebar alreadyDisplayedCategory={category}></RandomCategorySidebar>
               </div>
     </main>
