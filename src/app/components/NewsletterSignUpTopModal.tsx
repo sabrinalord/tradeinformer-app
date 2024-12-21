@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import {Input} from  "@/components/ui/input";
 import { Form, FormControl,   FormField, FormItem, FormMessage} from "@/components/ui/form";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { schema } from "../registrationSchema";
@@ -30,24 +30,27 @@ export const NewsletterSignUpTopModal = () => {
   
   const scrollThreshold = 300;
 
+  const handleScroll = useCallback(() => {
+    if (window.scrollY > scrollThreshold && !signUpDismissed) {
+      setShowSignUp(true);
+    }
+  }, [signUpDismissed]);
+
 
   useEffect(() => {
-    setSignUpDismissed(false)
-    setShowSignUp(true);
+    console.log(`Component mounted. Initial signUpDismissed: ${signUpDismissed}`);
 
-      const handleScroll = () => {
-        if (window.scrollY > scrollThreshold && !signUpDismissed ) {
-          setShowSignUp(true);
-        }
-      };
-  
+    if (!signUpDismissed) {
+      setShowSignUp(true);
+    }
+    
       window.addEventListener('scroll', handleScroll);
   
       return () => {
         window.removeEventListener('scroll', handleScroll);
       };
 
-  }, []);
+  }, [handleScroll, signUpDismissed]);
   
 
   const handleSignUpModal= () => {  

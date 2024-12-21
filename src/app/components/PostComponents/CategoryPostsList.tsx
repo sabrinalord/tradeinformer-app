@@ -29,14 +29,14 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
   showCategoryTitle = true,
   hasPagination = false,
 }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = numberOfPosts;
+
   if (!filteredPosts.length) return null;
 
   const validOffset = Math.min(offset, filteredPosts.length);
   const categoryName = filteredPosts[0].categories.nodes[0].name;
   const categorySlug = filteredPosts[0].categories.nodes[0].slug;
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = numberOfPosts;
 
   const paginatedPosts = filteredPosts.slice(
     validOffset + (currentPage - 1) * postsPerPage,
