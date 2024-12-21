@@ -34,7 +34,6 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
   const validOffset = Math.min(offset, filteredPosts.length);
   const categoryName = filteredPosts[0].categories.nodes[0].name;
   const categorySlug = filteredPosts[0].categories.nodes[0].slug;
-  const initialPosts = filteredPosts.slice(validOffset, validOffset + numberOfPosts);
 
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = numberOfPosts;
