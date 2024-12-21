@@ -82,7 +82,7 @@ const filterByCategory = (categorySlug: string) => {
               </div>
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-9 sm:p-2 ">
-                <CategoryPostsList filteredPosts={filterByCategory("institutional-trading") || []} numberOfPosts={3} flexDirection = 'flex-row' hasPagination firstPostHasLargeImage></CategoryPostsList>
+                <CategoryPostsList filteredPosts={filterByCategory("institutional-trading") || []} numberOfPosts={3} flexDirection = 'flex-row' firstPostHasLargeImage></CategoryPostsList>
               </div>
 
               <div className=" col-span-1 lg:col-span-3 sm:p-2 ">
@@ -98,6 +98,10 @@ const filterByCategory = (categorySlug: string) => {
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-3   sm:p-2 ">
                 <CategoryPostsList filteredPosts={filterByCategory("guest-posts") || []} numberOfPosts={2} showExtract={false}></CategoryPostsList>
+              </div>
+
+              <div className="col-span-1 sm:col-span-12">
+              <Widget type="desktop_billboard_middle"></Widget>
               </div>
 
               <div className=" col-span-1 sm:col-span-12 lg:col-span-6  sm:p-2 ">

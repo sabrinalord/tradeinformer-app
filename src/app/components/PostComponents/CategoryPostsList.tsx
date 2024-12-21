@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import { Post } from '../../types';
 import PostComponent from './PostComponent';
 import CategoryHeader from '../CategoryHeader';
+import ChevronLeftIcon from '@heroicons/react/24/outline/ChevronLeftIcon';
+import ChevronRightIcon from '@heroicons/react/24/outline/ChevronRightIcon';
+
 
 interface CategoryPostsListProps {
   numberOfPosts: number;
@@ -72,25 +75,36 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
      
  </div>
  {hasPagination && totalPages > 1 && (
-        <div className="flex justify-center mt-4 space-x-2">
-          {[...Array(totalPages)].map((_, pageIndex) => {
-            const page = pageIndex + 1;
-            return (
-              <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={`px-3 py-1 border ${
-                  page === currentPage
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-white text-blue-500 border-blue-500'
-                }`}
-              >
-                {page}
-              </button>
-            );
-          })}
-    </div>
-  )}
+  <div className="flex justify-center mt-4 space-x-4">
+    {/* Previous Button */}
+    <button
+      onClick={() => handlePageChange(currentPage - 1)}
+      disabled={currentPage === 1}
+      className={`flex items-center px-4 py-2 border rounded ${
+        currentPage === 1 ? 'bg-gray-300 text-gray-500' : 'bg-white text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white'
+      }`}
+    >
+      <ChevronLeftIcon className="h-5 w-5" />
+      
+      <span className="ml-2">Previous</span>
+    </button>
+
+    {/* Next Button */}
+    <button
+      onClick={() => handlePageChange(currentPage + 1)}
+      disabled={currentPage === totalPages}
+      className={`flex items-center px-4 py-2 border rounded ${
+        currentPage === totalPages ? 'bg-gray-300 text-gray-500' : 'bg-white text-blue-500 border-blue-500 hover:bg-blue-500 hover:text-white'
+      }`}
+    >
+      <span className="mr-2">Next</span>
+      <ChevronRightIcon className="h-5 w-5" />
+    </button>
+  </div>
+)}
+
+
+
   </div>
   )
 };
