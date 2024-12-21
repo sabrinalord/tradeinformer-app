@@ -14,7 +14,7 @@ const Footer: React.FC<FooterProps> = ({footerItems}) => {
             <div className="bg-navy p-4 mt-20 text-white ">
                 <div className="flex flex-wrap lg:justify-evenly">
                 {footerItems.map((item) => (
-                    <ul className="p-2 min-w-[170px] max-w-[250px] sm:p-4 m-2" key={item.id}>
+                    <ul className="p-2 flex-1 min-w-[150px] max-w-[180px] sm:max-w-[250px] sm:p-4 m-2" key={item.id}>
                         <li className={` mb-2 sm:text-[1.2em] font-bold `} >
                             {item.label}
                         </li>
