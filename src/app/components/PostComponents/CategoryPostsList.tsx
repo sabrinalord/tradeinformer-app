@@ -44,7 +44,7 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
         <CategoryHeader categoryName={categoryName} />
 )}
       
- <div className={`flex flex-col lg:${flexDirection} justify-between `}>
+ <div className={`flex flex-col lg:${flexDirection} `}>
          {/* Render First Post */}
          {firstPost && (
         <PostComponent

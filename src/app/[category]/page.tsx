@@ -80,6 +80,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 showCategoryTitle={false} 
                 firstPostHasLargeImage = {false}
                 flexDirection={"flex-row"}
+                showExtract={false}
                 offset={1} 
                 />
                 </div>

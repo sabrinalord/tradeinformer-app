@@ -18,7 +18,7 @@ const ImageComponent: React.FC<ImageProps> = ({
 }) => {
   const imageClasses = `
     border object-cover 
-    ${inlineTextOnDesktop ? ' lg:w-[100px] lg:h-[80px]' : ''}
+    ${inlineTextOnDesktop ? ' lg:w-[120px] lg:h-[80px]' : ''}
     ${isFirstPost && firstPostHasLargeImage ? 'w-full lg:w-[280px] lg:h-[150px]' : ''}
     ${!isFirstPost || !firstPostHasLargeImage ? 'w-[130px] h-[100px] sm:w-[280px] sm:h-[150px]' : ''}
   `;
