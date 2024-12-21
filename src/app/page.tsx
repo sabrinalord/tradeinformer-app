@@ -82,7 +82,7 @@ const filterByCategory = (categorySlug: string) => {
               </div>
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-9 sm:p-2 ">
-                <CategoryPostsList filteredPosts={filterByCategory("institutional-trading") || []} numberOfPosts={3} flexDirection = 'flex-row' firstPostHasLargeImage></CategoryPostsList>
+                <CategoryPostsList filteredPosts={filterByCategory("institutional-trading") || []} numberOfPosts={3} flexDirection = 'flex-row' hasPagination firstPostHasLargeImage></CategoryPostsList>
               </div>
 
               <div className=" col-span-1 lg:col-span-3 sm:p-2 ">

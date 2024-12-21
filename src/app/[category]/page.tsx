@@ -96,7 +96,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 showCategoryTitle={false} 
                 offset={4} 
                 inlineTextOnDesktop
-                hasLoadMore={true}
+                hasPagination
                 />
               </div>
             </div>
