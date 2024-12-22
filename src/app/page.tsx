@@ -97,7 +97,7 @@ const filterByCategory = (categorySlug: string) => {
               </div>
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-3   sm:p-2 ">
-                <CategoryPostsList filteredPosts={filterByCategory("guest-posts") || []} numberOfPosts={2} showExtract={false}></CategoryPostsList>
+                <CategoryPostsList filteredPosts={filterByCategory("guest-posts") || []} numberOfPosts={3} showExtract={false}></CategoryPostsList>
               </div>
 
               <div className="col-span-1 sm:col-span-12">
@@ -114,7 +114,6 @@ const filterByCategory = (categorySlug: string) => {
              
              <div className="col-span-1 sm:col-span-12 lg:col-span-9 sm:p-2 ">
                 <CategoryPostsList filteredPosts={filterByCategory("start-a-broker") || []} numberOfPosts={3} flexDirection = 'flex-row'></CategoryPostsList>
-                <CategoryPostsList filteredPosts={filterByCategory("start-a-broker") || []} offset={3} showCategoryTitle={false} numberOfPosts={3} flexDirection = 'flex-row'></CategoryPostsList>
 
                 <div className="mt-4">
                 <CategoryPostsList filteredPosts={filterByCategory("fx-cfd-liscensing") || []} numberOfPosts={4} flexDirection = 'flex-row'></CategoryPostsList>
@@ -124,7 +123,6 @@ const filterByCategory = (categorySlug: string) => {
               <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
                 <div className="col-span-1 sm:col-span-5 lg:col-span-3" ></div>
                 <Widget type='sidebar'></Widget>                
-                <CategoryPostsList filteredPosts={filterByCategory("newsletter") || []} offset={3} numberOfPosts={3} showImage={false}></CategoryPostsList>
               </div>
 
        

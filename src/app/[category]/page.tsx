@@ -1,5 +1,5 @@
 import { Post, PostsResponse, MenuResponse, MenuItem, CategoriesResponse, CategoryNode } from "@/app/types";
-import { fetchCategories, fetchFooterMenu, fetchHeaderMenu, fetchPostsByCategory } from "../../lib/fetchData";
+import { fetchCategories, fetchFooterMenu, fetchHeaderMenu, fetchPageBySlug, fetchPostsByCategory } from "../../lib/fetchData";
 import Navbar from "@/app/components/Navbar";
 import CategoryPostsList from "@/app/components/PostComponents/CategoryPostsList";
 import Widget from "../components/Widget";
@@ -7,6 +7,8 @@ import CategoryFeaturedPost from "../components/PostComponents/CategoryFeaturedP
 import RandomCategorySidebar from "../components/RandomCategorySidebar";
 import SocialNavbar from "../components/SocialNavbar";
 import Footer from "../components/Footer";
+import styles from './Page.module.css';
+
 
 export const revalidate = 10;
 export const dynamicParams = true;
@@ -37,6 +39,7 @@ const fetchCategoryPosts = async (categorySlug: string): Promise<Post[]> => {
 
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
+  
   const { category } = await params;
 
   // Fetch menu data
@@ -47,10 +50,48 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const footerMenuData: MenuResponse = await fetchFooterMenu();
   const footerMenuItems: MenuItem[] = footerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
   
+  const staticPageSlugs = ["what-is-tradeinformer", "about-us", "contact"];
+
+  if (staticPageSlugs.includes(category)) {
+
+    const pageData = await fetchPageBySlug(category);
+    const pageContent = pageData
+    console.log('page content is', pageContent)
+
+    if (!pageContent) {
+      return (
+        <div>
+          <Navbar headerItems={menuItems} />
+          <h1>Page not found</h1>
+        </div>
+      );
+    }
+
+    // Render page content for static slugs
+    return (
+      <>
+        <div className="overflow-hidden">
+          <Navbar headerItems={menuItems}></Navbar>
+          <SocialNavbar></SocialNavbar>
+          <div className="container mx-auto p-2">
+            <Widget type="desktop_billboard_top"></Widget>
+            <main className="grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">
+              <div className="hidden lg:block col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2">
+                <Widget type="sidebar"></Widget>
+              </div>
+              <div className="col-span-1 sm:col-span-12 lg:col-span-6 p-2 sm:p-2">
+
+                <div className={` ${styles.content}`} dangerouslySetInnerHTML={{ __html: pageContent.data.pageBy.content }} />
+              </div>
+            </main>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   // Fetch post data
   const categoryPosts = await fetchCategoryPosts(category);
-
 
   return (
     <>

@@ -4,7 +4,7 @@ import Navbar from "@/app/components/Navbar";
 import { formatDate } from "../../../lib/dateFormatter";
 import Widget from "@/app/components/Widget";
 import Image from 'next/image';
-import styles from './Page.module.css';
+import styles from '../Page.module.css';
 import RandomCategorySidebar from "@/app/components/RandomCategorySidebar";
 
 import Link from "next/link";

@@ -1,5 +1,6 @@
 import { GET_CATEGORIES } from "@/app/queries/getCategories";
 import { GET_HEADER_MENU, GET_FOOTER_MENU } from "@/app/queries/getMenus";
+import { GET_PAGE_BY_SLUG } from "@/app/queries/getPageBySlug";
 import { GET_POST_BY_SLUG } from "@/app/queries/getPostBySlug";
 import { GET_POSTS } from "@/app/queries/getPosts";
 import { GET_POSTS_BY_CATEGORY } from "@/app/queries/getPostsByCategory";
@@ -154,6 +155,22 @@ export async function fetchPostBySlug(slug: string) {
       return response;
   } catch (error) {
       console.error(`Error fetching post by slug: ${slug}`, error);
+      return null;
+  }
+}
+
+export async function fetchPageBySlug(slug: string) {
+  const variables = { slug };
+  try {
+      const response = await fetchGraphQL(GET_PAGE_BY_SLUG, variables);
+      console.log(response)
+      if (!response.data.pageBy) {
+          console.error(`Page not found for slug: ${slug}`);
+          return null;
+      }
+      return response;
+  } catch (error) {
+      console.error(`Error fetching page by slug: ${slug}`, error);
       return null;
   }
 }
