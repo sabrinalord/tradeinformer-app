@@ -20,7 +20,7 @@ const SocialNavbar: React.FC = () => {
             <Link className="mr-2"
               target="_blank"
               rel="noopener noreferrer"
-             href="https://api.whatsapp.com/send/?phone=447510165171&text&type=phone_number&app_absent=0">
+             href="https://whatsapp.com/channel/0029VaHtXFz4o7qDXUBLib2G">
                 <button
                 type="button"
                 data-twe-ripple-init
@@ -44,7 +44,7 @@ const SocialNavbar: React.FC = () => {
             <Link className="mr-2" 
               target="_blank"
               rel="noopener noreferrer"
-                href="https://www.linkedin.com/company/tradeinformer/posts/?feedView=all">
+                href="https://www.linkedin.com/company/tradeinformer">
                 
                 <button
                 type="button"
