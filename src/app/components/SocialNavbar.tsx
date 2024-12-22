@@ -6,7 +6,7 @@ const SocialNavbar: React.FC = () => {
 
     return (
         <div className="flex flex-col">
-            <div className="ml-auto flex flex-col ">
+            <div className="sm:ml-auto flex flex-col ">
             <div className="flex items-center w-full">
                 <div className="border-t border-gray-300 flex-grow"></div>
                     <p className="px-4 text-[10px] uppercase text-gray-600">
@@ -18,7 +18,7 @@ const SocialNavbar: React.FC = () => {
        
 
        {/* WhatsApp Updates */}
-            <Link className="mr-2"
+            <Link className="ml-2 mr-2"
               target="_blank"
               rel="noopener noreferrer"
              href="https://api.whatsapp.com/send/?phone=447510165171&text&type=phone_number&app_absent=0">
