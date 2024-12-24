@@ -1,6 +1,5 @@
 import { Post, PostsResponse, CategoriesResponse, CategoryNode } from "@/app/types";
 import { fetchCategories, fetchPageBySlug, fetchPostsByCategory } from "../../lib/fetchData";
-import Navbar from "@/app/components/Navbar";
 import CategoryPostsList from "@/app/components/PostComponents/CategoryPostsList";
 import Widget from "../components/Widget";
 import CategoryFeaturedPost from "../components/PostComponents/CategoryFeaturedPost";

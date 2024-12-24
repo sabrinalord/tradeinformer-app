@@ -1,5 +1,5 @@
-import { Post, PostsResponse, MenuResponse, MenuItem, TagsResponse, TagNode } from "@/app/types";
-import { fetchFooterMenu, fetchHeaderMenu, fetchTags } from "../../../lib/fetchData";
+import { Post, PostsResponse, TagsResponse, TagNode } from "@/app/types";
+import { fetchTags } from "../../../lib/fetchData";
 import CategoryPostsList from "@/app/components/PostComponents/CategoryPostsList";
 import Widget from "../../components/Widget";
 import CategoryFeaturedPost from "../../components/PostComponents/CategoryFeaturedPost";
