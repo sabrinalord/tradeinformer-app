@@ -15,8 +15,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
   
     const [selectedParent, setSelectedParent] = useState<string | null>("News");   
-    const [selectedChild, setSelectedChild] = useState<string | null>("News");   
-
+    const [selectedChild, setSelectedChild] = useState<string | null>("");   
 
     return (
        <div className="bg-navy p-4 mb-12 sm:mb-10 text-white relative max-h-[200px]">

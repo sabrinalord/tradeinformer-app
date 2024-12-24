@@ -6,137 +6,103 @@ import CategoryFeaturedPost from "../components/PostComponents/CategoryFeaturedP
 import RandomCategorySidebar from "../components/RandomCategorySidebar";
 
 import styles from './Page.module.css';
-
+import ContactForm from "../components/ContactForm";
 
 export const revalidate = 10;
 export const dynamicParams = true;
 
 interface CategoryPageProps {
-  params:Promise<{
-    category: string;
-  }>;
-}
-
-
-export async function generateStaticParams() {
-  const categoriesResponse: CategoriesResponse = await fetchCategories();
-  const categories: CategoryNode[] = categoriesResponse?.data?.categories?.nodes || [];
-
-  return categories.map((category) => ({
-    category: category.slug,
-  }));
+  params: Promise<{ category: string }>;
 }
 
 const fetchCategoryPosts = async (categorySlug: string): Promise<Post[]> => {
   const postsData: PostsResponse = await fetchPostsByCategory(categorySlug);
-
   return postsData?.data?.posts?.nodes ?? [];
-
 };
 
+const fetchStaticPageContent = async (slug: string) => {
+  const pageData = await fetchPageBySlug(slug);
+  return pageData?.data?.pageBy?.content ?? null;
+};
 
+const Layout = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => (
+  <div className="overflow-hidden">
+    <div className="container mx-auto p-2">
+      <Widget type="desktop_billboard_top" />
+      <main className="grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">
+        <div className="hidden lg:block col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2">
+          <Widget type="sidebar" />
+        </div>
+        <div className="col-span-1 sm:col-span-12 lg:col-span-6 p-2 sm:p-2">{children}</div>
+      </main>
+    </div>
+  </div>
+);
+
+export async function generateStaticParams() {
+  const categoriesResponse: CategoriesResponse = await fetchCategories();
+  const categories: CategoryNode[] = categoriesResponse?.data?.categories?.nodes || [];
+  return categories.map((category) => ({ category: category.slug }));
+}
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
-  
   const { category } = await params;
 
   const staticPageSlugs = ["what-is-tradeinformer", "about-us", "contact"];
 
   if (staticPageSlugs.includes(category)) {
-
-    const pageData = await fetchPageBySlug(category);
-    const pageContent = pageData
-    console.log('page content is', pageContent)
+    const pageContent = await fetchStaticPageContent(category);
 
     if (!pageContent) {
-      return (
-        <div>
-          <h1>Page not found</h1>
-        </div>
-      );
+      return <h1>Page not found</h1>;
     }
 
-    // Render page content for static slugs
     return (
-      <>
-        <div className="overflow-hidden">
-          <div className="container mx-auto p-2">
-            <Widget type="desktop_billboard_top"></Widget>
-            <main className="grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">
-              <div className="hidden lg:block col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2">
-                <Widget type="sidebar"></Widget>
-              </div>
-              <div className="col-span-1 sm:col-span-12 lg:col-span-6 p-2 sm:p-2">
-
-                <div className={` ${styles.content}`} dangerouslySetInnerHTML={{ __html: pageContent.data.pageBy.content }} />
-              </div>
-            </main>
-          </div>
-        </div>
-      </>
+      <Layout>
+        <div className={styles.content} dangerouslySetInnerHTML={{ __html: pageContent }} />
+        {category === "contact" && <ContactForm />}
+      </Layout>
     );
   }
 
-  // Fetch post data
+  // Handle category posts
   const categoryPosts = await fetchCategoryPosts(category);
 
   return (
-    <>
-    <div className="overflow-hidden">
-
-      <div className="container mx-auto p-2">
-        <Widget type="desktop_billboard_top"></Widget>
-          <main className =" grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">
-
-          <div className="hidden lg:block col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
-              <Widget type='sidebar'></Widget>
-           </div>
-
-
-            <div className="col-span-1 sm:col-span-12 lg:col-span-6 p-2 sm:p-2">
-              
-              <div className="mb-5 sm:mb-8">
-              <CategoryFeaturedPost post={categoryPosts[0]} />
-              </div>
-
-              <div>
-                <div  className="lg:mb-8">
-                <CategoryPostsList 
-                filteredPosts={categoryPosts} 
-                numberOfPosts={3} 
-                showCategoryTitle={false} 
-                firstPostHasLargeImage = {false}
-                flexDirection={"flex-row"}
-                showExtract={false}
-                offset={1} 
-                />
-                </div>
-
-                <div className = "lg:hidden max-w-[500px] ml-auto mr-auto">
-                <Widget type='sidebar'></Widget>
-                </div>
-             
-                <CategoryPostsList 
-                filteredPosts={categoryPosts} 
-                firstPostHasLargeImage={false}
-                numberOfPosts={6} 
-                showCategoryTitle={false} 
-                offset={4} 
-                inlineTextOnDesktop
-                hasPagination
-                />
-              </div>
-            </div>
-             
-
-              {/* Sidebar Content (Random Category Posts) */}
-              
-              <div className="hidden lg:block lg:col-span-3 sm:p-2">
-              <RandomCategorySidebar alreadyDisplayedCategory={category}></RandomCategorySidebar>
-              </div>
-    </main>
+    <Layout>
+      <div className="mb-5 sm:mb-8">
+        <CategoryFeaturedPost post={categoryPosts[0]} />
       </div>
-    </div>
-    </>
+      <div className="lg:mb-8">
+        <CategoryPostsList
+          filteredPosts={categoryPosts}
+          numberOfPosts={3}
+          showCategoryTitle={false}
+          firstPostHasLargeImage={false}
+          flexDirection="flex-row"
+          showExtract={false}
+          offset={1}
+        />
+      </div>
+      <div className="lg:hidden max-w-[500px] ml-auto mr-auto">
+        <Widget type="sidebar" />
+      </div>
+      <CategoryPostsList
+        filteredPosts={categoryPosts}
+        firstPostHasLargeImage={false}
+        numberOfPosts={6}
+        showCategoryTitle={false}
+        offset={4}
+        inlineTextOnDesktop
+        hasPagination
+      />
+      <div className="hidden lg:block lg:col-span-3 sm:p-2">
+        <RandomCategorySidebar alreadyDisplayedCategory={category} />
+      </div>
+    </Layout>
   );
 }
