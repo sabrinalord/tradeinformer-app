@@ -2,13 +2,11 @@
 
 import CategoryPostsList from "./components/PostComponents/CategoryPostsList";
 import Widget from "./components/Widget";
-import Navbar from "./components/Navbar";
-import SocialNavbar from "./components/SocialNavbar";
+
 import YouTubePlayer from "./components/YoutubePlayer";
 import PodcastPlayer from "./components/PodcastPlayer";
-import { PostsResponse, Post, MenuResponse, MenuItem } from "./types";                                           
-import { fetchFooterMenu, fetchHeaderMenu, fetchPosts } from "@/lib/fetchData";
-import Footer from "./components/Footer";
+import { PostsResponse, Post } from "./types";                                           
+import {fetchPosts } from "@/lib/fetchData";
 import HomePageFeaturedPost from "./components/PostComponents/HomePageFeaturedPost";
 import OneLargePost3SmallGrid from "./components/PostComponents/OneLargePost3SmallGrid";
 
@@ -19,20 +17,9 @@ export const dynamicParams = true;
 
   export default async function Home() {
 
-   
 
-    const headerMenuData: MenuResponse = await fetchHeaderMenu();
-    const menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
-
-    const footerMenuData: MenuResponse = await fetchFooterMenu();
-    const footerMenuItems: MenuItem[] = footerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
-    
     const allPostsData: PostsResponse = await fetchPosts();
     const allPosts: Post[] = allPostsData?.data?.posts?.nodes || [];
-
-
-
-
     const featuredPost = allPosts[0];
 // do not filter the latest post as this is the featured post
     
@@ -44,8 +31,6 @@ const filterByCategory = (categorySlug: string) => {
   return ( 
     <>
     <div className="overflow-hidden">
-      <Navbar headerItems={menuItems}></Navbar>
-      <SocialNavbar></SocialNavbar>
 
       <div className="container mx-auto p-2">
         <Widget type='desktop_billboard_top'></Widget>
@@ -125,10 +110,9 @@ const filterByCategory = (categorySlug: string) => {
                 <Widget type='sidebar'></Widget>                
               </div>
 
-       
+      
           </main>
           </div>
-          <Footer footerItems={footerMenuItems}></Footer>
       </div>
   </>
   );

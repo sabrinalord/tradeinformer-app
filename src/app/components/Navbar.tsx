@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { MenuItem } from '../types';
 import { NewsletterSignUpComponents } from './NewsletterSignUpComponents';
 
@@ -15,6 +16,8 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
   
     const [selectedParent, setSelectedParent] = useState<string | null>("News");   
+    const [selectedChild, setSelectedChild] = useState<string | null>("News");   
+
 
     return (
        <div className="bg-navy p-4 mb-12 sm:mb-10 text-white relative max-h-[200px]">
@@ -44,7 +47,9 @@ const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
                                         {item.childItems.edges.map((child)=> {
                                             return (
                                             <li className="ml-8 " key={child.node.id}> 
-                                                <Link href={`${child.node.path}`}>{child.node.label}</Link>
+                                              <button  onClick={() => setSelectedChild(child.node.label)}>
+                                                <Link href={`${child.node.path}`} className={`${ selectedChild == child.node.label ? "border-b-2 border-b-white" : "" }`}>{child.node.label}</Link>
+                                                </button>
                                             </li>
                                             );
 })}

@@ -1,6 +1,5 @@
 import { Post, SinglePostResponse, PostsResponse, MenuResponse, MenuItem} from "@/app/types";
 import {fetchPosts, fetchPostBySlug, fetchHeaderMenu, fetchFooterMenu} from "../../../lib/fetchData"
-import Navbar from "@/app/components/Navbar";
 import { formatDate } from "../../../lib/dateFormatter";
 import Widget from "@/app/components/Widget";
 import Image from 'next/image';
@@ -42,14 +41,6 @@ export default async function Page({
     const { category, slug } = await params;
 
 
-    const headerMenuData: MenuResponse = await fetchHeaderMenu();
-    const menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
-
-    const footerMenuData: MenuResponse = await fetchFooterMenu();
-    const footerMenuItems: MenuItem[] = footerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
-    
- 
-
     const postData: SinglePostResponse  = await fetchPostBySlug(slug);
     const post: Post = postData?.data?.postBy || [];
 
@@ -59,7 +50,6 @@ export default async function Page({
 
     return (
         <div className="overflow-hidden">
-        <Navbar headerItems={menuItems}></Navbar>
       
         <div className="container mx-auto p-2">
           <Widget type="desktop_billboard_top"></Widget>
@@ -129,7 +119,6 @@ export default async function Page({
     
             </main>
         </div>
-        <Footer footerItems={footerMenuItems}></Footer>
 
         </div>
     )

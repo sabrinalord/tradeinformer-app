@@ -1,12 +1,11 @@
-import { Post, PostsResponse, MenuResponse, MenuItem, CategoriesResponse, CategoryNode } from "@/app/types";
-import { fetchCategories, fetchFooterMenu, fetchHeaderMenu, fetchPageBySlug, fetchPostsByCategory } from "../../lib/fetchData";
+import { Post, PostsResponse, CategoriesResponse, CategoryNode } from "@/app/types";
+import { fetchCategories, fetchPageBySlug, fetchPostsByCategory } from "../../lib/fetchData";
 import Navbar from "@/app/components/Navbar";
 import CategoryPostsList from "@/app/components/PostComponents/CategoryPostsList";
 import Widget from "../components/Widget";
 import CategoryFeaturedPost from "../components/PostComponents/CategoryFeaturedPost";
 import RandomCategorySidebar from "../components/RandomCategorySidebar";
-import SocialNavbar from "../components/SocialNavbar";
-import Footer from "../components/Footer";
+
 import styles from './Page.module.css';
 
 
@@ -42,14 +41,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   
   const { category } = await params;
 
-  // Fetch menu data
-  const headerMenuData: MenuResponse = await fetchHeaderMenu();
-  const menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
-
-
-  const footerMenuData: MenuResponse = await fetchFooterMenu();
-  const footerMenuItems: MenuItem[] = footerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
-  
   const staticPageSlugs = ["what-is-tradeinformer", "about-us", "contact"];
 
   if (staticPageSlugs.includes(category)) {
@@ -61,7 +52,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     if (!pageContent) {
       return (
         <div>
-          <Navbar headerItems={menuItems} />
           <h1>Page not found</h1>
         </div>
       );
@@ -71,8 +61,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     return (
       <>
         <div className="overflow-hidden">
-          <Navbar headerItems={menuItems}></Navbar>
-          <SocialNavbar></SocialNavbar>
           <div className="container mx-auto p-2">
             <Widget type="desktop_billboard_top"></Widget>
             <main className="grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">
@@ -96,8 +84,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   return (
     <>
     <div className="overflow-hidden">
-      <Navbar headerItems={menuItems}></Navbar>
-      <SocialNavbar></SocialNavbar>
+
       <div className="container mx-auto p-2">
         <Widget type="desktop_billboard_top"></Widget>
           <main className =" grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">
@@ -150,7 +137,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </div>
     </main>
       </div>
-      <Footer footerItems={footerMenuItems}></Footer>
     </div>
     </>
   );
