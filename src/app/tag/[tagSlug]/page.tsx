@@ -38,14 +38,6 @@ const fetchTagPosts = async (tagSlug: string): Promise<Post[]> => {
 export default async function TagPage({ params }: TagPageProps) {
   const { tagSlug} = await params;
 
-  // Fetch menu data
-  const headerMenuData: MenuResponse = await fetchHeaderMenu();
-  const menuItems: MenuItem[] = headerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
-
-  const footerMenuData: MenuResponse = await fetchFooterMenu();
-  const footerMenuItems: MenuItem[] = footerMenuData?.data?.menuItems.edges.map(edge => edge.node) || [];
-  
-
   // Fetch post data
   const tagPosts = await fetchTagPosts(tagSlug);
   const tagName = tagPosts?.[0]?.tags?.nodes?.find((tag) => tag.slug === tagSlug)?.name || "Unknown Tag";

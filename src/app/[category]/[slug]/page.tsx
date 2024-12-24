@@ -1,5 +1,5 @@
-import { Post, SinglePostResponse, PostsResponse, MenuResponse, MenuItem} from "@/app/types";
-import {fetchPosts, fetchPostBySlug, fetchHeaderMenu, fetchFooterMenu} from "../../../lib/fetchData"
+import { Post, SinglePostResponse, PostsResponse} from "@/app/types";
+import {fetchPosts, fetchPostBySlug} from "../../../lib/fetchData"
 import { formatDate } from "../../../lib/dateFormatter";
 import Widget from "@/app/components/Widget";
 import Image from 'next/image';
@@ -7,7 +7,6 @@ import styles from '../Page.module.css';
 import RandomCategorySidebar from "@/app/components/RandomCategorySidebar";
 
 import Link from "next/link";
-import Footer from "@/app/components/Footer";
 import SocialShareForArticles from "@/app/components/SocialShareForArticles";
 
 
@@ -113,10 +112,6 @@ export default async function Page({
             <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
               <RandomCategorySidebar></RandomCategorySidebar>
              </div>
-
-              
-         
-    
             </main>
         </div>
 
