@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
+
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -9,25 +11,36 @@ export default function ContactForm() {
     message: '',
   });
   const [status, setStatus] = useState<string | null>(null);
+  const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleRecaptchaChange = (value: string | null) => {
+    setRecaptchaValue(value); 
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus(null);
 
+    if (!recaptchaValue) {
+        setStatus('Please verify that you are not a robot.');
+        return;
+      }
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, recaptcha: recaptchaValue }),
       });
 
       if (response.ok) {
         setStatus('Message sent successfully!');
         setFormData({ name: '', email: '', message: '' });
+        setRecaptchaValue(null);
       } else {
         // Log the response status and any additional information from the server
         const errorData = await response.json();
@@ -81,6 +94,12 @@ export default function ContactForm() {
           required
           className="w-full border p-2 rounded"
           rows={5}
+        />
+      </div>
+      <div className="mb-4">
+        <ReCAPTCHA
+          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY_CONTACT_FORM || ''}
+          onChange={handleRecaptchaChange}
         />
       </div>
       <button

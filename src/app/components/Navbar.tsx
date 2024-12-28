@@ -14,7 +14,7 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({headerItems}) => {
   
-    const [selectedParent, setSelectedParent] = useState<string | null>("News");   
+    const [selectedParent, setSelectedParent] = useState<string | null>("");   
     const [selectedChild, setSelectedChild] = useState<string | null>("");   
 
     return (

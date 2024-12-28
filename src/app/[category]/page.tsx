@@ -54,6 +54,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const staticPageSlugs = ["what-is-tradeinformer", "about-us", "contact"];
 
+  // Handle static pages
   if (staticPageSlugs.includes(category)) {
     const pageContent = await fetchStaticPageContent(category);
 
