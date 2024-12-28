@@ -29,10 +29,17 @@ export default function ContactForm() {
         setStatus('Message sent successfully!');
         setFormData({ name: '', email: '', message: '' });
       } else {
+        // Log the response status and any additional information from the server
+        const errorData = await response.json();
+        console.error('Server responded with an error:', {
+          status: response.status,
+          statusText: response.statusText,
+          error: errorData,
+        });
         setStatus('Failed to send the message. Please try again.');
       }
     } catch (error) {
-      console.error(error);
+      console.error('An error occurred during form submission:', error);
       setStatus('An error occurred. Please try again later.');
     }
   };

@@ -10,17 +10,21 @@ export async function POST(req: Request) {
 
   try {
     const transporter = nodemailer.createTransport({
-      service: 'gmail', 
-      auth: {
-        user: process.env.EMAIL_USER, 
-        pass: process.env.EMAIL_PASS, 
-      },
-    });
+        host: 'smtp.office365.com',
+        port: 587,
+        secure: false,
+        auth: {
+          user: 'admin@tradeinformer.com',
+          pass: process.env.EMAIL_PASS,
+        },
+        logger: true, // Enable logging
+        debug: true,  // Enable debug output
+      });
 
     // Configure the email message
     const mailOptions = {
-      from: email,
-      to: 'david@tradeinformer.com', 
+      from: "admin@tradeinformer.com",
+      to: 'admin@tradeinformer.com', 
       subject: `Contact Us Form Submission from ${name}`,
       text: `You have received a new message:\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
     };
