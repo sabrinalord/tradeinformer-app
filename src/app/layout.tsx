@@ -69,8 +69,17 @@ export default async function RootLayout({
         <ApolloWrapper>
           <BannersProvider banners={banners}>
           <Navbar headerItems={menuItems} />
-          <SocialNavbar></SocialNavbar>
-          <Widget type='desktop_billboard_top'></Widget>
+          <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4 lg:mt-16">  
+            <div className="col-span-1 sm:col-span-12 lg:col-span-3"></div>
+            <div className="col-span-1 sm:col-span-12 lg:col-span-6 "> 
+              <Widget type='desktop_billboard_top'></Widget>         
+            </div> 
+            <div className="col-span-1 sm:col-span-12 lg:col-span-3">         
+               <SocialNavbar></SocialNavbar>
+            </div>
+          </div>
+       
+
 
 
 
