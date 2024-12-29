@@ -47,13 +47,14 @@ export default async function Page({
     const categoryName = post.categories.nodes[0]?.name || "Category";
 
     function processContent(content: string): string {
-        // Add inline styles to center elements with the class "has-text-align-center"
+        // when formatting content on wordpress, the class has-text-align-center is added. Class is not recognised outside of WP so adding formatting here
         const centeredContent = content.replace(
           /class="([^"]*\bhas-text-align-center\b[^"]*)"/g,
           'class="$1" style="text-align: center;"'
         );
       
-        // Add inline styles to make "wp-block-heading" elements bold and larger
+         // when formatting content on wordpress, the class wp-block-heading is added. Class is not recognised outside of WP so adding formatting here
+
         const styledContent = centeredContent.replace(
           /class="([^"]*\bwp-block-heading\b[^"]*)"/g,
           'class="$1" style="font-weight: bold; font-size: 1em;"'
