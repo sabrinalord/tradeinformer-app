@@ -33,10 +33,13 @@ const Layout = ({
   <div className="overflow-hidden">
     <div className="container mx-auto p-2">
       <main className="grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">
-        <div className="hidden lg:block col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2">
+        <div className=" hidden col-span-1 sm:block sm:col-span-12 lg:col-span-3 sm:p-2">
           <Widget type="sidebar" />
         </div>
         {children}
+        <div className=" lg:hidden col-span-1 sm:block sm:col-span-12 sm:p-2">
+          <Widget type="sidebar" />
+        </div>
       </main>
     </div>
   </div>
@@ -62,10 +65,19 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     }
 
     return (
-      <Layout>
-        <div className={styles.content} dangerouslySetInnerHTML={{ __html: pageContent }} />
-        {category === "contact" && <ContactForm />}
-      </Layout>
+  
+
+<Layout>
+  <div className="col-span-1 sm:col-span-12 lg:col-span-6 sm:p-2">
+
+  <div className={styles.content} dangerouslySetInnerHTML={{ __html: pageContent }} />
+
+  </div>
+
+    <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2">
+    {category === "contact" && <ContactForm />}
+    </div>
+  </Layout>
     );
   }
 
@@ -107,6 +119,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
       <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2">
         <RandomCategorySidebar alreadyDisplayedCategory={category} />
+ 
       </div>
     </Layout>
   );
