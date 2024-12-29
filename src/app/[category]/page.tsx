@@ -74,7 +74,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <Layout>
-    <div className="hidden lg:block lg:col-span-6 sm:p-2">
+    <div className="col-span-1 sm:col-span-12 lg:col-span-6 sm:p-2">
 
       <div className="mb-5 sm:mb-8">
         <CategoryFeaturedPost post={categoryPosts[0]} />
@@ -105,7 +105,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       />
     </div>
 
-      <div className="hidden lg:block lg:col-span-3 sm:p-2">
+      <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2">
         <RandomCategorySidebar alreadyDisplayedCategory={category} />
       </div>
     </Layout>
