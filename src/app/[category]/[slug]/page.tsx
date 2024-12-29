@@ -10,7 +10,6 @@ import Link from "next/link";
 import SocialShareForArticles from "@/app/components/SocialShareForArticles";
 
 
-
 export const revalidate = 60;
 export const dynamicParams = true;
 
@@ -32,6 +31,7 @@ export async function generateStaticParams() {
     }));
 }
 
+
 export default async function Page({
     params,
   }: {
@@ -46,6 +46,15 @@ export default async function Page({
     const formattedDate = formatDate(post.date);
     const categoryName = post.categories.nodes[0]?.name || "Category";
 
+    const processContent = (html: string): string => {
+        return html.replace(
+          /<([a-zA-Z0-9]+)([^>]*\bclass="[^"]*\bhas-text-align-center\b[^"]*")([^>]*)>/g,
+          (match, tagName, classAttr, rest) =>
+            `<${tagName}${classAttr} style="text-align: center;"${rest}>`
+        );
+      };
+    
+      const processedContent = processContent(post.content);
 
     return (
         <div className="overflow-hidden">
@@ -82,7 +91,7 @@ export default async function Page({
                               alt={post.featuredImage.node.altText || 'Featured Image'} >
                     </Image> 
     
-                <div className={` ${styles.content} mt-4`} dangerouslySetInnerHTML={{ __html: post.content }}></div>
+                <div className={` ${styles.content} mt-4`} dangerouslySetInnerHTML={{ __html: processedContent  }}></div>
                 
                 {post.tags.nodes && (
                     <div>
