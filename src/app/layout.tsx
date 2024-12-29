@@ -9,6 +9,7 @@ import { fetchFooterMenu, fetchHeaderMenu } from "@/lib/fetchData";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SocialNavbar from "./components/SocialNavbar";
+import Widget from "./components/Widget";
 
 
 const geistSans = localFont({
@@ -69,6 +70,8 @@ export default async function RootLayout({
           <BannersProvider banners={banners}>
           <Navbar headerItems={menuItems} />
           <SocialNavbar></SocialNavbar>
+          <Widget type='desktop_billboard_top'></Widget>
+
 
 
           {children}

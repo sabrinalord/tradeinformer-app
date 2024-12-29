@@ -32,12 +32,11 @@ const Layout = ({
 }) => (
   <div className="overflow-hidden">
     <div className="container mx-auto p-2">
-      <Widget type="desktop_billboard_top" />
       <main className="grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">
         <div className="hidden lg:block col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2">
           <Widget type="sidebar" />
         </div>
-        <div className="col-span-1 sm:col-span-12 lg:col-span-6 p-2 sm:p-2">{children}</div>
+        {children}
       </main>
     </div>
   </div>
@@ -75,9 +74,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <Layout>
+    <div className="hidden lg:block lg:col-span-6 sm:p-2">
+
       <div className="mb-5 sm:mb-8">
         <CategoryFeaturedPost post={categoryPosts[0]} />
       </div>
+    
       <div className="lg:mb-8">
         <CategoryPostsList
           filteredPosts={categoryPosts}
@@ -101,6 +103,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         inlineTextOnDesktop
         hasPagination
       />
+    </div>
+
       <div className="hidden lg:block lg:col-span-3 sm:p-2">
         <RandomCategorySidebar alreadyDisplayedCategory={category} />
       </div>
