@@ -41,9 +41,9 @@ const CategoryFeaturedPost: React.FC<CategoryFeaturedPostProps> =  ({
   </div>
 
 
-  <div className="m-2">
+  <div className="">
     <Link href={`/${categorySlug}/${post.slug}`}>
-      <h2 className="text-2xl lg:text-2xl font-bold leading-tight mb-4 hover:underline hover:text-linkBlue">
+      <h2 className="text-2xl lg:text-[1.25rem] font-bold leading-tight mb-2 hover:underline hover:text-linkBlue">
         {post.title}
       </h2>
       <div 
