@@ -43,8 +43,9 @@ const filterByCategory = (categorySlug: string) => {
               </div>
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
-              <Widget type='sidebar'></Widget>
-
+                <div className="sm:max-w-[300px] sm:flex sm:justify-center sm:items-center mx-auto">
+                   <Widget type='sidebar'></Widget>
+                </div>
 
                 <CategoryPostsList filteredPosts={filterByCategory("tech-news") || []} numberOfPosts={3} inlineTextOnDesktop showExtract={false}></CategoryPostsList>
               </div>
@@ -58,7 +59,9 @@ const filterByCategory = (categorySlug: string) => {
 
               <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
                 <CategoryPostsList filteredPosts={filterByCategory("broker-news") || []} inlineTextOnDesktop numberOfPosts={3} showExtract={false}></CategoryPostsList>
-                <Widget type='sidebar'></Widget>              
+               <div className="hidden lg:block">
+                 <Widget type='sidebar'></Widget>              
+               </div>
                 </div>
 
               <div className="col-span-1 sm:col-span-12">
