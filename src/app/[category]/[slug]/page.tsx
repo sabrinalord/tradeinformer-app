@@ -46,13 +46,21 @@ export default async function Page({
     const formattedDate = formatDate(post.date);
     const categoryName = post.categories.nodes[0]?.name || "Category";
 
-    const processContent = (html: string): string => {
-        return html.replace(
-          /<([a-zA-Z0-9]+)([^>]*\bclass="[^"]*\bhas-text-align-center\b[^"]*")([^>]*)>/g,
-          (match, tagName, classAttr, rest) =>
-            `<${tagName}${classAttr} style="text-align: center;"${rest}>`
+    function processContent(content: string): string {
+        // Add inline styles to center elements with the class "has-text-align-center"
+        const centeredContent = content.replace(
+          /class="([^"]*\bhas-text-align-center\b[^"]*)"/g,
+          'class="$1" style="text-align: center;"'
         );
-      };
+      
+        // Add inline styles to make "wp-block-heading" elements bold and larger
+        const styledContent = centeredContent.replace(
+          /class="([^"]*\bwp-block-heading\b[^"]*)"/g,
+          'class="$1" style="font-weight: bold; font-size: 1em;"'
+        );
+      
+        return styledContent;
+      }
     
       const processedContent = processContent(post.content);
 
@@ -70,7 +78,7 @@ export default async function Page({
                 <div className="">
                    <Link className={styles.link} href={`/${category}`}>{categoryName}</Link> 
                    <div className="flex justify-between">
-                    <h1 className="font-bold lg:text-[1.6em] ">{post.title}</h1>
+                    <h1 className="font-bold text-xl lg:text-[1.6em] ">{post.title}</h1>
 
                    </div>
                     <div className="border-b mt-2 sm:mb-2"></div>
