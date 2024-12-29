@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useCallback, useState } from 'react';
 import { MenuItem } from '../types';
 import { NewsletterSignUpComponents } from './NewsletterSignUpComponents';
-import ChevronDownIcon from '@heroicons/react/24/outline/ChevronDownIcon';
 
 
 interface NavbarProps {
