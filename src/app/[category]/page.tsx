@@ -33,7 +33,7 @@ const Layout = ({
   <div className="overflow-hidden">
     <div className="container mx-auto p-2">
       <main className="grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">
-        <div className=" hidden col-span-1 sm:block sm:col-span-12 lg:col-span-3 sm:p-2">
+        <div className=" hidden col-span-1 lg:block sm:col-span-12 lg:col-span-3 sm:p-2">
           <Widget type="sidebar" />
         </div>
         {children}
@@ -68,13 +68,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   
 
 <Layout>
-  <div className="col-span-1 sm:col-span-12 lg:col-span-6 sm:p-2">
+  <div className="col-span-1 sm:col-span-12 lg:col-span-5 sm:p-2">
 
   <div className={styles.content} dangerouslySetInnerHTML={{ __html: pageContent }} />
-
   </div>
 
-    <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2">
+    <div className="col-span-1 sm:col-span-12 lg:col-span-4 sm:p-2 mt-10">
     {category === "contact" && <ContactForm />}
     </div>
   </Layout>
