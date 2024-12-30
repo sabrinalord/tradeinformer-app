@@ -18,7 +18,7 @@ const Navbar: React.FC<NavbarProps> = ({ headerItems }) => {
 
     const toggleDropdown = useCallback((label: string) => {
         setSelectedChild("")
-        setSelectedParent((prev) => (prev === label ? null : label));
+        setSelectedParent((prev) => (prev === label ? prev : label));
     }, []);
 
     const handleChildClick = useCallback((childLabel: string) => {
@@ -79,8 +79,10 @@ const Navbar: React.FC<NavbarProps> = ({ headerItems }) => {
                         </li>          
                         ) : null                                
                     )}
+
                     
                 </ul>
+
                 </nav>
 
        </div>
