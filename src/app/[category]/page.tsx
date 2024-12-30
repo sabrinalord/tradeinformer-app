@@ -72,10 +72,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
     {category === "contact" ? (    
       <>
-        <div className="col-span-1 sm:col-span-12 lg:col-span-6 sm:p-2">
+        <div className="col-span-1 sm:col-span-12 lg:col-span-5 sm:p-2">
           <div className={styles.content} dangerouslySetInnerHTML={{ __html: pageContent }} />
         </div>
-        <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 mt-10">
+        <div className="col-span-1 sm:col-span-12 lg:col-span-4 sm:p-2 mt-10">
         <ContactForm />
         </div>
       </>
