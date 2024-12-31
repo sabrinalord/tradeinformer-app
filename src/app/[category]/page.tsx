@@ -25,57 +25,27 @@ const fetchCategoryPosts = async (categorySlug: string): Promise<Post[]> => {
   }
 };
 
-const fetchStaticPageContent = async (slug: string) => {
-  try {
-    const pageData = await fetchPageBySlug(slug);
-    return pageData?.data?.pageBy?.content ?? null;
-  } catch (error) {
-    console.error("Error fetching static page content:", error);
-    return null;
+
+// Generate Static Params for Dynamic Routes
+export async function generateStaticParams() {
+  const categoriesResponse: CategoriesResponse = await fetchCategories();
+  const categories: CategoryNode[] = categoriesResponse?.data?.categories?.nodes || [];
+  return categories.map((category) => ({ category: category.slug }));
+}
+
+export default async function CategoryPage({ params }: CategoryPageProps)  {
+  const { category } = await params;
+
+
+  const categoryPosts = await fetchCategoryPosts(category);
+  if (!categoryPosts.length) {
+    return <h1>No posts available for this category</h1>;
   }
-};
-
-// Reusable Layout Components
-const Layout = ({ children }: { children: React.ReactNode }) => (
-  <div className="overflow-hidden">
+  return (
+    <div className="overflow-hidden">
     <div className="container mx-auto p-2">
-      <main className="grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">{children}</main>
-    </div>
-  </div>
-);
-
-const StaticPageLayout = ({ content }: { content: string }) => (
-  <Layout>
-      <div className="col-span-1 sm:col-span-12 lg:col-span-1 sm:p-2 mt-10"></div>
-      <div className="col-span-1 sm:col-span-12 lg:col-span-10 sm:p-2">
-        <div className={styles.content} dangerouslySetInnerHTML={{ __html: content }} />
-      </div>
-      <div className="col-span-1 sm:col-span-12 lg:col-span-1 sm:p-2 mt-10"></div>
-  </Layout>
-);
-
-const ContactPageLayout = ({ content }: { content: string }) => (
-  <Layout>
-    <div className="col-span-1 sm:col-span-12 lg:col-span-1 sm:p-2 mt-10"></div>
-    <div className="col-span-1 sm:col-span-12 lg:col-span-6 sm:p-2">
-      <div className={styles.content} dangerouslySetInnerHTML={{ __html: content }} />
-    </div>
-    <div className="col-span-1 sm:col-span-12 lg:col-span-4 sm:p-2 mt-10">
-      <ContactForm />
-    </div>
-    <div className="col-span-1 sm:col-span-12 lg:col-span-1 sm:p-2 mt-10"></div>
-  </Layout>
-);
-
-const CategoryPageLayout = ({
-  categoryPosts,
-  category,
-}: {
-  categoryPosts: Post[];
-  category: string;
-}) => (
-  <Layout>
-    <div className="hidden col-span-1 lg:block sm:col-span-12 lg:col-span-3 sm:p-2">
+      <main className="grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">
+      <div className="hidden col-span-1 lg:block sm:col-span-12 lg:col-span-3 sm:p-2">
       <Widget type="sidebar" />
     </div>
     <div className="col-span-1 sm:col-span-12 lg:col-span-6 sm:p-2">
@@ -109,37 +79,10 @@ const CategoryPageLayout = ({
     <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2">
       <RandomCategorySidebar alreadyDisplayedCategory={category} />
     </div>
-  </Layout>
-);
-
-// Generate Static Params for Dynamic Routes
-export async function generateStaticParams() {
-  const categoriesResponse: CategoriesResponse = await fetchCategories();
-  const categories: CategoryNode[] = categoriesResponse?.data?.categories?.nodes || [];
-  return categories.map((category) => ({ category: category.slug }));
-}
-
-export default async function CategoryPage({ params }: CategoryPageProps)  {
-  const { category } = await params;
-
-  const staticPageSlugs = ["what-is-tradeinformer", "about-us", "contact"];
 
 
-  if (staticPageSlugs.includes(category)) {
-    const pageContent = await fetchStaticPageContent(category);
-    if (!pageContent) {
-      return <h1>Page not found</h1>;
-    }
-    return category === "contact" ? (
-      <ContactPageLayout content={pageContent} />
-    ) : (
-      <StaticPageLayout content={pageContent} />
-    );
-  }
-
-  const categoryPosts = await fetchCategoryPosts(category);
-  if (!categoryPosts.length) {
-    return <h1>No posts available for this category</h1>;
-  }
-  return <CategoryPageLayout categoryPosts={categoryPosts} category={category} />;
+      </main>
+    </div>
+  </div>
+  );
 }
