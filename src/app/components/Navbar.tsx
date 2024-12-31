@@ -29,8 +29,8 @@ const Navbar: React.FC<NavbarProps> = ({ headerItems }) => {
                 <Link className="max-w-60 sm:max-w-96 mr-4" href="/">
                     <Image
                         src="/images/TradeInformer_Logo_White.avif"
-                        width={350}
-                        height={350}
+                        width={250}
+                        height={250}
                         alt="TradeInformer logo"
                     />
                 </Link>
