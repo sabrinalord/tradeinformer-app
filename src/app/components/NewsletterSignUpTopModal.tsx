@@ -36,7 +36,6 @@ export const NewsletterSignUpTopModal = () => {
 
 
   useEffect(() => {
-    console.log(`Component mounted. Initial signUpDismissed: ${signUpDismissed}`);
 
     if (!signUpDismissed) {
       setShowSignUp(true);
@@ -54,7 +53,6 @@ export const NewsletterSignUpTopModal = () => {
   const handleSignUpModal= () => {  
     setShowSignUp(false);
     setSignUpDismissed(true)
-    console.log(`cross clicked and signUpDismissed is ${signUpDismissed}`)
   }
     const form = useForm<z.infer<typeof schema>>({
         resolver:zodResolver(schema),

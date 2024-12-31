@@ -37,7 +37,6 @@ const {
           setMessage("reCAPTCHA is not available. Please try again.");
           return;
         }
-        console.log('executing generate token from newsletter sign up in nav');
         const recaptchaToken = await executeRecaptcha("newsletter_signup_in_nav");
         if (!recaptchaToken) {
           setMessage("reCAPTCHA validation failed. Please try again.");

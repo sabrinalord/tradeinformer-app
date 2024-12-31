@@ -163,7 +163,6 @@ export async function fetchPageBySlug(slug: string) {
   const variables = { slug };
   try {
       const response = await fetchGraphQL(GET_PAGE_BY_SLUG, variables);
-      console.log(response)
       if (!response.data.pageBy) {
           console.error(`Page not found for slug: ${slug}`);
           return null;

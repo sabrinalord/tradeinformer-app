@@ -14,8 +14,6 @@ const Navbar: React.FC<NavbarProps> = ({ headerItems }) => {
     const [selectedParent, setSelectedParent] = useState<string | null>("News");
     const [selectedChild, setSelectedChild] = useState<string | null>("");
 
-    console.log(headerItems)
-
     const toggleDropdown = useCallback((label: string) => {
         setSelectedChild("")
         setSelectedParent((prev) => (prev === label ? prev : label));

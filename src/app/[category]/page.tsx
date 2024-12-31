@@ -12,7 +12,7 @@ export const revalidate = 10;
 export const dynamicParams = true;
 
 interface CategoryPageProps {
-  params: { category: string };
+  params: Promise<{ category: string }>;
 }
 
 const fetchCategoryPosts = async (categorySlug: string): Promise<Post[]> => {
@@ -119,7 +119,9 @@ export async function generateStaticParams() {
   return categories.map((category) => ({ category: category.slug }));
 }
 
-export default async function CategoryPage({ params: { category } }: CategoryPageProps) {
+export default async function CategoryPage({ params }: CategoryPageProps)  {
+  const { category } = await params;
+
   const staticPageSlugs = ["what-is-tradeinformer", "about-us", "contact"];
 
 
