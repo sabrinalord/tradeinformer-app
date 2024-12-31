@@ -1,12 +1,10 @@
 import { Post, PostsResponse, CategoriesResponse, CategoryNode } from "@/app/types";
-import { fetchCategories, fetchPageBySlug, fetchPostsByCategory } from "../../lib/fetchData";
+import { fetchCategories, fetchPostsByCategory } from "../../lib/fetchData";
 import CategoryPostsList from "@/app/components/PostComponents/CategoryPostsList";
 import Widget from "../components/Widget";
 import CategoryFeaturedPost from "../components/PostComponents/CategoryFeaturedPost";
 import RandomCategorySidebar from "../components/RandomCategorySidebar";
 
-import styles from "./Page.module.css";
-import ContactForm from "../components/ContactForm";
 
 export const revalidate = 10;
 export const dynamicParams = true;
