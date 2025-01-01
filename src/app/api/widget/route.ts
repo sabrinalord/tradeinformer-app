@@ -3,7 +3,7 @@ import { WidgetData} from '../../types';
 
 export async function GET() {
 
-    const apiUrl = `https://tradeinformer.com/wp-json/banner-ads/v1/list`;
+    const apiUrl = `https://slothadmin.tradeinformer.com/wp-json/banner-ads/v1/list`;
     
     try {
         const response = await fetch(apiUrl);

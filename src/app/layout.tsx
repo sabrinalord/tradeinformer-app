@@ -38,7 +38,7 @@ const footerMenuItems: MenuItem[] = footerMenuData?.data?.menuItems.edges.map(ed
 
 
 const fetchBanners = cache(async (): Promise<WidgetData[]> => {
-  const apiUrl = `https://tradeinformer.com/wp-json/banner-ads/v1/list`;
+  const apiUrl = `https://slothadmin.tradeinformer.com/wp-json/banner-ads/v1/list`;
 
   try {
     const res = await fetch(apiUrl);
