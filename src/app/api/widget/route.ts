@@ -13,9 +13,7 @@ export async function GET() {
 
         const headers = {
             'Content-Type': 'application/json',
-            // Allow all origins (useful in development, but consider restricting in production)
-            'Access-Control-Allow-Origin': '*', 
-            // 'Access-Control-Allow-Origin': 'www.tradeinformer.com',
+            'Access-Control-Allow-Origin': 'www.tradeinformer.com',
             'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type',
         };
