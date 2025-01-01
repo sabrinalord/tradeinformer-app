@@ -64,6 +64,7 @@ export default async function Page({
       }
     
       const processedContent = processContent(post.content);
+      console.log(post.tags.nodes.length)
 
     return (
         <div className="overflow-hidden">
@@ -102,7 +103,7 @@ export default async function Page({
     
                 <div className={` ${styles.content} mt-4`} dangerouslySetInnerHTML={{ __html: processedContent  }}></div>
                 
-                {post.tags.nodes && (
+                {post.tags.nodes.length > 0 && (
                     <div>
                         <ul className="flex flex-wrap text-sm">
                             <li className="inline-fle p-2 m-2 bg-[#266fef] text-white uppercase">
