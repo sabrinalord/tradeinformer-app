@@ -64,7 +64,6 @@ export default async function Page({
       }
     
       const processedContent = processContent(post.content);
-      console.log(post.tags.nodes.length)
 
     return (
         <div className="overflow-hidden">
