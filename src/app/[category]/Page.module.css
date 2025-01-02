@@ -3,13 +3,18 @@
     color: #0090c4;
   }
 
-  .content p {
+  .content p, .content li {
     margin-bottom: 26px;
   }
 
   √ç
 .link {
   color: #0090c4;
+}
+
+.content ol{
+  list-style-type: decimal !important; 
+  
 }
 
 
