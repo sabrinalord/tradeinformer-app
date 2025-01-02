@@ -41,6 +41,7 @@ async function fetchGraphQL(query: string, variables?: GraphQLVariables) {
                   query: query,
                   variables: variables,
             }),
+            cache: "no-store",
           });
           
          await handleResponseErrors(response)
