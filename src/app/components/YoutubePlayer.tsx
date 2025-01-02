@@ -7,9 +7,8 @@ export default function YouTubePlayer() {
               <div className="flex-1 border-t border-gray-300 ml-2"></div>
         </span>
         
-        <iframe className= "border-r-8 rounded border-black"
+        <iframe className="border-r-8 rounded border-black w-full "
         width="100%" 
-        height="300" 
         src="https://www.youtube.com/embed/videoseries?si=OErgBIL31Do17euq&amp;list=PLRYLEvE26T8TB0fKzJVsiupjSCOY05zyC" 
         title="YouTube video player" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
