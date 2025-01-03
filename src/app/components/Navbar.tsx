@@ -23,9 +23,15 @@ const Navbar: React.FC<NavbarProps> = ({ headerItems }) => {
         setSelectedChild(childLabel);
     }, []);
 
+    const handleLogoClick = () => {
+        setSelectedChild("");
+        setSelectedParent("News");
+    }
+
     return (
         <div className="bg-navy p-4 mb-12 sm:mb-10 text-white relative max-h-[200px]">
             <div className="flex justify-between mb-4 lg:mb-8 h-14">
+                <button onClick={handleLogoClick}>
                 <Link className="max-w-60 sm:max-w-96 mr-4" href="/">
                     <Image
                         src="/images/TradeInformer_Logo_White.avif"
@@ -34,6 +40,7 @@ const Navbar: React.FC<NavbarProps> = ({ headerItems }) => {
                         alt="TradeInformer logo"
                     />
                 </Link>
+                </button>
 
                 <div className="hidden sm:flex flex-col sm:flex-row ml-auto justify-items-center">
                     <NewsletterSignUpComponents />
