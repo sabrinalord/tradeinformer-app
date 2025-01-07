@@ -8,6 +8,7 @@ import RandomCategorySidebar from "@/app/components/RandomCategorySidebar";
 
 import Link from "next/link";
 import SocialShareForArticles from "@/app/components/SocialShareForArticles";
+import { notFound } from "next/navigation";
 
 
 export const revalidate = 60;
@@ -41,6 +42,10 @@ export default async function Page({
 
 
     const postData: SinglePostResponse  = await fetchPostBySlug(slug);
+
+    if (!postData) {
+        notFound();
+    }
     const post: Post = postData?.data?.postBy || [];
 
     const formattedDate = formatDate(post.date);

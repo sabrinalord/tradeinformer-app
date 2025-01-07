@@ -4,6 +4,7 @@ import CategoryPostsList from "@/app/components/PostComponents/CategoryPostsList
 import Widget from "../components/Widget";
 import CategoryFeaturedPost from "../components/PostComponents/CategoryFeaturedPost";
 import RandomCategorySidebar from "../components/RandomCategorySidebar";
+import { notFound } from "next/navigation";
 
 
 export const revalidate = 10;
@@ -36,8 +37,10 @@ export default async function CategoryPage({ params }: CategoryPageProps)  {
 
 
   const categoryPosts = await fetchCategoryPosts(category);
-  if (!categoryPosts.length) {
-    return <h1>No posts available for this category</h1>;
+  if (!categoryPosts) {
+    return (
+      notFound()
+    );
   }
   return (
     <div className="overflow-hidden">

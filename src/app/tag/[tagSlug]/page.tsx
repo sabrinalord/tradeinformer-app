@@ -6,6 +6,7 @@ import RandomCategorySidebar from "../../components/RandomCategorySidebar";
 
 import { fetchPostsByTag } from "@/lib/fetchData";
 import CategoryHeader from "@/app/components/CategoryHeader";
+import { notFound } from "next/navigation";
 
 export const revalidate = 10;
 export const dynamicParams = true;
@@ -29,6 +30,10 @@ export async function generateStaticParams() {
 
 const fetchTagPosts = async (tagSlug: string): Promise<Post[]> => {
   const postsData: PostsResponse = await fetchPostsByTag(tagSlug);
+  if (!postsData) {
+    notFound()
+  }
+
   return postsData?.data?.posts?.nodes ?? [];
 };
 
@@ -39,6 +44,7 @@ export default async function TagPage({ params }: TagPageProps) {
 
   // Fetch post data
   const tagPosts = await fetchTagPosts(tagSlug);
+
   const tagName = tagPosts?.[0]?.tags?.nodes?.find((tag) => tag.slug === tagSlug)?.name || "Unknown Tag";
 
   return (
