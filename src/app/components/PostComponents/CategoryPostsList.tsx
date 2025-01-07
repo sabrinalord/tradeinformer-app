@@ -58,7 +58,7 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
         <CategoryHeader categoryName={categoryName} />
 )}
       
- <div className={`flex flex-col lg:${flexDirection} `}>
+ <div className={`flex flex-col lg:${flexDirection} justify-center `}>
          {paginatedPosts.map((post, index) => (
         <PostComponent
           key={index}
