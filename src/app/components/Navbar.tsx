@@ -42,7 +42,7 @@ const Navbar: React.FC<NavbarProps> = ({ headerItems }) => {
                 </Link>
                 </button>
 
-                <div className="hidden sm:flex flex-col sm:flex-row ml-auto justify-items-center">
+                <div>
                     <NewsletterSignUpComponents />
                 </div>
             </div>
