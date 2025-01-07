@@ -23,7 +23,7 @@ export default function Widget({type}: WidgetProps) {
         {type == 'sidebar' && (
 
         filteredBanners.map((banner, index) => (
-         <div key={index} className="m-4">
+         <div key={index} className="m-2">
           <Link style={{maxWidth: '400px'}} href={banner.target_url} target="_blank" rel="noopener noreferrer">
           <Image src={banner.image_url} width={800} height={300} alt="Widgetisement"></Image>
         </Link>  
@@ -33,7 +33,7 @@ export default function Widget({type}: WidgetProps) {
       )}
 
         {type !== 'sidebar' && filteredBanners[0] && (
-          <div className={`flex justify-center mt-2 mb-4 `}>
+          <div className={`flex justify-center mt-2 mb-4 m-2`}>
            <Link href={banner.target_url} target="_blank" rel="noopener noreferrer">
            <Image src={banner.image_url} width={800} height={300} alt="Widgetisement"></Image>
          </Link>
