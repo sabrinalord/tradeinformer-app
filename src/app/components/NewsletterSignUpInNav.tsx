@@ -7,13 +7,14 @@ import { useForm } from "react-hook-form";
 import { schema } from "../registrationSchema";
 import { z } from "zod";
 import { useNewsletterSignUp } from "../hook/useNewsletterSignUp";
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 
 
-export const NewsletterSignUpInNav = () => {
+type NewsletterSignUpInNavProps = {
+  executeRecaptcha: (action: string) => Promise<string | undefined>;
+};
 
-  const { executeRecaptcha } = useGoogleReCaptcha();
+export const NewsletterSignUpInNav: React.FC<NewsletterSignUpInNavProps> = ({ executeRecaptcha }) => {
 
 
 const {

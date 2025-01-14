@@ -13,10 +13,13 @@ import { useNewsletterSignUp } from "../hook/useNewsletterSignUp";
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 
+type NewsletterSignUpTopModalProps = {
+  executeRecaptcha: (action: string) => Promise<string | undefined>;
+};
 
-export const NewsletterSignUpTopModal = () => {
 
-  const { executeRecaptcha } = useGoogleReCaptcha();
+export const NewsletterSignUpTopModal: React.FC<NewsletterSignUpTopModalProps> = ({ executeRecaptcha }) => {
+
 
   const { 
     message, 
