@@ -10,6 +10,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import SocialNavbar from "./components/SocialNavbar";
 import Widget from "./components/Widget";
+import { Analytics } from '@vercel/analytics/next';
+
 
 
 const geistSans = localFont({
@@ -79,16 +81,12 @@ export default async function RootLayout({
             </div>
           </div>
        
-
-
-
-
           {children}
           <Footer footerItems={footerMenuItems}></Footer>
 
           </BannersProvider>
         </ApolloWrapper>
-      
+        <Analytics />
       </body>
     </html>
   );
