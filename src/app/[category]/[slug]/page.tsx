@@ -32,6 +32,23 @@ export async function generateStaticParams() {
     }));
 }
 
+function processContent(content: string): string {
+    // when formatting content on wordpress, the class has-text-align-center is added. Class is not recognised outside of WP so adding formatting here
+    const centeredContent = content.replace(
+      /class="([^"]*\bhas-text-align-center\b[^"]*)"/g,
+      'class="$1" style="text-align: center;"'
+    );
+  
+     // when formatting content on wordpress, the class wp-block-heading is added. Class is not recognised outside of WP so adding formatting here
+
+    const styledContent = centeredContent.replace(
+      /class="([^"]*\bwp-block-heading\b[^"]*)"/g,
+      'class="$1" style="font-weight: bold; font-size: 1em;"'
+    );
+  
+    return styledContent;
+  }
+
 
 export default async function Page({
     params,
@@ -40,103 +57,94 @@ export default async function Page({
   }) {
     const { category, slug } = await params;
 
+    try {
+        const postData: SinglePostResponse  = await fetchPostBySlug(slug);
+        if (!postData || !postData.data?.postBy) {
+            console.error(`Post not found for slug: ${slug}`);
+            throw new Error("Post not found");
+          }
+          const post: Post = postData?.data?.postBy || [];
+          const formattedDate = formatDate(post.date);
+          const categoryName = post.categories.nodes[0]?.name || "Category";
+          const processedContent = processContent(post.content);
 
-    const postData: SinglePostResponse  = await fetchPostBySlug(slug);
-
-    if (!postData) {
-        notFound();
-    }
-    const post: Post = postData?.data?.postBy || [];
-
-    const formattedDate = formatDate(post.date);
-    const categoryName = post.categories.nodes[0]?.name || "Category";
-
-    function processContent(content: string): string {
-        // when formatting content on wordpress, the class has-text-align-center is added. Class is not recognised outside of WP so adding formatting here
-        const centeredContent = content.replace(
-          /class="([^"]*\bhas-text-align-center\b[^"]*)"/g,
-          'class="$1" style="text-align: center;"'
-        );
       
-         // when formatting content on wordpress, the class wp-block-heading is added. Class is not recognised outside of WP so adding formatting here
-
-        const styledContent = centeredContent.replace(
-          /class="([^"]*\bwp-block-heading\b[^"]*)"/g,
-          'class="$1" style="font-weight: bold; font-size: 1em;"'
-        );
-      
-        return styledContent;
-      }
+          return (
+            <div className="overflow-hidden">
+          
+            <div className="container mx-auto p-2">
+                <main className ="grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">
+                   
+                    <div className="hidden lg:block col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
+                    <Widget type="sidebar"></Widget>
+                    </div>
+                        
+                <article className="col-span-1 sm:col-span-12 lg:col-span-6 sm:p-2 ">
+                    <div className="">
+                       <Link className={styles.link} href={`/${category}`}>{categoryName}</Link> 
+                       <div className="flex justify-between">
+                        <h1 className="font-bold text-xl lg:text-[1.6em] ">{post.title}</h1>
     
-      const processedContent = processContent(post.content);
-
-    return (
-        <div className="overflow-hidden">
-      
-        <div className="container mx-auto p-2">
-            <main className ="grid grid-cols-1 sm:grid-cols-12 gap-2 mt-4">
-               
-                <div className="hidden lg:block col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
-                <Widget type="sidebar"></Widget>
-                </div>
-                    
-            <article className="col-span-1 sm:col-span-12 lg:col-span-6 sm:p-2 ">
-                <div className="">
-                   <Link className={styles.link} href={`/${category}`}>{categoryName}</Link> 
-                   <div className="flex justify-between">
-                    <h1 className="font-bold text-xl lg:text-[1.6em] ">{post.title}</h1>
-
-                   </div>
-                    <div className="border-b mt-2 sm:mb-2"></div>
-
-                    <div className="flex justify-between mt-2 mb-2">
-                        <div className="text-xs">
-                            <p >By <strong>{post.author.node.name}</strong></p>
-                            <p>{formattedDate}</p>
+                       </div>
+                        <div className="border-b mt-2 sm:mb-2"></div>
+    
+                        <div className="flex justify-between mt-2 mb-2">
+                            <div className="text-xs">
+                                <p >By <strong>{post.author.node.name}</strong></p>
+                                <p>{formattedDate}</p>
+                            </div>
+                            <SocialShareForArticles articleTitle={post.title}></SocialShareForArticles>
+    
                         </div>
-                        <SocialShareForArticles articleTitle={post.title}></SocialShareForArticles>
-
                     </div>
-                </div>
-                <Image className="lg:p-6 ml-auto mr-auto"
-                              src={post.featuredImage.node.sourceUrl} 
-                              width="800"
-                              height="800" 
-                              alt={post.featuredImage.node.altText || 'Featured Image'} >
-                    </Image> 
-    
-                <div className={` ${styles.content} mt-4`} dangerouslySetInnerHTML={{ __html: processedContent  }}></div>
-                
-                {post.tags.nodes.length > 0 && (
-                    <div>
-                        <ul className="flex flex-wrap text-sm">
-                            <li className="inline-fle p-2 m-2 bg-[#266fef] text-white uppercase">
-                            Tags
-                            </li>
-                            {post.tags.nodes.map((tag) => (
-                                <li key={tag.uri} className="inline-flex">
-                                <Link className="p-2 m-2 border  hover:bg-gray-100" href={tag.uri}>
-                                    {tag.name}
-                                </Link>
+                    <Image className="lg:p-6 ml-auto mr-auto"
+                                  src={post.featuredImage.node.sourceUrl} 
+                                  width="800"
+                                  height="800" 
+                                  alt={post.featuredImage.node.altText || 'Featured Image'} >
+                        </Image> 
+        
+                    <div className={` ${styles.content} mt-4`} dangerouslySetInnerHTML={{ __html: processedContent  }}></div>
+                    
+                    {post.tags.nodes.length > 0 && (
+                        <div>
+                            <ul className="flex flex-wrap text-sm">
+                                <li className="inline-fle p-2 m-2 bg-[#266fef] text-white uppercase">
+                                Tags
                                 </li>
-                            ))}
-                        </ul>
+                                {post.tags.nodes.map((tag) => (
+                                    <li key={tag.uri} className="inline-flex">
+                                    <Link className="p-2 m-2 border  hover:bg-gray-100" href={tag.uri}>
+                                        {tag.name}
+                                    </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        )}
+    
+                </article>
+    
+                <div className="lg:hidden col-span-1 sm:col-span-6 lg:col-span-3 sm:p-2 ">
+                    <Widget type="sidebar"></Widget>
                     </div>
-                    )}
+                 
+    
+                <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
+                  <RandomCategorySidebar></RandomCategorySidebar>
+                 </div>
+                </main>
+            </div>
+    
+            </div>
+        )
 
-            </article>
+    } catch(error) {
+        console.error(`Error fetching post: ${slug}`, error);
+        return null 
+    }
+}
 
-            <div className="lg:hidden col-span-1 sm:col-span-6 lg:col-span-3 sm:p-2 ">
-                <Widget type="sidebar"></Widget>
-                </div>
-             
 
-            <div className="col-span-1 sm:col-span-12 lg:col-span-3 sm:p-2 ">
-              <RandomCategorySidebar></RandomCategorySidebar>
-             </div>
-            </main>
-        </div>
 
-        </div>
-    )
-  }
+

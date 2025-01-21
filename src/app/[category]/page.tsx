@@ -7,7 +7,7 @@ import RandomCategorySidebar from "../components/RandomCategorySidebar";
 import { notFound } from "next/navigation";
 
 
-export const revalidate = 10;
+export const revalidate = 60;
 export const dynamicParams = true;
 
 interface CategoryPageProps {
@@ -37,7 +37,7 @@ export default async function CategoryPage({ params }: CategoryPageProps)  {
 
 
   const categoryPosts = await fetchCategoryPosts(category);
-  if (!categoryPosts) {
+  if (categoryPosts.length === 0) {
     return (
       notFound()
     );
