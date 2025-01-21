@@ -8,7 +8,6 @@ import RandomCategorySidebar from "@/app/components/RandomCategorySidebar";
 
 import Link from "next/link";
 import SocialShareForArticles from "@/app/components/SocialShareForArticles";
-import { notFound } from "next/navigation";
 
 
 export const revalidate = 60;
