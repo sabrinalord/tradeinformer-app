@@ -11,6 +11,8 @@ import Footer from "./components/Footer";
 import SocialNavbar from "./components/SocialNavbar";
 import Widget from "./components/Widget";
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 
 
 
@@ -87,6 +89,7 @@ export default async function RootLayout({
           </BannersProvider>
         </ApolloWrapper>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
