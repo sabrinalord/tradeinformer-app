@@ -19,16 +19,18 @@ export async function generateStaticParams() {
     const postsData: PostsResponse = await fetchPosts();
     const posts: Post[] = postsData?.data?.posts?.nodes || [];
 
-    posts.forEach((post) => {
+    return posts
+    .map((post) => {
         if (!post.categories?.nodes?.[0]?.slug) {
             console.error("Post missing category slug:", JSON.stringify(post, null, 2));
+            return null; 
         }
-    });
-
-    return posts.map((post: Post) => ({
-        category: post.categories.nodes[0].slug,
-        slug: post.slug,
-    }));
+        return {
+            category: post.categories.nodes[0].slug,
+            slug: post.slug,
+        };
+    })
+    .filter((entry) => entry !== null)
 }
 
 function processContent(content: string): string {
