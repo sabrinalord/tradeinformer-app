@@ -37,7 +37,7 @@ const Footer: React.FC<FooterProps> = ({footerItems}) => {
                             </div>
                         
                     <div className="flex justify-center">
-                        <p>© 2024 TradeInformer</p>
+                        <p>© 2025 TradeInformer</p>
                     </div>
                     
             </div>

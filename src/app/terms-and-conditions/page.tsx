@@ -1,6 +1,5 @@
 import { fetchPageBySlug } from "@/lib/fetchData";
 import styles from "../[category]/Page.module.css";
-import Image from 'next/image';
 
 
 export const revalidate = 10;
@@ -15,8 +14,8 @@ const fetchStaticPageContent = async (slug: string): Promise<string | null> => {
   }
 };
 
-export default async function AboutUsPage() {
-  const pageContent = await fetchStaticPageContent("about-us");
+export default async function TermsAndConditionsPage() {
+  const pageContent = await fetchStaticPageContent("terms-and-conditions");
 
   if (!pageContent) {
     return <h1>Content not available at the moment. Please try again later.</h1>;
@@ -30,16 +29,8 @@ export default async function AboutUsPage() {
           <div className="col-span-1 sm:col-span-12 lg:col-span-10 sm:p-2">
             
             {/* Flex container for side-by-side layout */}
-            <div className="flex flex-col md:flex-row items-start gap-4 items-center mb-20">
+            <div className="flex flex-col md:flex-row items-start gap-4 mb-20">
               <div className={styles.content} dangerouslySetInnerHTML={{ __html: pageContent }} />
-              
-              <Image
-                className="w-auto h-auto"
-                src="/images/DavidKimberley.png"
-                width={300}
-                height={300}
-                alt="David Kimberley"
-              />
             </div>
   
           </div>
