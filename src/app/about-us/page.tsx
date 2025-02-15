@@ -3,7 +3,6 @@ import styles from "../[category]/Page.module.css";
 import Image from 'next/image';
 
 
-export const revalidate = 10;
 
 const fetchStaticPageContent = async (slug: string): Promise<string | null> => {
   try {

@@ -2,7 +2,6 @@ import { fetchPageBySlug } from "@/lib/fetchData";
 import styles from "../[category]/Page.module.css";
 
 
-export const revalidate = 10;
 
 const fetchStaticPageContent = async (slug: string): Promise<string | null> => {
   try {

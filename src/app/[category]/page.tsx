@@ -7,7 +7,6 @@ import RandomCategorySidebar from "../components/RandomCategorySidebar";
 import { notFound } from "next/navigation";
 
 
-export const revalidate = 60;
 export const dynamicParams = true;
 
 interface CategoryPageProps {

@@ -11,7 +11,6 @@ import HomePageFeaturedPost from "./components/PostComponents/HomePageFeaturedPo
 import OneLargePost3SmallGrid from "./components/PostComponents/OneLargePost3SmallGrid";
 
 
-export const revalidate = 10;
 export const dynamicParams = true;
 
 

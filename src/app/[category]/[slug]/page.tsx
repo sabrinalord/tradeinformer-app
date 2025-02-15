@@ -10,7 +10,6 @@ import Link from "next/link";
 import SocialShareForArticles from "@/app/components/SocialShareForArticles";
 
 
-export const revalidate = 300;
 export const dynamicParams = true;
 
 
