@@ -6,6 +6,7 @@ export const GET_POSTS = `query GetPosts($first: Int, $after: String) {
       slug
       title
       date
+      modified
       content
       author {
         node {

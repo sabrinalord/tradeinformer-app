@@ -25,6 +25,7 @@
     id: string;
     slug: string;
     title: string;
+    modified: string;
     content: string;
     author: {
       node: {
