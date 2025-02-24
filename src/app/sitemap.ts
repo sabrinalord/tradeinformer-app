@@ -16,7 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
 
     const postUrls: MetadataRoute.Sitemap = posts.map((post) => ({
-        url: `${siteUrl}/${post.categories.nodes[0]?.slug}/${post.slug}`,
+        url: `${process.env.NEXT_PUBLIC_SITE_URL}/${post.categories.nodes[0]?.slug}/${post.slug}`,
         lastModified: post.modified || new Date().toISOString(),
     }));
 
