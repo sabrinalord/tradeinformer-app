@@ -21,7 +21,7 @@ interface TagPageProps {
 
 export async function generateStaticParams() {
   const tagsResponse: TagsResponse = await fetchTags();
-  const tags: TagNode[] = tagsResponse?.data?.tags?.nodes || [];
+  const tags: TagNode[] = tagsResponse?.data.tags?.nodes || [];
 
   return tags.map((tag) => ({
     tagSlug: tag.slug
@@ -42,7 +42,6 @@ const fetchTagPosts = async (tagSlug: string): Promise<Post[]> => {
 export default async function TagPage({ params }: TagPageProps) {
   const { tagSlug} = await params;
 
-  // Fetch post data
   const tagPosts = await fetchTagPosts(tagSlug);
 
   const tagName = tagPosts?.[0]?.tags?.nodes?.find((tag) => tag.slug === tagSlug)?.name || "Unknown Tag";

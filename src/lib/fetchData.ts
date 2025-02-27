@@ -29,6 +29,11 @@ if (!apiUrl) {
     tagSlug?: string;
   };
 
+  type FetchTagsVariables = {
+    slug: string;
+    first: number;
+    after?: string | null;
+  };
   
 async function fetchGraphQL(query: string, variables?: GraphQLVariables) {
     try {
@@ -72,9 +77,40 @@ export async function fetchCategories(): Promise<CategoriesResponse> {
   return data; 
 }
 
-export async function fetchTags(): Promise<TagsResponse> {
-  const data = await fetchGraphQL(GET_TAGS);
-  return data; 
+export async function fetchPaginatedTags(
+  query: string,
+  variables: FetchTagsVariables
+): Promise<TagsResponse> {
+  let allTags: any[] = [];
+  let hasNextPage = true;
+  let afterCursor: string | null = null;
+  let finalEndCursor: string | null = null;
+
+  while (hasNextPage) {
+    const paginatedVariables = { ...variables, after: afterCursor}; 
+
+    const data = await fetchGraphQL(query, paginatedVariables) as TagsResponse;
+  
+
+    const newTags= data.data.tags.nodes;
+    allTags = [...allTags, ...newTags];
+
+    afterCursor = data.data.tags.pageInfo.endCursor;
+    hasNextPage = data.data.tags.pageInfo.hasNextPage;
+    finalEndCursor = afterCursor;
+  }
+
+  return {
+    data: {
+      tags: {
+        nodes: allTags,
+        pageInfo: {
+          endCursor: finalEndCursor,
+          hasNextPage: false,
+        }
+      },
+    },
+  };
 }
 
 
@@ -123,6 +159,14 @@ export async function fetchPosts(): Promise<PostsResponse> {
     first: 40
   });
 }
+
+export async function fetchTags(): Promise<TagsResponse> {
+  return fetchPaginatedTags(GET_TAGS, {
+    slug: "",
+    first: 100
+  });
+}
+
 
 
 export async function fetchPostsByCategory(

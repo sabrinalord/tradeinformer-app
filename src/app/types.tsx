@@ -110,7 +110,12 @@ export interface MenuItem {
       data: {
        tags: {
          nodes: TagNode[];
+         pageInfo: {
+          endCursor: string | null;
+          hasNextPage: boolean;
+        };
        };
+       
       }
      }
 
