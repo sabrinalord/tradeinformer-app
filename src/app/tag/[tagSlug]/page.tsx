@@ -8,7 +8,6 @@ import { fetchPostsByTag } from "@/lib/fetchData";
 import CategoryHeader from "@/app/components/CategoryHeader";
 import { notFound } from "next/navigation";
 
-export const revalidate = 3600;
 export const dynamicParams = true;
 
 interface TagPageProps {

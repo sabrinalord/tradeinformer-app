@@ -1,10 +1,10 @@
 export const GET_TAGS = `
   query GetTags($first: Int, $after: String) {
-      tags {
-        nodes {
-          slug
-          name
-        }
+    tags(first: $first, after: $after) {
+      nodes {
+        slug
+        name
+      }
       pageInfo {
         endCursor
         hasNextPage
