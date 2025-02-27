@@ -90,7 +90,11 @@ export async function fetchPaginatedTags(
     const paginatedVariables = { ...variables, after: afterCursor}; 
 
     const data = await fetchGraphQL(query, paginatedVariables) as TagsResponse;
-  
+    
+    if (!data || !data.data || !data.data.tags) {
+      throw new Error("Error fetching tags");
+    }
+
 
     const newTags= data.data.tags.nodes;
     allTags = [...allTags, ...newTags];
@@ -161,11 +165,24 @@ export async function fetchPosts(): Promise<PostsResponse> {
 }
 
 export async function fetchTags(): Promise<TagsResponse> {
-  return fetchPaginatedTags(GET_TAGS, {
-    slug: "",
-    first: 100
-  });
+  try {
+    const tags = await fetchPaginatedTags(GET_TAGS, {
+      slug: "",
+      first: 100,
+    });
+
+    if (!tags?.data?.tags?.nodes?.length) {
+      console.warn("No tags found");
+      return { data: { tags: { nodes: [], pageInfo: { endCursor: null, hasNextPage: false } } } };
+    }
+
+    return tags;
+  } catch (error) {
+    console.error("Failed to fetch tags:", error);
+    return { data: { tags: { nodes: [], pageInfo: { endCursor: null, hasNextPage: false } } } };
+  }
 }
+
 
 
 
