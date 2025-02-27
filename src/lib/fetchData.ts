@@ -6,7 +6,7 @@ import { GET_POSTS } from "@/app/queries/getPosts";
 import { GET_POSTS_BY_CATEGORY } from "@/app/queries/getPostsByCategory";
 import { GET_POSTS_BY_TAG } from "@/app/queries/getPostsByTag";
 import { GET_TAGS } from "@/app/queries/getTags";
-import {CategoriesResponse, Post, PostsResponse, TagsResponse} from "@/app/types";
+import {CategoriesResponse, Post, PostsResponse, TagNode, TagsResponse} from "@/app/types";
 const apiUrl: string = process.env.GRAPHQL_API_URL as string;
 
 if (!apiUrl) {
@@ -81,7 +81,7 @@ export async function fetchPaginatedTags(
   query: string,
   variables: FetchTagsVariables
 ): Promise<TagsResponse> {
-  let allTags: any[] = [];
+  let allTags: TagNode[] = [];
   let hasNextPage = true;
   let afterCursor: string | null = null;
   let finalEndCursor: string | null = null;
