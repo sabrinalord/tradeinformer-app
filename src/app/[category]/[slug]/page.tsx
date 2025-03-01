@@ -8,6 +8,7 @@ import RandomCategorySidebar from "@/app/components/RandomCategorySidebar";
 
 import Link from "next/link";
 import SocialShareForArticles from "@/app/components/SocialShareForArticles";
+import { Metadata } from "next";
 
 
 export const dynamicParams = true;
@@ -47,6 +48,58 @@ function processContent(content: string): string {
     );
   
     return styledContent;
+  }
+
+
+  export async function generateMetadata({
+    params
+  }: {
+    params: Promise<{ slug: string }>  
+  }): Promise<Metadata> {
+    const { slug } = await params;
+  
+    try {
+      const postData: SinglePostResponse = await fetchPostBySlug(slug);
+  
+      if (!postData || !postData.data?.postBy) {
+        return {
+          title: "TradeInformer - Article Not Found",
+          description: "Article not found or has been removed.",
+        };
+      }
+  
+      const post = postData.data.postBy;
+  
+      return {
+        title: `${post.title} | TradeInformer`, 
+        description: post.excerpt || "TradeInformer is the leading website for forex broker, CFD and retail trading industry news, providing in-depth analysis, research, interviews, and more.",
+        openGraph: {
+          title: `${post.title} | TradeInformer`,
+          description: post.excerpt || "TradeInformer is the leading website for forex broker, CFD and retail trading industry news, providing in-depth analysis, research, interviews, and more.",
+          images: [
+            {
+              url: post.featuredImage?.node?.sourceUrl,
+              width: 800,
+              height: 800,
+              alt: post.featuredImage?.node?.altText || "Featured Image",
+            },
+          ],
+          type: "article",
+        },
+        twitter: {
+          card: "summary_large_image",
+          title: `${post.title} | TradeInformer`,
+          description: post.excerpt || "TradeInformer is the leading website for forex broker, CFD and retail trading industry news, providing in-depth analysis, research, interviews, and more.",
+          images: [post.featuredImage?.node?.sourceUrl ],
+        },
+      };
+    } catch (error) {
+      console.error(`Error fetching metadata for slug: ${slug}`, error);
+      return {
+        title: "TradeInformer - Error",
+        description: "Something went wrong while fetching the article.",
+      };
+    }
   }
 
 

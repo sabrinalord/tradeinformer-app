@@ -2,6 +2,7 @@ export const GET_POST_BY_SLUG = `query GetPostBySlug($slug: String!) {
   postBy(slug: $slug) {
     title
     content
+    excerpt
      author {
       node {
         name
