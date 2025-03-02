@@ -54,9 +54,9 @@ function processContent(content: string): string {
   export async function generateMetadata({
     params
   }: {
-    params: Promise<{ slug: string }>  
+    params: Promise<{ slug: string, category:string }>  
   }): Promise<Metadata> {
-    const { slug } = await params;
+    const { slug, category } = await params;
   
     try {
       const postData: SinglePostResponse = await fetchPostBySlug(slug);
@@ -74,8 +74,9 @@ function processContent(content: string): string {
         title: `${post.title} | TradeInformer`, 
         description: post.excerpt || "TradeInformer is the leading website for forex broker, CFD and retail trading industry news, providing in-depth analysis, research, interviews, and more.",
         openGraph: {
-          title: `${post.title} | TradeInformer`,
-          description: post.excerpt || "TradeInformer is the leading website for forex broker, CFD and retail trading industry news, providing in-depth analysis, research, interviews, and more.",
+          url: `${process.env.NEXT_PUBLIC_SITE_URL}/${category}/${slug}`,
+          title: `${post.title}`,
+          description: post.excerpt.replace(/<[^>]*>?/gm, ""),
           images: [
             {
               url: post.featuredImage?.node?.sourceUrl,

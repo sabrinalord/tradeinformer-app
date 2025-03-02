@@ -69,7 +69,7 @@ export default async function CategoryPage({ params }: CategoryPageProps)  {
       <CategoryPostsList
         filteredPosts={categoryPosts}
         firstPostHasLargeImage={false}
-        numberOfPosts={6}
+        numberOfPosts={15}
         showCategoryTitle={false}
         offset={4}
         inlineTextOnDesktop
