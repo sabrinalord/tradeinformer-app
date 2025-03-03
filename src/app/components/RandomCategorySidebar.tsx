@@ -19,7 +19,7 @@ const RandomCategorySidebar: React.FC<RandomCategorySidebarProps> = async (alrea
       const categories: CategoryNode[] = categoriesData.data.categories.nodes;
     
       const filteredCategories = categories.filter(
-        (category) => category.slug !== alreadyDisplayedCategory
+        (category) => category.slug !== alreadyDisplayedCategory && category.slug !== 'featured' 
       );
 
   const randomCategoryNode =  filteredCategories[Math.floor(Math.random() * filteredCategories.length)]
