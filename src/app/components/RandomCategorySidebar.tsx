@@ -10,7 +10,7 @@ interface RandomCategorySidebarProps {
 const RandomCategorySidebar: React.FC<RandomCategorySidebarProps> = async (alreadyDisplayedCategory) => {
 
     const fetchCategoryPosts = async (categorySlug: string): Promise<Post[]> => {
-        const postsData: PostsResponse = await fetchPostsByCategory(categorySlug);
+        const postsData: PostsResponse = await fetchPostsByCategory(categorySlug, 20);
         return postsData?.data?.posts?.nodes ?? [];
       };
 

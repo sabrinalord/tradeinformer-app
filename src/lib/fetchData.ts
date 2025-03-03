@@ -36,14 +36,6 @@ if (!apiUrl) {
   };
   
 async function fetchGraphQL(query: string, variables?: GraphQLVariables) {
-
-  const isServer = typeof window === "undefined";
-
-  // Use the appropriate environment variable based on the context
-  const apiUrl: string = isServer
-      ? process.env.GRAPHQL_API_URL as string
-      : process.env.NEXT_PUBLIC_GRAPHQL_API_URL as string;
-
     try {
         const response = await fetch(apiUrl, {
             method: "POST",
@@ -177,17 +169,13 @@ export async function fetchTags(): Promise<TagsResponse> {
 
 
 
-export async function fetchPostsByCategory(
-  category: string,
-  afterCursor: string | null = null
-): Promise<PostsResponse> {
-  return fetchPaginatedPosts(GET_POSTS_BY_CATEGORY, {
-    slug: "", 
-    category,
-    first: 30,
-    after: afterCursor,
+export async function fetchPostsByCategory(categorySlug: string, first: number, afterCursor?: string): Promise<PostsResponse> {
+  return await fetchPaginatedPosts(GET_POSTS_BY_CATEGORY, {
+    slug: categorySlug,
+    first,
+    after: afterCursor || null,
   });
-}
+};
 
 export async function fetchPostsByTag(tagSlug: string): Promise<PostsResponse> {
   return fetchPaginatedPosts(GET_POSTS_BY_TAG, {

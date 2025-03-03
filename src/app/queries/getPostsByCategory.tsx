@@ -1,39 +1,34 @@
 
 
-export const GET_POSTS_BY_CATEGORY = `query GetPostsByCategory($first: Int, $after: String, $category: String) {
-    posts(first: $first, after: $after, where: {categoryName: $category}) {
-      nodes {
-        id
-        slug
-        title
-        date
-        content
-         categories {
-          nodes {
-            name
-            slug
-          }
-        }
-        excerpt
-        featuredImage {
-          node {
-            sourceUrl
-            altText
-          }
-        }
-       tags {
+export const GET_POSTS_BY_CATEGORY = `
+    query GetCategoryPosts($slug: String!, $first: Int!, $after: String) {
+      posts(
+        where: { categoryName: $slug }
+        first: $first
+        after: $after
+      ) {
         nodes {
-          name
+          title
           slug
-          uri
+          date
+          excerpt
+          categories {
+            nodes {
+              name
+              slug
+            }
+          }
+          featuredImage {
+            node {
+              sourceUrl
+            }
+          }
         }
-      }
-
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
+        pageInfo {
+          endCursor
+          hasNextPage
+        }
       }
     }
-  }`;
+  `;
   

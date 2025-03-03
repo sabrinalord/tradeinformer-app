@@ -12,12 +12,12 @@ const numberOfPostsInPaginatedSection = 15
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>;
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; after?: string }>;
 }
 
-const fetchCategoryPosts = async (categorySlug: string): Promise<Post[]> => {
+const fetchCategoryPosts = async (categorySlug: string, afterCursor: string): Promise<Post[]> => {
   try {
-    const postsData: PostsResponse = await fetchPostsByCategory(categorySlug);
+    const postsData: PostsResponse = await fetchPostsByCategory(categorySlug, numberOfPostsInPaginatedSection, afterCursor);
     return postsData?.data?.posts?.nodes ?? [];
   } catch (error) {
     console.error("Error fetching category posts:", error);
@@ -46,8 +46,9 @@ export async function generateMetadata({ params, searchParams }: CategoryPagePro
   const { category } = await params;
   const resolvedSearchParams = await searchParams;
   const currentPage = parseInt( resolvedSearchParams.page || "1");
+  const afterCursor = resolvedSearchParams.after ?? "";
 
-  const categoryPosts = await fetchCategoryPosts(category);
+  const categoryPosts = await fetchCategoryPosts(category, afterCursor);
   const totalPages = Math.ceil(categoryPosts.length / numberOfPostsInPaginatedSection);
 
   const prevPage =
@@ -83,10 +84,10 @@ export default async function CategoryPage({ params, searchParams}: CategoryPage
   const { category } = await params;
   const resolvedSearchParams = await searchParams;
   const currentPage = parseInt( resolvedSearchParams.page || "1");
+  const afterCursor = resolvedSearchParams.after ?? "";
 
 
-
-  const categoryPosts = await fetchCategoryPosts(category);
+  const categoryPosts = await fetchCategoryPosts(category, afterCursor);
   if (categoryPosts.length === 0) {
     return (
       notFound()

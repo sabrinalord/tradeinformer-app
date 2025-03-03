@@ -52,9 +52,15 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
     validOffset + currentPage * postsPerPage
   );
 
-
-  const handlePageChange = (newPage: number) => {
-    router.push(`/${categorySlug}?page=${newPage}`, { scroll: true });
+  const handlePageChange = (newPage: number, endCursor?: string) => {
+    const queryParams = new URLSearchParams();
+    queryParams.set("page", newPage.toString());
+  
+    if (endCursor) {
+      queryParams.set("after", endCursor); 
+    }
+  
+    router.push(`/${categorySlug}?${queryParams.toString()}`, { scroll: true });
   };
 
   return (
