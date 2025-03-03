@@ -1,17 +1,14 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { Post } from '../../types';
 import PostComponent from './PostComponent';
 import CategoryHeader from '../CategoryHeader';
-import { useRouter } from "next/navigation";
 import ChevronLeftIcon from '@heroicons/react/24/outline/ChevronLeftIcon';
 import ChevronRightIcon from '@heroicons/react/24/outline/ChevronRightIcon';
 
 
 interface CategoryPostsListProps {
-  currentPage? : number;
   numberOfPosts: number;
-  categorySlug: string;
   filteredPosts: Post[];
   offset?: number;
   firstPostHasLargeImage?: boolean;
@@ -24,11 +21,9 @@ interface CategoryPostsListProps {
 }
 
 const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
-  currentPage = 1,
   filteredPosts,
   numberOfPosts,
   offset = 0,
-  categorySlug,
   firstPostHasLargeImage = true,
   showImage = true,
   showExtract = true,
@@ -37,30 +32,23 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
   showCategoryTitle = true,
   hasPagination = false,
 }) => {
-
-  const router = useRouter();
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = numberOfPosts;
 
   if (!filteredPosts.length) return null;
 
-  const categoryName = filteredPosts[0].categories.nodes[0].name;
-  const postsPerPage = numberOfPosts;
-  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
   const validOffset = Math.min(offset, filteredPosts.length);
+  const categoryName = filteredPosts[0].categories.nodes[0].name;
+  const categorySlug = filteredPosts[0].categories.nodes[0].slug;
+
   const paginatedPosts = filteredPosts.slice(
     validOffset + (currentPage - 1) * postsPerPage,
     validOffset + currentPage * postsPerPage
   );
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
-  const handlePageChange = (newPage: number, endCursor?: string) => {
-    const queryParams = new URLSearchParams();
-    queryParams.set("page", newPage.toString());
-  
-    if (endCursor) {
-      queryParams.set("after", endCursor); 
-    }
-  
-    router.push(`/${categorySlug}?${queryParams.toString()}`, { scroll: true });
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
   };
 
   return (

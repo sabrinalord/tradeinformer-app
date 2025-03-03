@@ -8,16 +8,14 @@ import { notFound } from "next/navigation";
 
 
 export const dynamicParams = true;
-const numberOfPostsInPaginatedSection = 15 
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>;
-  searchParams: Promise<{ page?: string; after?: string }>;
 }
 
-const fetchCategoryPosts = async (categorySlug: string, afterCursor: string): Promise<Post[]> => {
+const fetchCategoryPosts = async (categorySlug: string): Promise<Post[]> => {
   try {
-    const postsData: PostsResponse = await fetchPostsByCategory(categorySlug, numberOfPostsInPaginatedSection, afterCursor);
+    const postsData: PostsResponse = await fetchPostsByCategory(categorySlug);
     return postsData?.data?.posts?.nodes ?? [];
   } catch (error) {
     console.error("Error fetching category posts:", error);
@@ -26,75 +24,23 @@ const fetchCategoryPosts = async (categorySlug: string, afterCursor: string): Pr
 };
 
 
-export async function generateStaticParams() { 
+// Generate Static Params for Dynamic Routes
+export async function generateStaticParams() {
   const categoriesResponse: CategoriesResponse = await fetchCategories();
   const categories: CategoryNode[] = categoriesResponse?.data?.categories?.nodes || [];
-
-  return categories.map((category) => ({
-    category: category.slug,
-    page: "1", 
-  }));
+  return categories.map((category) => ({ category: category.slug }));
 }
 
-const toTitleCase = (str: string) =>
-  str
-    .split("-") 
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-
-export async function generateMetadata({ params, searchParams }: CategoryPageProps) {
+export default async function CategoryPage({ params }: CategoryPageProps)  {
   const { category } = await params;
-  const resolvedSearchParams = await searchParams;
-  const currentPage = parseInt( resolvedSearchParams.page || "1");
-  const afterCursor = resolvedSearchParams.after ?? "";
-
-  const categoryPosts = await fetchCategoryPosts(category, afterCursor);
-  const totalPages = Math.ceil(categoryPosts.length / numberOfPostsInPaginatedSection);
-
-  const prevPage =
-    currentPage > 1 ? `/${category}?page=${currentPage - 1}` : null;
-  const nextPage =
-    currentPage < totalPages ? `/${category}?page=${currentPage + 1}` : null;
-
-    const titleCategory = toTitleCase(category);
 
 
- 
-
-  return {
-    title: `${titleCategory} |  Page ${currentPage} of ${totalPages}`,
-    description: `Explore ${category} articles on page ${currentPage}`,
-    alternates: {
-      canonical: `/${category}${currentPage > 1 ? `?page=${currentPage}` : ""}`,
-    },
-    openGraph: {
-      title: `${titleCategory} |  Page ${currentPage} of ${totalPages}`,
-      url: `/${category}?page=${currentPage}`,
-    },
-    robots: {
-      index: true,
-      follow: true,
-    },
-    ...(prevPage ? { prev: prevPage } : {}),
-    ...(nextPage ? { next: nextPage } : {}),
-  };
-}
-
-export default async function CategoryPage({ params, searchParams}: CategoryPageProps)  {
-  const { category } = await params;
-  const resolvedSearchParams = await searchParams;
-  const currentPage = parseInt( resolvedSearchParams.page || "1");
-  const afterCursor = resolvedSearchParams.after ?? "";
-
-
-  const categoryPosts = await fetchCategoryPosts(category, afterCursor);
+  const categoryPosts = await fetchCategoryPosts(category);
   if (categoryPosts.length === 0) {
     return (
       notFound()
     );
   }
-
-
   return (
     <div className="overflow-hidden">
     <div className="container mx-auto p-2">
@@ -108,11 +54,9 @@ export default async function CategoryPage({ params, searchParams}: CategoryPage
       </div>
       <div className="lg:mb-8">
         <CategoryPostsList
-          currentPage = {currentPage }
           filteredPosts={categoryPosts}
           numberOfPosts={3}
           showCategoryTitle={false}
-          categorySlug={category}
           firstPostHasLargeImage={false}
           flexDirection="flex-row"
           showExtract={false}
@@ -125,9 +69,7 @@ export default async function CategoryPage({ params, searchParams}: CategoryPage
       <CategoryPostsList
         filteredPosts={categoryPosts}
         firstPostHasLargeImage={false}
-        categorySlug={category}
-        currentPage = {currentPage}
-        numberOfPosts={numberOfPostsInPaginatedSection}
+        numberOfPosts={15}
         showCategoryTitle={false}
         offset={4}
         inlineTextOnDesktop
