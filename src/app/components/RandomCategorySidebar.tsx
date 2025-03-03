@@ -16,24 +16,21 @@ const RandomCategorySidebar: React.FC<RandomCategorySidebarProps> = async (alrea
 
       // fetch all the categories
       const categoriesData: CategoriesResponse = await fetchCategories();
-    
       const categories: CategoryNode[] = categoriesData.data.categories.nodes;
     
       const filteredCategories = categories.filter(
         (category) => category.slug !== alreadyDisplayedCategory
       );
 
-  const randomCategory = filteredCategories.length > 0 
-    ? filteredCategories[Math.floor(Math.random() * filteredCategories.length)]
-    : null;
-
-  const randomCategoryPosts = randomCategory
-    ? await fetchCategoryPosts(randomCategory.slug) 
+  const randomCategoryNode =  filteredCategories[Math.floor(Math.random() * filteredCategories.length)]
+  const randomCategory = randomCategoryNode ? randomCategoryNode.slug : "newsletters"
+  const randomCategoryPosts = randomCategory 
+    ? await fetchCategoryPosts(randomCategory) 
     : [];
 
 
     return (
-      <CategoryPostsList filteredPosts={randomCategoryPosts} numberOfPosts={6} firstPostHasLargeImage={false} showCategoryTitle inlineTextOnDesktop showExtract={false} />
+      <CategoryPostsList filteredPosts={randomCategoryPosts} numberOfPosts={6} firstPostHasLargeImage={false} showCategoryTitle inlineTextOnDesktop showExtract={false} categorySlug={randomCategory} />
     )
 
 }

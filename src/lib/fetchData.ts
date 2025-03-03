@@ -36,6 +36,14 @@ if (!apiUrl) {
   };
   
 async function fetchGraphQL(query: string, variables?: GraphQLVariables) {
+
+  const isServer = typeof window === "undefined";
+
+  // Use the appropriate environment variable based on the context
+  const apiUrl: string = isServer
+      ? process.env.GRAPHQL_API_URL as string
+      : process.env.NEXT_PUBLIC_GRAPHQL_API_URL as string;
+
     try {
         const response = await fetch(apiUrl, {
             method: "POST",
@@ -81,49 +89,37 @@ export async function fetchPaginatedTags(
   query: string,
   variables: FetchTagsVariables
 ): Promise<TagsResponse> {
-
-  let allTags: TagNode[] = [];
+  let allTags:  TagNode[] = [];
   let hasNextPage = true;
   let afterCursor: string | null = null;
+  let finalEndCursor: string | null = null;
 
   while (hasNextPage) {
-    const paginatedVariables = { ...variables, after: afterCursor };
+    const paginatedVariables = { ...variables, after: afterCursor}; 
 
-    try {
-      const data = (await fetchGraphQL(query, paginatedVariables)) as TagsResponse;
+    const data = await fetchGraphQL(query, paginatedVariables) as TagsResponse;
+  
 
-      if (!data?.data?.tags) {
-        console.error("GraphQL returned invalid data:", JSON.stringify(data, null, 2));
-        throw new Error("Invalid GraphQL Response");
-      }
+    const newTags= data.data.tags.nodes;
+    allTags = [...allTags, ...newTags];
 
-      const newTags = data.data.tags.nodes;
-      console.log(`Fetched ${newTags.length} tags`);
-
-      allTags = [...allTags, ...newTags];
-      afterCursor = data.data.tags.pageInfo.endCursor;
-      hasNextPage = data.data.tags.pageInfo.hasNextPage;
-    } catch (error) {
-      console.error("Error fetching paginated tags:", error);
-      throw error; 
-    }
+    afterCursor = data.data.tags.pageInfo.endCursor;
+    hasNextPage = data.data.tags.pageInfo.hasNextPage;
+    finalEndCursor = afterCursor;
   }
-
-  console.log(`Total tags fetched: ${allTags.length}`);
 
   return {
     data: {
       tags: {
         nodes: allTags,
         pageInfo: {
-          endCursor: afterCursor,
+          endCursor: finalEndCursor,
           hasNextPage: false,
-        },
+        }
       },
     },
   };
 }
-
 
 
 async function fetchPaginatedPosts(
@@ -173,24 +169,11 @@ export async function fetchPosts(): Promise<PostsResponse> {
 }
 
 export async function fetchTags(): Promise<TagsResponse> {
-  try {
-    const tags = await fetchPaginatedTags(GET_TAGS, {
-      slug: "",
-      first: 100,
-    });
-
-    if (!tags?.data?.tags?.nodes?.length) {
-      return { data: { tags: { nodes: [], pageInfo: { endCursor: null, hasNextPage: false } } } };
-    }
-
-
-    return tags;
-  } catch (error) {
-    console.error("Failed to fetch tags:", error);
-    return { data: { tags: { nodes: [], pageInfo: { endCursor: null, hasNextPage: false } } } };
-  }
+  return fetchPaginatedTags(GET_TAGS, {
+    slug: "",
+    first: 100
+  });
 }
-
 
 
 

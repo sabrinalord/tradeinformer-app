@@ -63,6 +63,7 @@ export default async function TagPage({ params }: TagPageProps) {
               <div>
                 <div className="lg:mb-10">
                 <CategoryPostsList 
+                categorySlug = {tagSlug}
                 filteredPosts={tagPosts} 
                 numberOfPosts={3} 
                 showCategoryTitle={false} 
@@ -73,9 +74,10 @@ export default async function TagPage({ params }: TagPageProps) {
                 </div>
              
                 <CategoryPostsList 
+                 categorySlug = {tagSlug}
                 filteredPosts={tagPosts} 
                 firstPostHasLargeImage={false}
-                numberOfPosts={6} 
+                numberOfPosts={18} 
                 showCategoryTitle={false} 
                 offset={4} 
                 inlineTextOnDesktop
