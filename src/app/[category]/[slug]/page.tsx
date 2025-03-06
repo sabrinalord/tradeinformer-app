@@ -33,22 +33,26 @@ export async function generateStaticParams() {
     .filter((entry) => entry !== null)
 }
 
+    // when formatting content on wordpress, classes are not recognised outside of WP so adding formatting here
 function processContent(content: string): string {
-    // when formatting content on wordpress, the class has-text-align-center is added. Class is not recognised outside of WP so adding formatting here
-    const centeredContent = content.replace(
-      /class="([^"]*\bhas-text-align-center\b[^"]*)"/g,
-      'class="$1" style="text-align: center;"'
-    );
-  
-     // when formatting content on wordpress, the class wp-block-heading is added. Class is not recognised outside of WP so adding formatting here
+  return content.replace(/class="([^"]*?(has-text-align-center|aligncenter|wp-block-heading)[^"]*?)"/g, (match, classes) => {
+    let style = '';
 
-    const styledContent = centeredContent.replace(
-      /class="([^"]*\bwp-block-heading\b[^"]*)"/g,
-      'class="$1" style="font-weight: bold; font-size: 1em;"'
-    );
-  
-    return styledContent;
-  }
+    if (/\bhas-text-align-center\b/.test(classes)) {
+      style += 'text-align: center;';
+    }
+
+    if (/\baligncenter\b/.test(classes)) {
+      style += 'display: flex; flex-direction: column; align-items: center;';
+    }
+
+    if (/\bwp-block-heading\b/.test(classes)) {
+      style += 'font-weight: bold; font-size: 1em;';
+    }
+
+    return `class="${classes}" style="${style}"`;
+  });
+}
 
 
   export async function generateMetadata({
