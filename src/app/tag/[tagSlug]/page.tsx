@@ -1,6 +1,5 @@
 import { Post, PostsResponse, TagsResponse, TagNode } from "@/app/types";
 import { fetchTags } from "../../../lib/fetchData";
-import CategoryPostsList from "@/app/components/PostComponents/CategoryPostsList";
 import CategoryFeaturedPost from "../../components/PostComponents/CategoryFeaturedPost";
 import RandomCategorySidebar from "../../components/RandomCategorySidebar";
 
@@ -8,6 +7,7 @@ import { fetchPostsByTag } from "@/lib/fetchData";
 import CategoryHeader from "@/app/components/CategoryHeader";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import TaggedPostsList from "@/app/components/PostComponents/TaggedPostsList";
 
 
 export const dynamicParams = true;
@@ -41,9 +41,9 @@ const fetchTagPosts = async (tagSlug: string): Promise<Post[]> => {
 export async function generateMetadata({
   params
 }: {
-  params: Promise<{ tagSlug: string, tagName: string}>  
+  params: Promise<{ tagSlug: string}>  
 }): Promise<Metadata> {
-  const { tagSlug, tagName } = await params;
+  const { tagSlug } = await params;
   try {
     const tagPosts: Post[] = await fetchTagPosts(tagSlug);
 
@@ -53,6 +53,8 @@ export async function generateMetadata({
         description: "Tag not found or has been removed.",
       };
     }
+
+    const tagName = tagPosts[0]?.tags?.nodes?.find((tag) => tag.slug === tagSlug)?.name || "Unknown Tag";
 
     return {
       title: `Tagged: ${tagName} | TradeInformer`,
@@ -95,9 +97,11 @@ export async function generateMetadata({
 
 
 export default async function TagPage({ params }: TagPageProps) {
-  const { tagSlug, tagName} = await params;
+  const { tagSlug} = await params;
 
   const tagPosts = await fetchTagPosts(tagSlug);
+
+  const tagName = tagPosts?.[0]?.tags?.nodes?.find((tag) => tag.slug === tagSlug)?.name || "Unknown Tag";
 
   return (
     <>
@@ -116,21 +120,19 @@ export default async function TagPage({ params }: TagPageProps) {
 
               <div>
                 <div className="lg:mb-10">
-                <CategoryPostsList 
+                <TaggedPostsList 
                 filteredPosts={tagPosts} 
                 numberOfPosts={3} 
-                showCategoryTitle={false} 
                 firstPostHasLargeImage = {false}
                 flexDirection={"flex-row"}
                 offset={1} 
                 />
                 </div>
              
-                <CategoryPostsList 
+                <TaggedPostsList 
                 filteredPosts={tagPosts} 
                 firstPostHasLargeImage={false}
                 numberOfPosts={6} 
-                showCategoryTitle={false} 
                 offset={4} 
                 inlineTextOnDesktop
                 />

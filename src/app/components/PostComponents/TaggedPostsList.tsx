@@ -2,12 +2,11 @@
 import React, { useState } from 'react';
 import { Post } from '../../types';
 import PostComponent from './PostComponent';
-import CategoryHeader from '../CategoryHeader';
 import ChevronLeftIcon from '@heroicons/react/24/outline/ChevronLeftIcon';
 import ChevronRightIcon from '@heroicons/react/24/outline/ChevronRightIcon';
 
 
-interface CategoryPostsListProps {
+interface TaggedPostsListProps {
   numberOfPosts: number;
   filteredPosts: Post[];
   offset?: number;
@@ -16,11 +15,10 @@ interface CategoryPostsListProps {
   showExtract?: boolean;
   flexDirection?: 'flex-col' | 'flex-row';
   inlineTextOnDesktop?: boolean;
-  showCategoryTitle?: boolean;
   hasPagination?: boolean;
 }
 
-const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
+const TaggedPostsList: React.FC<TaggedPostsListProps> = ({
   filteredPosts,
   numberOfPosts,
   offset = 0,
@@ -29,7 +27,6 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
   showExtract = true,
   flexDirection = 'flex-col',
   inlineTextOnDesktop = false,
-  showCategoryTitle = true,
   hasPagination = false,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,8 +35,6 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
   if (!filteredPosts.length) return null;
 
   const validOffset = Math.min(offset, filteredPosts.length);
-  const categoryName = filteredPosts[0].categories.nodes[0].name;
-  const categorySlug = filteredPosts[0].categories.nodes[0].slug;
 
   const paginatedPosts = filteredPosts.slice(
     validOffset + (currentPage - 1) * postsPerPage,
@@ -54,12 +49,13 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
   return (
     <div>
 
-       {showCategoryTitle && (       
-        <CategoryHeader categoryName={categoryName} />
-)}
-      
  <div className={`flex flex-col lg:${flexDirection} justify-center `}>
-         {paginatedPosts.map((post, index) => (
+         {paginatedPosts.map((post, index) => {
+
+        const postCategory = post.categories?.nodes?.[0];
+
+         
+         return (
         <PostComponent
           key={index}
           post={post}
@@ -69,9 +65,11 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
           firstPostHasLargeImage={firstPostHasLargeImage}
           isFirstPost={index === 0}
           flexDirection={flexDirection}
-          categorySlug={categorySlug}
+          categorySlug={postCategory.slug}
         />
-      ))}
+      ) }
+      
+      )}
      
  </div>
  {hasPagination && totalPages > 1 && (
@@ -109,4 +107,4 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
   )
 };
 
-export default CategoryPostsList;
+export default TaggedPostsList;

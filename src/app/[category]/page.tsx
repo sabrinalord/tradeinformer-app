@@ -26,6 +26,8 @@ const fetchCategoryPosts = async (categorySlug: string): Promise<Post[]> => {
 
 // Generate Static Params for Dynamic Routes
 export async function generateStaticParams() {
+  console.log('attempting to generateStatic category pages')
+
   const categoriesResponse: CategoriesResponse = await fetchCategories();
   const categories: CategoryNode[] = categoriesResponse?.data?.categories?.nodes || [];
   return categories.map((category) => ({ category: category.slug }));
