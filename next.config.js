@@ -3,12 +3,15 @@ module.exports = {
       remotePatterns: [
         {
           protocol: 'https',
-          hostname: '**.tradeinformer.com',
-          port: '',
-          search: '',
+          hostname: 'tradeinformer.com'
+        },
+        {
+          protocol: 'https',
+          hostname: 'slothadmin.tradeinformer.com'
         },
       ],
     },
+    trailingSlash: true,
     async redirects() {
         return [
           {

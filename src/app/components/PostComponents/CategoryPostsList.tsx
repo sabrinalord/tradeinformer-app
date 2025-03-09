@@ -38,8 +38,8 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
   if (!filteredPosts.length) return null;
 
   const validOffset = Math.min(offset, filteredPosts.length);
+
   const categoryName = filteredPosts[0].categories.nodes[0].name;
-  const categorySlug = filteredPosts[0].categories.nodes[0].slug;
 
   const paginatedPosts = filteredPosts.slice(
     validOffset + (currentPage - 1) * postsPerPage,
@@ -59,7 +59,12 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
 )}
       
  <div className={`flex flex-col lg:${flexDirection} justify-center `}>
-         {paginatedPosts.map((post, index) => (
+         {paginatedPosts.map((post, index) => {
+
+        const postCategory = post.categories?.nodes?.[0];
+
+         
+         return (
         <PostComponent
           key={index}
           post={post}
@@ -69,9 +74,11 @@ const CategoryPostsList: React.FC<CategoryPostsListProps> = ({
           firstPostHasLargeImage={firstPostHasLargeImage}
           isFirstPost={index === 0}
           flexDirection={flexDirection}
-          categorySlug={categorySlug}
+          categorySlug={postCategory.slug}
         />
-      ))}
+      ) }
+      
+      )}
      
  </div>
  {hasPagination && totalPages > 1 && (

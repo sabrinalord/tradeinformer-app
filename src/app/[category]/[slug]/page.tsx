@@ -25,10 +25,12 @@ export async function generateStaticParams() {
             console.error("Post missing category slug:", JSON.stringify(post, null, 2));
             return null; 
         }
-        return {
-            category: post.categories.nodes[0].slug,
-            slug: post.slug,
-        };
+        const path = {
+          category: post.categories.nodes[0].slug, 
+          slug: post.slug,                         
+      };
+
+      return path;
     })
     .filter((entry) => entry !== null)
 }
@@ -75,7 +77,7 @@ function processContent(content: string): string {
       const post = postData.data.postBy;
   
       return {
-        title: `${post.title} | TradeInformer`, 
+        title: `${post.title}`, 
         description: post.excerpt || "TradeInformer is the leading website for forex broker, CFD and retail trading industry news, providing in-depth analysis, research, interviews, and more.",
         openGraph: {
           url: `${process.env.NEXT_PUBLIC_SITE_URL}/${category}/${slug}`,
@@ -93,7 +95,7 @@ function processContent(content: string): string {
         },
         twitter: {
           card: "summary_large_image",
-          title: `${post.title} | TradeInformer`,
+          title: `${post.title}`,
           description: post.excerpt || "TradeInformer is the leading website for forex broker, CFD and retail trading industry news, providing in-depth analysis, research, interviews, and more.",
           images: [post.featuredImage?.node?.sourceUrl ],
         },
