@@ -120,9 +120,7 @@ async function fetchPaginatedPosts(
   let allPosts: Post[] = [];
   let hasNextPage = true;
   let afterCursor: string | null = null;
-  let finalEndCursor: string | null = null;
-  let postsCount = 0
-  
+  let finalEndCursor: string | null = null;  
 
   while (hasNextPage ) {
     const paginatedVariables = { ...variables, after: afterCursor}; 
@@ -135,8 +133,6 @@ async function fetchPaginatedPosts(
 
     const newPosts = data.data.posts.nodes;
     allPosts = [...allPosts, ...newPosts];
-
-    postsCount += newPosts.length;
 
     afterCursor = data.data.posts.pageInfo.endCursor;
     hasNextPage = data.data.posts.pageInfo.hasNextPage;

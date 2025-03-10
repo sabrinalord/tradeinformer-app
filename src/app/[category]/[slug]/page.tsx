@@ -1,5 +1,5 @@
 import { Post, SinglePostResponse, PostsResponse} from "@/app/types";
-import {fetchPosts, fetchPostBySlug, fetchPostsWithLimit} from "../../../lib/fetchData"
+import {fetchPostBySlug, fetchPostsWithLimit} from "../../../lib/fetchData"
 import { formatDate } from "../../../lib/dateFormatter";
 import Widget from "@/app/components/Widget";
 import Image from 'next/image';
