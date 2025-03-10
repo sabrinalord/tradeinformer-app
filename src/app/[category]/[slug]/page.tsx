@@ -1,5 +1,5 @@
 import { Post, SinglePostResponse, PostsResponse} from "@/app/types";
-import {fetchPosts, fetchPostBySlug} from "../../../lib/fetchData"
+import {fetchPosts, fetchPostBySlug, fetchPostsWithLimit} from "../../../lib/fetchData"
 import { formatDate } from "../../../lib/dateFormatter";
 import Widget from "@/app/components/Widget";
 import Image from 'next/image';
@@ -16,7 +16,7 @@ export const dynamicParams = true;
 
 // below function is needed for static generation of post paths at build time
 export async function generateStaticParams() {
-    const postsData: PostsResponse = await fetchPosts();
+    const postsData: PostsResponse = await fetchPostsWithLimit();
     const posts: Post[] = postsData?.data?.posts?.nodes || [];
 
     return posts
