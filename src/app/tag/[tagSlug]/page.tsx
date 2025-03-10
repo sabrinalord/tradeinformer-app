@@ -7,6 +7,7 @@ import RandomCategorySidebar from "../../components/RandomCategorySidebar";
 import { fetchPostsByTag } from "@/lib/fetchData";
 import CategoryHeader from "@/app/components/CategoryHeader";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 export const dynamicParams = true;
 
@@ -26,6 +27,62 @@ export async function generateStaticParams() {
     tagSlug: tag.slug
   }));
 }
+
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ tagSlug: string}>  
+}): Promise<Metadata> {
+  const { tagSlug } = await params;
+  try {
+    const tagPosts: Post[] = await fetchTagPosts(tagSlug);
+
+    if (!tagPosts || tagPosts.length === 0) {
+      return {
+        title: "TradeInformer - Tag Not Found",
+        description: "Tag not found or has been removed.",
+      };
+    }
+
+    const tagName = tagPosts[0]?.tags?.nodes?.find((tag) => tag.slug === tagSlug)?.name || "Unknown Tag";
+
+    return {
+      title: `Tagged: ${tagName} | TradeInformer`,
+      description: `Explore the latest articles tagged with ${tagName} on TradeInformer.`,
+      openGraph: {
+        url: `${process.env.NEXT_PUBLIC_SITE_URL}/tag/${tagSlug}`,
+        title: `Tagged: ${tagName} | TradeInformer`,
+        description: `Discover articles tagged under ${tagName} on TradeInformer.`,
+        images: tagPosts[0]?.featuredImage?.node?.sourceUrl
+        ? [
+            {
+              url: tagPosts[0].featuredImage.node.sourceUrl,
+              width: 800,
+              height: 800,
+              alt: tagPosts[0].featuredImage.node.altText || "Featured Image",
+            },
+          ]
+        : [],
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `Tagged: ${tagName} | TradeInformer`,
+        description: `Discover articles tagged under ${tagName} on TradeInformer.`,
+        images: tagPosts[0]?.featuredImage?.node?.sourceUrl
+          ? [tagPosts[0].featuredImage.node.sourceUrl]
+          : [],
+      },
+    };
+  } catch (error) {
+    console.error(`Error fetching metadata for tag: ${tagSlug}`, error);
+    return {
+      title: "TradeInformer - Error",
+      description: "Something went wrong while fetching tag data.",
+    };
+}
+}
+
 
 const fetchTagPosts = async (tagSlug: string): Promise<Post[]> => {
   const postsData: PostsResponse = await fetchPostsByTag(tagSlug);
