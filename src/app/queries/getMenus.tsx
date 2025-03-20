@@ -1,6 +1,6 @@
 
 export const GET_HEADER_MENU = `query GetHeaderMenu {
-    menuItems(where: {location: SMARTMAG_MAIN, parentId: "0"}) {
+    menuItems(where: {location: SMARTMAG_MOBILE, parentId: "0"}) {
       edges {
         node {
            id
