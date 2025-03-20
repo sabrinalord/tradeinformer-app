@@ -50,6 +50,10 @@ function processContent(content: string): string {
       style += 'font-weight: bold; font-size: 1em;';
     }
 
+    if (/\bwp-block-image\b/.test(classes)) {
+      style += 'padding: 20px 0px;';
+    }
+
     return `class="${classes}" style="${style}"`;
   });
 }
